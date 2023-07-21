@@ -2,6 +2,7 @@ import { useContext, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { UserContext } from "./context/user";
 import Landing from "./pages/Landing"
+import NavBar from "./components/NavBar";
 
 function App() {
   const { user, setUser } = useContext(UserContext);
@@ -19,6 +20,7 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App">
+        <NavBar />
         <Routes>
           <Route path="/" element={<h1>{user.email}</h1>} />
           <Route path="/testing" element={<h1>Test Route</h1>} />
