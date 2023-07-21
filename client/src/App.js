@@ -1,6 +1,7 @@
 import { useContext, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { UserContext } from "./context/user";
+import Landing from "./pages/Landing"
 
 function App() {
   const { user, setUser } = useContext(UserContext);
@@ -13,7 +14,7 @@ function App() {
         }})
   }, []);
 
-  if (!user) return <h1>You must sign in!</h1>;
+  if (!user) return <Landing />;
 
   return (
     <BrowserRouter>
