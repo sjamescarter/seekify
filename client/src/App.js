@@ -1,21 +1,26 @@
-import { useState, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { UserContext } from "./context/user";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const { user, setUser } = useContext(UserContext);
 
   useEffect(() => {
-    fetch("/hello")
-      .then((r) => r.json())
-      .then((data) => setCount(data.count));
+    fetch("/me")
+      .then((r) => {
+        if(r.ok) {
+          r.json().then((user) => setUser(user));
+        }})
   }, []);
+
+  if (!user) return <h1>You must sign in!</h1>;
 
   return (
     <BrowserRouter>
       <div className="App">
         <Routes>
+          <Route path="/" element={<h1>{user.email}</h1>} />
           <Route path="/testing" element={<h1>Test Route</h1>} />
-          <Route path="/" element={<h1>Page Count: {count}</h1>} />
         </Routes>
       </div>
     </BrowserRouter>
