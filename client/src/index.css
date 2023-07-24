@@ -5,9 +5,19 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #F1EDEE;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* 
+Initial Color Scheme
+Cambridge blue: #8AA29E
+Charcoal: #3D5467
+Dim gray: #686963
+Indian red: #DB5461
+White smoke: #F1EDEE
+ */
