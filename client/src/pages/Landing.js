@@ -15,8 +15,10 @@ function Landing() {
 }
 
 const Wrapper = styled.div`
-    width: 950px;
     margin: auto;
+    margin-top: 100px;
+    padding: 10px;
+    width: 800px;
 `
 
 export default Landing;
