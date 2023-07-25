@@ -1,16 +1,29 @@
 import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { UserContext } from "../context/user";
 
-function NavBar({ children }) {
+function NavBar() {
     const { user, setUser } = useContext(UserContext);
+    const navigate = useNavigate();
+
+    function handleLogout() {
+        fetch('/logout', {
+            method: "DELETE"
+        }).then(r => {
+            if (r.ok) {
+                navigate('/');
+                setUser(null);
+            }
+        });
+    }
 
     return (
         <Main>
             <NavGrid>
                 <h1>seekify.io</h1>
                 <input type='text' placeholder='Search Bar' />
-                <button>menu</button>
+                <button onClick={handleLogout}>{user.email}</button>
             </NavGrid>
         </Main>
     );
