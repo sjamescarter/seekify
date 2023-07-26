@@ -1,19 +1,13 @@
 import { useContext, useState } from 'react';
 import { UserContext } from '../context/user';
 import styled from 'styled-components';
-// import NavBar from '../components/NavBar';
+import { handleChange } from '../components/utilities';
 
 function Landing() {
     const { setUser } = useContext(UserContext);
     const [showSignUp, setShowSignUp] = useState(false)
     const [form, setForm] = useState({email: "", password: "", passwordConfirmation: ""})
-
-    function handleChange(e) {
-        setForm({
-            ...form,
-            [e.target.name]: e.target.value
-        })
-    }
+    const [errors, setErrors] = useState();
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -32,30 +26,30 @@ function Landing() {
         }).then(r => {
             if(r.ok) {
                 r.json().then(user => setUser(user))
+            } else {
+                r.json().then((err) => setErrors(err.errors))
             }
         }); 
     }
 
     return (
-        <>
-        {/* <NavBar /> */}
         <Wrapper>
-            <h1>This is the landing page</h1>
-            <p>You can find out about us.</p>
+            <h1>Welcome to Seekify.io</h1>
+            <p>A social network for worship leaders, musicians and technicians</p>
             <form onSubmit={handleSubmit}>
                 <input 
                     type='text' 
                     name='email' 
                     placeholder='Email' 
                     value={form.email} 
-                    onChange={(e) => handleChange(e)} 
+                    onChange={(e) => handleChange(e, form, setForm)} 
                 />
                 <input 
                     type='password' 
                     name='password'
                     placeholder='Password' 
                     value={form.password} 
-                    onChange={(e) => handleChange(e)}
+                    onChange={(e) => handleChange(e, form, setForm)}
                 />
                 {
                     showSignUp 
@@ -64,11 +58,14 @@ function Landing() {
                             name='passwordConfirmation'
                             placeholder='Confirm Password' 
                             value={form.passwordConfirmation} 
-                            onChange={(e) => handleChange(e)}
+                            onChange={(e) => handleChange(e, form, setForm)}
                         /> 
                         : null
                 }
                 <input type='submit' value='Submit' />
+                <ul>
+                    {errors ? errors.map(err => <li key={err} >{err}</li>) : null}
+                </ul>
                 {
                     showSignUp 
                         ? <p>Already have an account? <span onClick={() => setShowSignUp(false)}>Sign In Here!</span></p>
@@ -76,8 +73,7 @@ function Landing() {
                 }
             </form>
         </Wrapper>
-        </>
-    )
+    );
 }
 
 const Wrapper = styled.div`
