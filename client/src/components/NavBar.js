@@ -32,8 +32,8 @@ function NavBar() {
 const Main = styled.div`
     background-color: #8AA29E;
     color: white;
-    position: fixed;
-    top: 0;
+    // position: fixed;
+    // top: 0;
     width: 100%;
 `
 
