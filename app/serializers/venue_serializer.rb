@@ -7,12 +7,9 @@ class VenueSerializer < ActiveModel::Serializer
     return unless object.logo.attached?
 
     object.logo.blob.attributes
-      .slice('filename', 'byte_size')
-      .merge(url: logo_url)
+      .slice('filename')
+      .merge(url: url_for(object.logo))
       .tap { |attrs| attrs['name'] = attrs.delete('filename') }
   end
-
-  def logo_url
-    url_for(object.logo)
-  end
+  
 end
