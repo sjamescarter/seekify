@@ -1,11 +1,14 @@
 import { useState } from 'react';
 import { handleChange, states } from './utilities';
+import DropZone from './DropZone';
 import Errors from './Errors';
 
 function VenueForm() {
     const [form, setForm] = useState({name: "", street: "", city: "", state: ""});
     const [errors, setErrors] = useState([]);
-
+    
+    const onChange = (e) => handleChange(e, form, setForm)
+    
     function handleSubmit(e) {
         e.preventDefault();
         setErrors([]);
@@ -33,43 +36,37 @@ function VenueForm() {
     }
 
     return (
-        <form onSubmit={(e) => handleSubmit(e)}>
+        <form onSubmit={handleSubmit}>
             <input 
                 type="text" 
                 name="name" 
                 placeholder='Venue Name' 
                 value={form.name} 
-                onChange={(e) => handleChange(e, form, setForm)} 
+                onChange={onChange} 
             />
             <input 
                 type="text" 
                 name="street" 
                 placeholder='123 Anywhere Rd.' 
                 value={form.street} 
-                onChange={(e) => handleChange(e, form, setForm)} 
+                onChange={onChange} 
             />
             <input 
                 type="text" 
                 name="city" 
                 placeholder='City' 
                 value={form.city} 
-                onChange={(e) => handleChange(e, form, setForm)} 
+                onChange={onChange} 
             />
             <select 
                 name="state" 
                 value={form.state} 
-                onChange={(e) => handleChange(e, form, setForm)} 
+                onChange={onChange} 
             >
                 <option>State</option>
                 {states.map(state => <option key={state} value={state}>{state}</option>)}
             </select>
-            <input 
-                type="file" 
-                name="logo" 
-                accept="image/*" 
-                value={undefined} 
-                onChange={(e) => setForm({...form, logo: e.target.files[0]})} 
-            />
+            <DropZone file={'logo'} state={form} setState={setForm} />
             <input type="submit" value='Submit' />
             {errors ? <Errors errors={errors} />: null}
         </form>
