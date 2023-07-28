@@ -1,11 +1,14 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { UserContext } from "./context/user";
 import Landing from "./pages/Landing"
 import NavBar from "./components/NavBar";
+import DropZone from "./components/DropZone";
+import VenueForm from "./components/VenueForm";
 
 function App() {
   const { user, setUser } = useContext(UserContext);
+  const [form, setForm] = useState({});
 
   useEffect(() => {
     fetch("/me")
@@ -22,7 +25,7 @@ function App() {
       <div className="App">
         <NavBar />
         <Routes>
-          <Route path="/" element={<h1>{user.email}</h1>} />
+          <Route path="/" element={<VenueForm />} />
           <Route path="/testing" element={<h1>Test Route</h1>} />
         </Routes>
       </div>
