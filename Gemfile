@@ -47,8 +47,9 @@ group :development do
   # gem "spring"
 end
 
-
 gem "active_model_serializers", "~> 0.10.13"
 
 # libvips image processing library
 gem 'ruby-vips', '~> 2.1', '>= 2.1.4'
+
+gem 'active_storage_validations'
