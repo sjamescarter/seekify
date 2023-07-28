@@ -2,6 +2,7 @@ import { useContext, useState } from 'react';
 import { UserContext } from '../context/user';
 import styled from 'styled-components';
 import { handleChange } from '../components/utilities';
+import Errors from '../components/Errors';
 
 function Landing() {
     const { setUser } = useContext(UserContext);
@@ -11,6 +12,7 @@ function Landing() {
 
     function handleSubmit(e) {
         e.preventDefault();
+        setErrors([]);
         const endpoint = showSignUp ? '/signup' : '/login';
 
         fetch(endpoint, {
@@ -63,9 +65,7 @@ function Landing() {
                         : null
                 }
                 <input type='submit' value='Submit' />
-                <ul>
-                    {errors ? errors.map(err => <li key={err} >{err}</li>) : null}
-                </ul>
+                {errors ? <Errors errors={errors} />: null}
                 {
                     showSignUp 
                         ? <p>Already have an account? <span onClick={() => setShowSignUp(false)}>Sign In Here!</span></p>
