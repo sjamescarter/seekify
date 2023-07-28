@@ -1,13 +1,11 @@
-import { useCallback, useState } from 'react'
+import { useCallback } from 'react'
 import {useDropzone} from 'react-dropzone'
 
-function DropZone() {
-  const [form, setForm] = useState({})
-  console.log(form)
+function DropZone({ file, state, setState }) {
   const onDrop = useCallback(acceptedFiles => {
-    setForm({...form, logo: acceptedFiles[0]})
+    setState({...state, [file]: acceptedFiles[0]})
   }, [])
-  const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
+  const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop, accept: {'image/*': []}})
 
   return (
     <div {...getRootProps()}>
