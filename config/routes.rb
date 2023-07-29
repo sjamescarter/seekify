@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :users, only: [:index]
+  resources :profiles
   resources :venues, only: [:index, :create, :show]
   get '/me', to: 'users#show'
   post '/signup', to: 'users#create'
