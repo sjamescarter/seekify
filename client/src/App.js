@@ -1,14 +1,13 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { UserContext } from "./context/user";
-import Landing from "./pages/Landing"
+import CreateProfile from "./pages/CreateProfile";
+import Landing from "./pages/Landing";
 import NavBar from "./components/NavBar";
-import DropZone from "./components/DropZone";
 import VenueForm from "./components/VenueForm";
 
 function App() {
   const { user, setUser } = useContext(UserContext);
-  const [form, setForm] = useState({});
 
   useEffect(() => {
     fetch("/me")
@@ -19,6 +18,7 @@ function App() {
   }, []);
 
   if (!user) return <Landing />;
+  if (!user.profile) return <CreateProfile />;
 
   return (
     <BrowserRouter>
