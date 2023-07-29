@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :venues, only: [:create, :show]
+  resources :venues, only: [:index, :create, :show]
   get '/me', to: 'users#show'
   post '/signup', to: 'users#create'
   post '/login', to: 'sessions#create'

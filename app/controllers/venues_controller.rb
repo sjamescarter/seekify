@@ -1,4 +1,8 @@
 class VenuesController < ApplicationController
+  def index
+    render json: Venue.all
+  end
+
   def create
     venue = Venue.create(venue_params)
     if venue.valid?
