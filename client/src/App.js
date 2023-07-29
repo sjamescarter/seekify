@@ -7,7 +7,7 @@ import NavBar from "./components/NavBar";
 import VenueForm from "./components/VenueForm";
 
 function App() {
-  const { user, setUser } = useContext(UserContext);
+  const { user, setUser, setVenues } = useContext(UserContext);
 
   useEffect(() => {
     fetch("/me")
@@ -15,6 +15,9 @@ function App() {
         if(r.ok) {
           r.json().then((user) => setUser(user));
         }})
+    fetch("/venues")
+      .then((r) => r.json())
+      .then(venues => setVenues(venues))
   }, []);
 
   if (!user) return <Landing />;
