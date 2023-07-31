@@ -55,3 +55,5 @@ gem 'ruby-vips', '~> 2.1', '>= 2.1.4'
 gem 'active_storage_validations'
 
 gem 'validate_url'
+
+gem 'byebug'
