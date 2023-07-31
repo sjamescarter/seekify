@@ -1,14 +1,21 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { UserContext } from '../context/user';
 import { handleChange, states } from './utilities';
 import DropZone from './DropZone';
 import Errors from './Errors';
 
 function VenueForm() {
+    // Context
+    const { venues, setVenues } = useContext(UserContext);
+
+    // State
     const [form, setForm] = useState({name: "", street: "", city: "", state: ""});
+    const [img, setImg] = useState();
     const [errors, setErrors] = useState([]);
     
+    // Handlers
     const onChange = (e) => handleChange(e, form, setForm)
-    
+
     function handleSubmit(e) {
         e.preventDefault();
         setErrors([]);
@@ -19,7 +26,7 @@ function VenueForm() {
         venue.append('city', form.city);
         venue.append('state', form.state);
         if(form.logo){
-            venue.append('logo', form.logo);
+            venue.append('logo', img);
         }
 
         fetch('/venues', {
@@ -28,7 +35,9 @@ function VenueForm() {
         })
         .then(r => {
             if(r.ok) {
-                r.json().then(data => console.log(data));
+                r.json().then(data => setVenues({ ...venues, data }));
+                setForm({name: "", street: "", city: "", state: ""});
+                setImg();
             } else {
                 r.json().then(err => setErrors(err.errors))
             }
@@ -66,7 +75,8 @@ function VenueForm() {
                 <option>State</option>
                 {states.map(state => <option key={state} value={state}>{state}</option>)}
             </select>
-            <DropZone file={'logo'} state={form} setState={setForm} />
+            <label htmlFor="logo">Upload Logo</label>
+            {img ? <p>{img.name} <span onClick={e => setImg()}> Change</span></p> : <DropZone id='logo' setState={setImg} />}            
             <input type="submit" value='Submit' />
             {errors ? <Errors errors={errors} />: null}
         </form>
