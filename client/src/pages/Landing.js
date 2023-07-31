@@ -40,7 +40,7 @@ function Landing() {
             <p>A social network for worship leaders, musicians and technicians</p>
             <form onSubmit={handleSubmit}>
                 <input 
-                    type='text' 
+                    type='email' 
                     name='email' 
                     placeholder='Email' 
                     value={form.email} 
