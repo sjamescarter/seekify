@@ -1,9 +1,9 @@
 import { useCallback } from 'react'
 import {useDropzone} from 'react-dropzone'
 
-function DropZone({ file, state, setState }) {
+function DropZone({ setState }) {
   const onDrop = useCallback(acceptedFiles => {
-    setState({...state, [file]: acceptedFiles[0]})
+    setState(acceptedFiles[0])
   }, [])
   const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop, accept: {'image/*': []}})
 
