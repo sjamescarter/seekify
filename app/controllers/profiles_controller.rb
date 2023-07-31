@@ -6,10 +6,10 @@ class ProfilesController < ApplicationController
   def create
     profile = Profile.create(profile_params)
     profile.user_id = @current_user.id
-    profile.attach.avatar if params[:avatar]
-    if params[:venue_id]
-      venue = Venue.find(params[:venue_id])
-      venue.profiles << profile
+    venue = Venue.find(profile_params[:venue_id])
+    venue.profiles << profile
+    if profile_params[:avatar]
+      profile.avatar.attach(profile_params[:avatar]) 
     end
     if profile.valid?
       render json: profile, status: :created
@@ -20,6 +20,6 @@ class ProfilesController < ApplicationController
 
   private
   def profile_params
-    params.permit(:first_name, :last_name, :bio, :phone, :city, :state, :video_url)
+    params.permit(:avatar, :first_name, :last_name, :bio, :phone, :city, :state, :venue_id, :video_url)
   end
 end
