@@ -3,6 +3,7 @@ class ApplicationController < ActionController::API
   include ActionController::Serialization
   before_action :authorize
 
+  private
   def authorize
     if session[:user_id]
       @current_user = User.find(session[:user_id])
