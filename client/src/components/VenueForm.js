@@ -4,7 +4,7 @@ import { handleChange, states } from './utilities';
 import DropZone from './DropZone';
 import Errors from './Errors';
 
-const formFields = {name: "", street: "", city: "", state: ""};
+const formFields = { name: "", street: "", city: "", state: "" };
 
 function VenueForm({ state, setState }) {
     // Context
@@ -17,7 +17,7 @@ function VenueForm({ state, setState }) {
     
     // Handlers
     const onChange = (e) => handleChange(e, form, setForm);
-
+    const handleVenueChange = (id) => setState({ ...state, venue: id }) 
     function handleSubmit(e) {
         e.preventDefault();
         setErrors([]);
@@ -39,7 +39,7 @@ function VenueForm({ state, setState }) {
             if(r.ok) {
                 r.json().then(data => {
                     setVenues([ ...venues, data ]);
-                    setState({ ...state, venue: data.id });
+                    handleVenueChange(data.id);
                 });
                 setForm(formFields);
                 setImg();
@@ -85,6 +85,7 @@ function VenueForm({ state, setState }) {
                 <label htmlFor="logo">Upload Logo</label>
                 {img ? <p>{img.name} <span onClick={e => setImg()}> Change</span></p> : <DropZone id='logo' setState={setImg} />}            
                 <input type="submit" value='Submit' />
+                <button onClick={(e) => handleVenueChange("")}>Cancel</button>
                 {errors ? <Errors errors={errors} />: null}
             </form>
         </div>
