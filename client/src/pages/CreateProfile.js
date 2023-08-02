@@ -3,11 +3,12 @@ import { UserContext } from '../context/user';
 import { states, handleChange } from '../components/utilities';
 import DropZone from '../components/DropZone';
 import Errors from '../components/Errors';
+import VenueForm from '../components/VenueForm';
 
 function CreateProfile() {
     // Context
     const { user, setUser, venues } = useContext(UserContext);
-    
+
     // State
     const [form, setForm] = useState({
         firstName: "",
@@ -53,6 +54,8 @@ function CreateProfile() {
             }
         })
     }
+
+    if(form.venue === "new") { return <VenueForm state={form} setState={setForm} /> };
 
     return (
         <div>
@@ -115,6 +118,7 @@ function CreateProfile() {
                 >
                     <option>Select Church</option>
                     <option>Not currently attending</option>
+                    <option value="new" >Add Church</option>
                     {venues ? venues.map(venue => <option key={venue.id} value={parseInt(venue.id, 10)}>{venue.name}</option>) : null}
                 </select>
                 <label htmlFor="avatar">Upload Profile Pic</label>
