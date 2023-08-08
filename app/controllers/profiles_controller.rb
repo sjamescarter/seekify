@@ -4,12 +4,10 @@ class ProfilesController < ApplicationController
   end
 
   def create
-    profile = @current_user.create_profile(profile_params)
+    profile = @current_user.create_profile(profile_params) if @current_user.profile.nil?
     venue = Venue.find(profile_params[:venue_id])
     venue.profiles << profile
-    if profile_params[:avatar]
-      profile.avatar.attach(profile_params[:avatar]) 
-    end
+    profile.avatar.attach(profile_params[:avatar]) unless profile_params[:avatar].nil?
     if profile.valid?
       render json: profile, status: :created
     else
@@ -20,9 +18,7 @@ class ProfilesController < ApplicationController
   def update
     profile = @current_user.profile
     profile.update!(profile_params)
-    if profile_params[:avatar]
-      profile.avatar.attach(profile_params[:avatar])
-    end
+    profile.avatar.attach(profile_params[:avatar]) unless profile_params[:avatar].nil?
     render json: profile, status: :accepted
   end
 
