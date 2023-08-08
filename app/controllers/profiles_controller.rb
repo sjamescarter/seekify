@@ -4,8 +4,7 @@ class ProfilesController < ApplicationController
   end
 
   def create
-    profile = Profile.create(profile_params)
-    profile.user_id = @current_user.id
+    profile = @current_user.create_profile(profile_params)
     venue = Venue.find(profile_params[:venue_id])
     venue.profiles << profile
     if profile_params[:avatar]
@@ -16,6 +15,15 @@ class ProfilesController < ApplicationController
     else
       render json: { errors: profile.errors.full_messages }, status: :unprocessable_entity
     end
+  end
+
+  def update
+    profile = @current_user.profile
+    profile.update!(profile_params)
+    if profile_params[:avatar]
+      profile.avatar.attach(profile_params[:avatar])
+    end
+    render json: profile, status: :accepted
   end
 
   private
