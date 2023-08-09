@@ -1,14 +1,14 @@
 import { useContext, useState } from 'react';
 import { UserContext } from '../context/user';
-import { handleChange } from './utilities';
+import { abc, skillLevels, handleChange } from './utilities';
 import Errors from './Errors';
+import NewInstrument from './NewInstrument';
 
-const formFields = { skill: "", experience: 0 }
-const skillLevels = ["beginner", "intermediate", "advanced", "professional"]
+const formFields = { instrumentId: "", skill: "", experience: 0 }
 
 function AddInstrument() {
     // Context
-    const { user, setUser, instruments, setInstruments } = useContext(UserContext);
+    const { user, setUser, instruments } = useContext(UserContext);
 
     // State
     const [form, setForm] = useState(formFields);
@@ -40,6 +40,8 @@ function AddInstrument() {
             }
         })
     }
+
+    if(form.instrumentId === "new") return <NewInstrument state={form} setState={setForm} />
 console.log(form);
     return (
         <div>
@@ -48,7 +50,7 @@ console.log(form);
                 <select name="instrumentId" value={form.instrumentId} onChange={onChange}>
                     <option>Select Instrument</option>
                     <option value="new">New Instrument</option>
-                    { instruments ? instruments.map(i => <option key={i.id} value={i.id}>{i.name}</option>) : null }
+                    { instruments ? abc(instruments).map(i => <option key={i.id} value={i.id}>{i.name}</option>) : null }
                 </select>
                 <select name="skill" value={form.skill} onChange={onChange}>
                     <option>Select Skill Level</option>
