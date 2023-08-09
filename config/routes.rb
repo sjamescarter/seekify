@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :user_instruments
   resources :instruments, only: [:index, :create]
   resources :users, only: [:index]
   resources :profiles, only: [:index, :create, :update]
