@@ -28,7 +28,8 @@ function CreateProfile() {
 
     function handleSubmit(e) {
         e.preventDefault();
-
+        setErrors([]);
+        
         const profile = new FormData();
         profile.append('first_name', form.firstName);
         profile.append('last_name', form.lastName);
@@ -48,7 +49,7 @@ function CreateProfile() {
         })
         .then(r => {
             if(r.ok) {
-                r.json().then(data => setUser({...user, profile: data}));
+                r.json().then(data => setUser(data));
             } else {
                 r.json().then(err => setErrors(err.errors))
             }
