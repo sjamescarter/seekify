@@ -4,7 +4,7 @@ import { handleChange, states } from './utilities';
 import DropZone from './DropZone';
 import Errors from './Errors';
 
-const formFields = { name: "", street: "", city: "", state: "" };
+const formFields = { name: "", streetAddress: "", city: "", state: "" };
 
 function VenueForm({ state, setState }) {
     // Context
@@ -14,7 +14,7 @@ function VenueForm({ state, setState }) {
     const [form, setForm] = useState(formFields);
     const [img, setImg] = useState();
     const [errors, setErrors] = useState([]);
-    
+
     // Handlers
     const onChange = (e) => handleChange(e, form, setForm);
     const handleVenueChange = (id) => setState({ ...state, venue: id }) 
@@ -24,7 +24,7 @@ function VenueForm({ state, setState }) {
 
         const venue = new FormData();
         venue.append('name', form.name);
-        venue.append('street_address', form.street);
+        venue.append('street_address', form.streetAddress);
         venue.append('city', form.city);
         venue.append('state', form.state);
         if(form.logo){
@@ -62,9 +62,9 @@ function VenueForm({ state, setState }) {
                     />
                 <input 
                     type="text" 
-                    name="street" 
+                    name="streetAddress" 
                     placeholder='123 Anywhere Rd.' 
-                    value={form.street} 
+                    value={form.streetAddress} 
                     onChange={onChange} 
                     />
                 <input 
