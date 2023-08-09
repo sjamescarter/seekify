@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :instruments, only: [:index]
+  resources :instruments, only: [:index, :create]
   resources :users, only: [:index]
   resources :profiles, only: [:index, :create, :update]
   resources :venues, only: [:index, :create, :show]
