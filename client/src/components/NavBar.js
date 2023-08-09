@@ -23,7 +23,7 @@ function NavBar() {
             <NavGrid>
                 <h1>seekify.io</h1>
                 <input type='text' placeholder='Search Bar' />
-                <button onClick={handleLogout}>{user.profile.name}</button>
+                <button onClick={handleLogout}>{user.name}</button>
             </NavGrid>
         </Main>
     );
