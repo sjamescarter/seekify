@@ -7,7 +7,7 @@ import NavBar from "./components/NavBar";
 import VenueForm from "./components/VenueForm";
 
 function App() {
-  const { user, setUser, setVenues } = useContext(UserContext);
+  const { user, setUser, setVenues, setInstruments } = useContext(UserContext);
 
   useEffect(() => {
     fetch("/me")
@@ -17,12 +17,15 @@ function App() {
         }})
     fetch("/venues")
       .then((r) => r.json())
-      .then(venues => setVenues(venues))
+      .then(venues => setVenues(venues));
+    fetch("/instruments")
+      .then((r) => r.json())
+      .then(instruments => setInstruments(instruments));
   }, []);
 
   if (!user) return <Landing />;
   if (!user.profile) return <CreateProfile />;
-
+console.log(user)
   return (
     <BrowserRouter>
       <div className="App">
