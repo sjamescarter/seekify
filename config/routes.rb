@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
-  resources :user_instruments
   resources :instruments, only: [:index, :create]
-  resources :users, only: [:index]
   resources :profiles, only: [:index, :create, :update]
+  resources :user_instruments, only: [:index, :create, :update, :destroy]
+  resources :users, only: [:index, :destroy]
   resources :venues, only: [:index, :create, :show]
+
   get '/me', to: 'users#show'
   post '/signup', to: 'users#create'
   post '/login', to: 'sessions#create'
