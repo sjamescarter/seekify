@@ -25,4 +25,4 @@ function handleChange(e, form, setForm) {
     })
 }
 
-export {  abc, handleChange };
+export { abc, handleChange };
