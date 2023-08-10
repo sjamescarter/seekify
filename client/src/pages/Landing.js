@@ -5,11 +5,15 @@ import { handleChange } from '../components/utilities';
 import Errors from '../components/Errors';
 
 function Landing() {
+    // Context
     const { setUser } = useContext(UserContext);
+
+    // State
     const [showSignUp, setShowSignUp] = useState(false)
     const [form, setForm] = useState({email: "", password: "", passwordConfirmation: ""})
     const [errors, setErrors] = useState();
 
+    // Handlers
     function handleSubmit(e) {
         e.preventDefault();
         setErrors([]);
@@ -76,6 +80,7 @@ function Landing() {
     );
 }
 
+// Styles
 const Wrapper = styled.div`
     margin: auto;
     // margin-top: 100px;
