@@ -67,6 +67,7 @@ const Avatar = styled.img`
 const Name = styled.h1`
     color: #3D5467;
     font-size: 2.5em;
+    font-weight: 800;
 `
 const Location = styled.small`
     // grid-row: 3 / span 4;
