@@ -4,7 +4,7 @@ import { UserContext } from "./context/user";
 import CreateProfile from "./pages/CreateProfile";
 import Landing from "./pages/Landing";
 import NavBar from "./components/NavBar";
-import AddInstrument from "./components/AddInstrument";
+import Profile from "./pages/Profile";
 
 function App() {
   const { user, setUser, setVenues, setInstruments } = useContext(UserContext);
@@ -32,7 +32,7 @@ function App() {
       <div className="App">
         <NavBar />
         <Routes>
-          <Route path="/" element={<AddInstrument />} />
+          <Route path="/" element={<Profile user={user} />} />
           <Route path="/testing" element={<h1>Test Route</h1>} />
         </Routes>
       </div>
