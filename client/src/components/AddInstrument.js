@@ -33,7 +33,7 @@ function AddInstrument() {
         })
         .then(r => {
             if(r.ok) {
-                r.json().then(data => setUser({ ...user, userInstruments: data}));
+                r.json().then(user => setUser(user));
                 setForm(formFields);
             } else {
                 r.json().then(err => setErrors(err.errors));
