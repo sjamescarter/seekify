@@ -11,7 +11,7 @@ function Profile({ user }) {
 console.log(user.profile.avatar)
 
     return(
-        <div>
+        <div style={{marginTop: "100px"}}>
             <ProfileGrid>
                 { <Avatar src={profile.avatar ? profile.avatar : "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.L-PLw9YL0s6ErCIcuprlKgAAAA%26pid%3DApi&f=1&ipt=98bca178f7faad18a400337a2735e92959f258e43128e375907f1e6d80f5b423&ipo=images" } alt="Avatar" loading="lazy" /> }
                 <div></div>
@@ -44,6 +44,7 @@ console.log(user.profile.avatar)
 // Styles
 const ProfileGrid = styled.div`
     background-color: white;
+    border-radius: 1em;
     display: grid;
     grid-template-columns: 1fr 2fr;
     grid-template-rows: 6em 4em 1em 3em 3em auto auto auto auto;
