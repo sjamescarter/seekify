@@ -1,11 +1,18 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
+import { UserContext } from "../context/user";
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { UserContext } from "../context/user";
+import Menu from './Menu';
 
 function NavBar() {
     const { user, setUser } = useContext(UserContext);
+
+    const [search, setSearch] = useState(0);
+    const [showMenu, setShowMenu] = useState(0);
+console.log(showMenu)
     const navigate = useNavigate();
+
+    const handleMenu = () => setShowMenu(!showMenu)
 
     function handleLogout() {
         fetch('/logout', {
@@ -21,9 +28,9 @@ function NavBar() {
     return (
         <Main>
             <NavGrid>
-                <h1>seekify.io</h1>
-                {/* <input type='text' placeholder='Search Bar' /> */}
-                <Search className="material-symbols-outlined">search</Search>
+                <Logo>seekify.io</Logo>
+                {search ? <SearchBar type='text' placeholder='Search Bar' /> : <div></div>}
+                <Search className="material-symbols-rounded" onClick={() => setSearch(!search)}>search</Search>
                 <Avatar 
                     src={user.profile.avatar 
                         ? user.profile.avatar 
@@ -31,8 +38,9 @@ function NavBar() {
                     } 
                     alt="Avatar" 
                     loading="lazy" 
-                    onClick={handleLogout} 
+                    onClick={handleMenu} 
                 />
+            {showMenu ? <Menu name={user.name} handleMenu={handleMenu} handleLogout={handleLogout}/> : null}
             </NavGrid>
         </Main>
     );
@@ -50,20 +58,34 @@ const Main = styled.div`
 const NavGrid = styled.div`
     align-items: center;
     display: grid;
-    grid-template-columns: auto 30px 50px;
+    grid-template-columns: 1fr 2fr 30px 50px;
     grid-template-rows: 50px;
     padding: 10px;
-    max-width: 800px;
-    min-width: 550px;
+    // max-width: 800px;
+    // min-width: 550px;
     margin: auto;
+`
+const Logo = styled.h1`
+    // background-color: #3D5467;
 `
 const Search = styled.i`
     padding: 3px;
     border-radius: 1em;
-    &:hover {
-        background-color: #3D5467;
+    &.active {
+        background-color: #686963;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;        
         cursor: pointer;
     }
+    &:hover {
+        background-color: #686963;
+        cursor: pointer;
+    }
+`
+const SearchBar = styled.input`
+    border: 2px solid #686963;
+    border-radius: 1em;
+    padding: 5px 8px;
 `
 const Avatar = styled.img`
     width: 30px;
@@ -73,7 +95,7 @@ const Avatar = styled.img`
     object-position: 50%;
     margin: auto;
     &:hover {
-        border: 3px solid #3D5467;
+        border: 3px solid #686963;
     }
 `
 export default NavBar;
