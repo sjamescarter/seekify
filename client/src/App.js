@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import { UserContext } from "./context/user";
 import CreateProfile from "./pages/CreateProfile";
 import Landing from "./pages/Landing";
@@ -8,6 +8,8 @@ import Profile from "./pages/Profile";
 
 function App() {
   const { user, setUser, setVenues, setInstruments } = useContext(UserContext);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch("/me")
@@ -24,20 +26,29 @@ function App() {
   }, []);
   console.log(user)
 
+  function handleLogout() {
+    fetch('/logout', {
+        method: "DELETE"
+    }).then(r => {
+        if (r.ok) {
+            navigate('/');
+            setUser(null);
+        }
+    });
+}
+
   if (!user) return <Landing />;
-  if (!user.profile) return <CreateProfile />;
+  if (!user.profile) return <CreateProfile handleLogout={handleLogout} />;
 
   return (
-    <BrowserRouter>
-      <div className="App">
-        <NavBar />
-        <Routes>
-          <Route path="/" element={<h1>Dashboard</h1>} />
-          <Route path="/profile" element={<Profile user={user} />} />
-          <Route path="/testing" element={<h1>Test Route</h1>} />
-        </Routes>
-      </div>
-    </BrowserRouter>
+    <div>
+      <NavBar handleLogout={handleLogout} />
+      <Routes>
+        <Route path="/" element={<h1>Dashboard</h1>} />
+        <Route path="/profile" element={<Profile user={user} />} />
+        <Route path="/testing" element={<h1>Test Route</h1>} />
+      </Routes>
+    </div>
   );
 }
 
