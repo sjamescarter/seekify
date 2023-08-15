@@ -3,6 +3,7 @@ import { UserContext } from '../context/user';
 import { handleChange, states } from './utilities';
 import DropZone from './DropZone';
 import Errors from './Errors';
+import Form from './Form';
 
 const formFields = { name: "", streetAddress: "", city: "", state: "" };
 
@@ -17,6 +18,7 @@ function VenueForm({ state, setState }) {
 
     // Handlers
     const onChange = (e) => handleChange(e, form, setForm);
+    const handleCancel = () => handleVenueChange("")
     const handleVenueChange = (id) => setState({ ...state, venue: id }) 
     function handleSubmit(e) {
         e.preventDefault();
@@ -50,45 +52,47 @@ function VenueForm({ state, setState }) {
     }
 
     return (
-        <div>
-            <h1>New Church</h1>
-            <form onSubmit={handleSubmit}>
-                <input 
-                    type="text" 
-                    name="name" 
-                    placeholder='Venue Name' 
-                    value={form.name} 
-                    onChange={onChange} 
-                    />
-                <input 
-                    type="text" 
-                    name="streetAddress" 
-                    placeholder='123 Anywhere Rd.' 
-                    value={form.streetAddress} 
-                    onChange={onChange} 
-                    />
-                <input 
-                    type="text" 
-                    name="city" 
-                    placeholder='City' 
-                    value={form.city} 
-                    onChange={onChange} 
-                    />
-                <select 
-                    name="state" 
-                    value={form.state} 
-                    onChange={onChange} 
-                    >
-                    <option>State</option>
-                    {states.map(state => <option key={state} value={state}>{state}</option>)}
-                </select>
-                <label htmlFor="logo">Upload Logo</label>
-                {img ? <p>{img.name} <span onClick={e => setImg()}> Change</span></p> : <DropZone id='logo' setState={setImg} />}            
-                <input type="submit" value='Submit' />
-                <button onClick={(e) => handleVenueChange("")}>Cancel</button>
-                {errors ? <Errors errors={errors} />: null}
-            </form>
-        </div>
+        <Form 
+            formTitle='Add Church'
+            onSubmit={handleSubmit}
+            errors={errors}
+            handleCancel={handleCancel}
+        >
+            <input 
+                type="text" 
+                name="name" 
+                placeholder='Venue Name' 
+                value={form.name} 
+                onChange={onChange} 
+                />
+            <input 
+                type="text" 
+                name="streetAddress" 
+                placeholder='123 Anywhere Rd.' 
+                value={form.streetAddress} 
+                onChange={onChange} 
+                />
+            <input 
+                type="text" 
+                name="city" 
+                placeholder='City' 
+                value={form.city} 
+                onChange={onChange} 
+                />
+            <select 
+                name="state" 
+                value={form.state} 
+                onChange={onChange} 
+                >
+                <option>State</option>
+                {states.map(state => <option key={state} value={state}>{state}</option>)}
+            </select>
+            <label htmlFor="logo">Upload Logo</label>
+            {img 
+                ? <p>{img.name} <span onClick={e => setImg()}> Change</span></p> 
+                : <DropZone id='logo' setState={setImg} />
+            }            
+        </Form>
     );
 }
 
