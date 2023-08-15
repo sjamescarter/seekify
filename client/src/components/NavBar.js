@@ -1,37 +1,27 @@
 import { useContext, useState } from 'react';
 import { UserContext } from "../context/user";
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Menu from './Menu';
 
-function NavBar() {
-    const { user, setUser } = useContext(UserContext);
+function NavBar({ handleLogout }) {
+    // Context
+    const { user } = useContext(UserContext);
 
+    // State
     const [search, setSearch] = useState(0);
     const [showMenu, setShowMenu] = useState(0);
-console.log(showMenu)
-    const navigate = useNavigate();
 
-    const handleMenu = () => setShowMenu(!showMenu)
-
-    function handleLogout() {
-        fetch('/logout', {
-            method: "DELETE"
-        }).then(r => {
-            if (r.ok) {
-                navigate('/');
-                setUser(null);
-            }
-        });
-    }
+    // Handlers
+    const handleMenu = () => setShowMenu(!showMenu);
 
     return (
         <Main>
             <NavGrid>
-                <Logo>seekify.io</Logo>
+                <Logo>Seekify.io</Logo>
                 {search ? <SearchBar type='text' placeholder='Search Bar' /> : <div></div>}
                 <Search className="material-symbols-rounded" onClick={() => setSearch(!search)}>search</Search>
                 <Avatar 
+                    className={showMenu ? "active" : null}
                     src={user.profile.avatar 
                         ? user.profile.avatar 
                         : "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.L-PLw9YL0s6ErCIcuprlKgAAAA%26pid%3DApi&f=1&ipt=98bca178f7faad18a400337a2735e92959f258e43128e375907f1e6d80f5b423&ipo=images" 
@@ -46,6 +36,7 @@ console.log(showMenu)
     );
 }
 
+// Styles
 const Main = styled.div`
     background-color: #8AA29E;
     color: white;
@@ -94,6 +85,9 @@ const Avatar = styled.img`
     object-fit: cover;
     object-position: 50%;
     margin: auto;
+    &.active {
+        border: 3px solid #686963;
+    }
     &:hover {
         border: 3px solid #686963;
     }
