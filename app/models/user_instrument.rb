@@ -7,5 +7,5 @@ class UserInstrument < ApplicationRecord
     inclusion: { in: %w(beginner intermediate advanced professional)}
   validates :experience, 
     presence: true, 
-    numericality: { only_integer: true, in: 0..95 }
+    inclusion: { in: %w(<1 1–4 5–9 10–20 >20)}
 end
