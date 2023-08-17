@@ -5,20 +5,20 @@ const main = {
     backgroundColor: "#8AA29E",
     color: "white"
 };
-const alt = {    
-    border: "2px solid #686963",
+const secondary = {    
+    border: "1px solid #686963",
     backgroundColor: "white",
+    fontWeight: "600",
     color: "#686963"
 };
 const StyledButton = styled.button`
     border: none;
-    border-radius: 12px;
+    border-radius: 10px;
     padding: 5px;
 `
 
-function Button({ onClick, children, style }) {
-    return <StyledButton style={style ? alt : main} onClick={onClick}>{children}</StyledButton>
+function Button({ onClick, children, alt=false }) {
+    return <StyledButton type="button" style={alt ? secondary : main} onClick={onClick}>{children}</StyledButton>
 }
-
 
 export default Button;
