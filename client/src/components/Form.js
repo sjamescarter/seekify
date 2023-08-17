@@ -1,14 +1,14 @@
-import Button from '../styles/Button'
 import styled from 'styled-components';
+import Button from './Button';
 import Errors from './Errors'
 
 function Form({ formTitle, children, onSubmit, errors, handleCancel }) {
     return(
         <StyledForm onSubmit={onSubmit}>
-            <h1>{formTitle}</h1>
+            <Title>{formTitle}</Title>
             {children}
-            <input type="submit" value={formTitle} />
-            <Button onClick={handleCancel} style="alt">Cancel</Button>
+            <Submit type="submit" value='Submit' />
+            {handleCancel ? <Button onClick={handleCancel} alt='true'>Cancel</Button> : null}
             {errors ? <Errors errors={errors} /> : null}
         </StyledForm>
     );
@@ -22,7 +22,22 @@ const StyledForm = styled.form`
     padding: 2em;
     margin: auto;
     margin-top: 2em;
+`
+const Title = styled.h1`
+    color: #3D5467;
     text-align: center;
+`
+const Submit = styled.input`
+    background-color: #8AA29E;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 12px 0;
+    font: inherit;
+    font-size: 1.3em;
+    font-weight: 800;
+
 `
 
 export default Form;
