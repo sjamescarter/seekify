@@ -1,4 +1,6 @@
 class ProfilesController < ApplicationController
+  rescue_from ActiveRecord::RecordNotFound, with: :not_found_response
+
   def index
     render json: Profile.all
   end
@@ -22,5 +24,9 @@ class ProfilesController < ApplicationController
   private
   def profile_params
     params.permit(:avatar, :first_name, :last_name, :bio, :phone, :city, :state, :venue_id, :video_url)
+  end
+
+  def not_found_response
+    render json: { errors: ["Please select a church"] }, status: :not_found
   end
 end
