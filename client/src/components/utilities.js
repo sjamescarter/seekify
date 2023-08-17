@@ -1,8 +1,9 @@
 // Constants
-const skillLevels = ["beginner", "intermediate", "advanced", "professional"]
-const states = ['AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY']
+const experienceLevels = ["<1", "1–4", "5–9", "10–20", ">20"];
+const skillLevels = ["beginner", "intermediate", "advanced", "professional"];
+const states = ['AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY'];
 
-export { skillLevels, states };
+export { experienceLevels, skillLevels, states };
 
 // Functions
 function abc(array) {
@@ -22,7 +23,11 @@ function handleChange(e, form, setForm) {
     setForm({
         ...form,
         [e.target.name]: e.target.value
-    })
+    });
 }
 
-export { abc, handleChange };
+function addS(value) {
+    return value === "<1" ? null : "s";
+}
+
+export { abc, addS, handleChange };
