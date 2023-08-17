@@ -45,7 +45,6 @@ const Main = styled.div`
     width: 100%;
     height: 75px;
 `
-
 const NavGrid = styled.div`
     align-items: center;
     display: grid;
