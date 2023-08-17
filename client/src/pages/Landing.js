@@ -2,7 +2,9 @@ import { useContext, useState } from 'react';
 import { UserContext } from '../context/user';
 import styled from 'styled-components';
 import { handleChange } from '../components/utilities';
-import Errors from '../components/Errors';
+import Form from '../components/Form';
+import FormItem from '../components/FormItem';
+import { Input } from '../styles'
 
 function Landing() {
     // Context
@@ -14,6 +16,7 @@ function Landing() {
     const [errors, setErrors] = useState();
 
     // Handlers
+    const onChange = (e) => handleChange(e, form, setForm);
     function handleSubmit(e) {
         e.preventDefault();
         setErrors([]);
@@ -39,53 +42,74 @@ function Landing() {
     }
 
     return (
-        <Wrapper>
-            <h1>Welcome to Seekify.io</h1>
-            <p>A social network for worship leaders, musicians and technicians</p>
-            <form onSubmit={handleSubmit}>
-                <input 
-                    type='email' 
-                    name='email' 
-                    placeholder='Email' 
-                    value={form.email} 
-                    onChange={(e) => handleChange(e, form, setForm)} 
-                />
-                <input 
-                    type='password' 
-                    name='password'
-                    placeholder='Password' 
-                    value={form.password} 
-                    onChange={(e) => handleChange(e, form, setForm)}
-                />
+        <div>
+            <Container>
+                <h1>Welcome to Seekify.io</h1>
+                <p>A social network for worship leaders, musicians and technicians</p>
+            </Container>
+            <Form 
+                formTitle={showSignUp ? 'Sign Up' : 'Sign In'}
+                onSubmit={handleSubmit} 
+                errors={errors} 
+            >
+                <FormItem icon='email'>
+                    <Input 
+                        type='email' 
+                        name='email' 
+                        placeholder='Email' 
+                        value={form.email} 
+                        onChange={onChange} 
+                    />
+                </FormItem>
+                <FormItem icon='password'>
+                    <Input 
+                        type='password' 
+                        name='password'
+                        placeholder='Password' 
+                        value={form.password} 
+                        onChange={onChange}
+                    />
+                </FormItem>
                 {
                     showSignUp 
-                        ? <input 
+                    ? <FormItem icon='password'>
+                        <Input 
                             type='password' 
                             name='passwordConfirmation'
                             placeholder='Confirm Password' 
                             value={form.passwordConfirmation} 
-                            onChange={(e) => handleChange(e, form, setForm)}
+                            onChange={onChange}
                         /> 
-                        : null
+                    </FormItem>
+                    : null
                 }
-                <input type='submit' value='Submit' />
-                {errors ? <Errors errors={errors} />: null}
+            </Form>
+            <Container>
                 {
                     showSignUp 
-                        ? <p>Already have an account? <span onClick={() => setShowSignUp(false)}>Sign In Here!</span></p>
-                        : <p>Need an account? <span onClick={() => setShowSignUp(true)}>Sign Up Here!</span></p>
+                    ? <P>Already have an account? <Span onClick={() => setShowSignUp(false)}>Sign In Here!</Span></P>
+                    : <P>Need an account? <Span onClick={() => setShowSignUp(true)}>Sign Up Here!</Span></P>
                 }
-            </form>
-        </Wrapper>
+            </Container>
+        </div>
     );
 }
 
 // Styles
-const Wrapper = styled.div`
+const Container = styled.div`
     margin: auto;
-    // margin-top: 100px;
-    padding: 10px;
-    width: 800px;
+    padding: 10px 2em;
+    width: 550px;
+    text-align: center;
 `
-
+const Span = styled.span`
+    text-decoration-line: underline;
+    color: #3D5467;
+    &:hover {
+        cursor: pointer;
+    }
+`
+const P = styled.p`
+    text-align: center;
+`
 export default Landing;

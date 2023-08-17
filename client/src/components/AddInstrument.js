@@ -1,14 +1,16 @@
 import { useContext, useState } from 'react';
 import { UserContext } from '../context/user';
-import { abc, skillLevels, handleChange } from './utilities';
-import Errors from './Errors';
+import { abc, addS, experienceLevels, skillLevels, handleChange } from './utilities';
+import { Select } from '../styles';
+import Form from './Form';
 import NewInstrument from './NewInstrument';
+import FormItem from './FormItem';
 
-const formFields = { instrumentId: "", skill: "", experience: 0 }
+const formFields = { instrumentId: "", skill: "", experience: "" }
 
 function AddInstrument() {
     // Context
-    const { user, setUser, instruments } = useContext(UserContext);
+    const { setUser, instruments } = useContext(UserContext);
 
     // State
     const [form, setForm] = useState(formFields);
@@ -44,23 +46,31 @@ function AddInstrument() {
     if(form.instrumentId === "new") return <NewInstrument state={form} setState={setForm} />
 console.log(form);
     return (
-        <div>
-            <h2>Add an Instrument</h2>
-            <form onSubmit={handleSubmit}>
-                <select name="instrumentId" value={form.instrumentId} onChange={onChange}>
-                    <option>Select Instrument</option>
-                    <option value="new">New Instrument</option>
-                    { instruments ? abc(instruments).map(i => <option key={i.id} value={i.id}>{i.name}</option>) : null }
-                </select>
-                <select name="skill" value={form.skill} onChange={onChange}>
-                    <option>Select Skill Level</option>
-                    { skillLevels.map(skill => <option key={skill} value={skill}>{skill[0].toUpperCase() + skill.substring(1)}</option>) }
-                </select>
-                <input type="number" name="experience" value={form.experience} onChange={onChange} />
-                <input type="submit" value="Submit" />
-                {errors ? <Errors errors={errors} />: null}
-            </form>
-        </div>
+            <Form 
+                formTitle='Add Instrument'
+                onSubmit={handleSubmit} 
+                errors={errors}
+            >
+                <FormItem icon='piano'>
+                    <Select name="instrumentId" value={form.instrumentId} onChange={onChange}>
+                        <option>Select Instrument</option>
+                        <option value="new">New Instrument</option>
+                        { instruments ? abc(instruments).map(i => <option key={i.id} value={i.id}>{i.name}</option>) : null }
+                    </Select>
+                </FormItem>
+                <FormItem icon='star'>
+                    <Select name="skill" value={form.skill} onChange={onChange}>
+                        <option>Select Skill Level</option>
+                        { skillLevels.map(skill => <option key={skill} value={skill}>{skill[0].toUpperCase() + skill.substring(1)}</option>) }
+                    </Select>
+                </FormItem>
+                <FormItem icon='history'>
+                    <Select name="experience" value={form.experience} onChange={onChange}>
+                        <option>Select Experience Level</option>
+                        { experienceLevels.map(xp => <option key={xp} value={xp}>{xp} year{addS(xp)} experience</option>) }
+                    </Select>
+                </FormItem>
+            </Form>
     );
 }
 

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { abc } from '../components/utilities';
+import { abc, addS } from '../components/utilities';
 
 function Profile({ user }) {
     // Context
@@ -26,7 +26,7 @@ console.log(user.profile.avatar)
                 </Div>
                 <Div>
                     <h3>🎸 Instruments</h3>
-                    {abc(user_instruments).map(instrument => <li key={instrument.id}>{instrument.name} | {instrument.skill} | {instrument.experience} years experience</li>)}
+                    {abc(user_instruments).map(instrument => <li key={instrument.id}>{instrument.name} | {instrument.skill} | {instrument.experience} year{addS(instrument.experience)} experience</li>)}
                 </Div>
                 <Div>
                     <h3>🎥 Videos</h3>

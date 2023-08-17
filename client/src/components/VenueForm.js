@@ -2,8 +2,9 @@ import { useContext, useState } from 'react';
 import { UserContext } from '../context/user';
 import { handleChange, states } from './utilities';
 import DropZone from './DropZone';
-import Errors from './Errors';
 import Form from './Form';
+import FormItem from './FormItem';
+import { Input, Select } from '../styles'
 
 const formFields = { name: "", streetAddress: "", city: "", state: "" };
 
@@ -58,36 +59,43 @@ function VenueForm({ state, setState }) {
             errors={errors}
             handleCancel={handleCancel}
         >
-            <input 
-                type="text" 
-                name="name" 
-                placeholder='Venue Name' 
-                value={form.name} 
-                onChange={onChange} 
+            <FormItem icon='church'>
+                <Input 
+                    type="text" 
+                    name="name" 
+                    placeholder='Name' 
+                    value={form.name} 
+                    onChange={onChange} 
                 />
-            <input 
-                type="text" 
-                name="streetAddress" 
-                placeholder='123 Anywhere Rd.' 
-                value={form.streetAddress} 
-                onChange={onChange} 
-                />
-            <input 
-                type="text" 
-                name="city" 
-                placeholder='City' 
-                value={form.city} 
-                onChange={onChange} 
-                />
-            <select 
-                name="state" 
-                value={form.state} 
-                onChange={onChange} 
-                >
-                <option>State</option>
-                {states.map(state => <option key={state} value={state}>{state}</option>)}
-            </select>
+            </FormItem>
+            <FormItem icon='location_on'>
+                <Input 
+                    type="text" 
+                    name="streetAddress" 
+                    placeholder='Street Address' 
+                    value={form.streetAddress} 
+                    onChange={onChange} 
+                    />
+                <Input 
+                    type="text" 
+                    name="city" 
+                    placeholder='City' 
+                    value={form.city} 
+                    onChange={onChange} 
+                    />
+                <Select 
+                    name="state" 
+                    value={form.state} 
+                    onChange={onChange} 
+                    >
+                    <option>State</option>
+                    {states.map(state => <option key={state} value={state}>{state}</option>)}
+                </Select>
+            </FormItem>
+            <FormItem icon='image'>
             <label htmlFor="logo">Upload Logo</label>
+            </FormItem>
+
             {img 
                 ? <p>{img.name} <span onClick={e => setImg()}> Change</span></p> 
                 : <DropZone id='logo' setState={setImg} />

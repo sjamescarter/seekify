@@ -1,7 +1,9 @@
 import { useContext, useState } from "react";
 import { UserContext } from '../context/user';
 import { handleChange } from './utilities';
-import Errors from "./Errors";
+import Form from "./Form";
+import { Input } from '../styles'
+import FormItem from "./FormItem";
 
 const formFields = { name: "" };
 
@@ -15,7 +17,7 @@ function NewInstrument({state, setState}) {
 
     // Handlers
     const onChange = (e) => handleChange(e, form, setForm);
-
+    const handleCancel = () => setState({...state, instrumentId: ""})
     function handleSubmit(e) {
         e.preventDefault();
         setErrors([]);
@@ -41,15 +43,11 @@ function NewInstrument({state, setState}) {
     }
 
     return (
-        <div>
-            <h2>Create New Instrument</h2>
-            <form onSubmit={handleSubmit}>
-                <input type="text" name="name" placeholder="Instrument Name" value={form.name} onChange={onChange} />
-                <input type="submit" value="Submit" />
-                <button onClick={() => setState({...state, instrumentId: ""})}>Cancel</button>
-                {errors ? <Errors errors={errors} />: null}
-            </form>
-        </div>
+            <Form formTitle='Create Instrument' onSubmit={handleSubmit} errors={errors} handleCancel={handleCancel}>
+                <FormItem icon='piano'>
+                    <Input type="text" name="name" placeholder="Instrument Name" value={form.name} onChange={onChange} />
+                </FormItem>
+            </Form>
     );
 }
 
