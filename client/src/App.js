@@ -1,10 +1,11 @@
 import { useContext, useEffect } from "react";
-import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import { UserContext } from "./context/user";
 import CreateProfile from "./pages/CreateProfile";
 import Landing from "./pages/Landing";
 import NavBar from "./components/NavBar";
 import Profile from "./pages/Profile";
+import AddInstrument from "./components/AddInstrument";
 
 function App() {
   const { user, setUser, setVenues, setInstruments } = useContext(UserContext);
@@ -29,12 +30,13 @@ function App() {
   function handleLogout() {
     fetch('/logout', {
         method: "DELETE"
-    }).then(r => {
+    })
+      .then(r => {
         if (r.ok) {
             navigate('/');
             setUser(null);
         }
-    });
+      });
 }
 
   if (!user) return <Landing />;
@@ -44,7 +46,7 @@ function App() {
     <div>
       <NavBar handleLogout={handleLogout} />
       <Routes>
-        <Route path="/" element={<h1>Dashboard</h1>} />
+        <Route path="/" element={<AddInstrument />} />
         <Route path="/profile" element={<Profile user={user} />} />
         <Route path="/testing" element={<h1>Test Route</h1>} />
       </Routes>
