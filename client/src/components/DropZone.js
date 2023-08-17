@@ -1,5 +1,6 @@
-import { useCallback } from 'react'
-import {useDropzone} from 'react-dropzone'
+import { useCallback } from 'react';
+import { useDropzone } from 'react-dropzone';
+import styled from 'styled-components';
 
 function DropZone({ setState }) {
   const onDrop = useCallback(acceptedFiles => {
@@ -8,15 +9,28 @@ function DropZone({ setState }) {
   const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop, accept: {'image/*': []}})
 
   return (
-    <div {...getRootProps()}>
+    <Div {...getRootProps()} className={isDragActive ? 'active' : ""}>
       <input {...getInputProps()} />
       {
         isDragActive ?
-          <p>Drop the files here ...</p> :
-          <p>Drag 'n' drop some files here, or click to select files</p>
+          <P>Drop the files here ...</P> :
+          <P>Drag 'n' drop some files here, or click to select files</P>
       }
-    </div>
+    </Div>
   );
 }
 
+const Div = styled.div`
+    background-color: #F1EDEE;
+    border-radius: 10px;
+    margin-bottom: 12px;
+    text-align: center;
+    width: 100%;
+    &.active {
+        border: 4px dashed #8AA29E;
+    }
+`
+const P = styled.p`
+    padding: 2em;
+`
 export default DropZone;
