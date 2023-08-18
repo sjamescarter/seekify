@@ -6,7 +6,7 @@ const states = ['AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA', 'HI'
 export { experienceLevels, skillLevels, states };
 
 // Functions
-function abc(array) {
+function abc(array) { 
     return [...array].sort((a, b) => {
         const nameA = a.name
         const nameB = b.name
@@ -30,12 +30,17 @@ function handleChange(e, form, setForm) {
     });
 }
 
-function toCamelCase(str) {
-    return str.replace(/[_][a-z]/g, (g) => g.slice(-1).toUpperCase());
-}
-
-function toSnakeCase(str) {
+// Case Conversions
+function camelToSnake(str) {
     return str.split(/(?=[A-Z])/).join("_").toLowerCase();
 }
 
-export { abc, addS, handleChange, toCamelCase, toSnakeCase };
+function camelToTitle(str) {
+    return str.split(/(?=[A-Z])/).join(" ").replace(str[0], (g) => g.slice(0).toUpperCase())
+}
+
+function snakeToCamel(str) {
+    return str.replace(/[_][a-z]/g, (g) => g.slice(-1).toUpperCase());
+}
+
+export { abc, addS, handleChange, camelToSnake, camelToTitle, snakeToCamel };
