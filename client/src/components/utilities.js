@@ -19,6 +19,10 @@ function abc(array) {
     });
 }
 
+function addS(value) {
+    return value === "<1" ? null : "s";
+}
+
 function handleChange(e, form, setForm) {
     setForm({
         ...form,
@@ -26,8 +30,12 @@ function handleChange(e, form, setForm) {
     });
 }
 
-function addS(value) {
-    return value === "<1" ? null : "s";
+function toCamelCase(string) {
+    return string.replace(/[_][a-z]/g, (g) => g.slice(-1).toUpperCase());
 }
 
-export { abc, addS, handleChange };
+function toSnakeCase(string) {
+    return string.split(/(?=[A-Z])/).join("_").toLowerCase();
+}
+
+export { abc, addS, handleChange, toCamelCase, toSnakeCase };
