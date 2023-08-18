@@ -30,7 +30,7 @@ function handleChange(e, form, setForm) {
     });
 }
 
-// Case Conversions
+// Text Case Convertors
 function camelToSnake(str) {
     return str.split(/(?=[A-Z])/).join("_").toLowerCase();
 }
