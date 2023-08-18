@@ -1,6 +1,7 @@
 class UserSerializer < ActiveModel::Serializer
   attributes :id, :email, :name
   has_many :user_instruments
+  has_many :events
   has_one :profile
   has_one :church
 

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :events
   resources :instruments, only: [:index, :create]
   resources :profiles, only: [:index, :create, :update]
   resources :user_instruments, only: [:index, :create, :update, :destroy]
