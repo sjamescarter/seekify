@@ -17,7 +17,8 @@ function App() {
       .then((r) => {
         if(r.ok) {
           r.json().then((user) => setUser(user));
-        }})
+        }
+      })
     fetch("/venues")
       .then((r) => r.json())
       .then(venues => setVenues(venues));
