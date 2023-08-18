@@ -15,7 +15,7 @@ function Menu({ name, handleMenu, handleLogout }) {
                 Dashboard
             </StyledNavLink>
             <StyledNavLink to="/events/new" onClick={handleMenu}>
-                <I className="material-symbols-rounded">event</I>
+                <I className="material-symbols-rounded">calendar_add_on</I>
                 Create Event
             </StyledNavLink>
             <StyledNavLink to="/settings" onClick={handleMenu}>
