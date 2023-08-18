@@ -1,12 +1,12 @@
 import { useContext, useState } from 'react';
 import { UserContext } from '../context/user';
-import { states, handleChange } from '../components/utilities';
-import DropZone from '../components/DropZone';
+import { states, handleChange, camelToTitle, camelToSnake } from '../components/utilities';
 import Form from '../components/Form'
 import { Input, Select, TextArea } from '../styles';
 import VenueForm from '../components/VenueForm';
 import { abc } from '../components/utilities';
 import FormItem from '../components/FormItem';
+import ImgUploader from '../components/ImgUploader';
 
 function CreateProfile({ handleLogout }) {
     // Context
@@ -20,7 +20,7 @@ function CreateProfile({ handleLogout }) {
         city: "",
         state: "",
         bio: "",
-        venue: "",
+        venueId: "",
         videoUrl: "",
     });
     const [img, setImg] = useState();
@@ -34,14 +34,7 @@ function CreateProfile({ handleLogout }) {
         setErrors([]);
 
         const profile = new FormData();
-        profile.append('first_name', form.firstName);
-        profile.append('last_name', form.lastName);
-        profile.append('phone', form.phone);
-        profile.append('city', form.city);
-        profile.append('state', form.state);
-        profile.append('bio', form.bio);
-        profile.append('venue_id', form.venue);
-        profile.append('video_url', form.videoUrl);
+        Object.keys(form).map(key => profile.append(camelToSnake(key), form[key]))
         if(img) {
             profile.append('avatar', img);
         }
@@ -59,7 +52,7 @@ function CreateProfile({ handleLogout }) {
         })
     }
 
-    if(form.venue === "new") { return <VenueForm state={form} setState={setForm} /> };
+    if(form.venueId === "new") { return <VenueForm state={form} setState={setForm} /> };
 
     return (
         <Form 
@@ -69,20 +62,16 @@ function CreateProfile({ handleLogout }) {
             handleCancel={handleLogout}
         >
             <FormItem icon="person">
-                <Input 
-                    type="text" 
-                    name="firstName" 
-                    placeholder='First Name' 
-                    value={form.firstName} 
-                    onChange={onChange} 
-                />
-                <Input 
-                    type="text" 
-                    name="lastName" 
-                    placeholder='Last Name' 
-                    value={form.lastName} 
-                    onChange={onChange} 
-                />
+                {Object.keys(form).slice(0, 2).map(key => 
+                    <Input 
+                        key={key} 
+                        type="text"
+                        name={key}
+                        placeholder={camelToTitle(key)}
+                        value={form[key]}
+                        onChange={onChange}
+                    />
+                )}
             </FormItem>
             <FormItem icon="phone">
                 <Input 
@@ -101,7 +90,7 @@ function CreateProfile({ handleLogout }) {
                     placeholder='City' 
                     value={form.city} 
                     onChange={onChange}
-                    />
+                />
                 <Select 
                     name="state" 
                     value={form.state} 
@@ -131,19 +120,20 @@ function CreateProfile({ handleLogout }) {
             </FormItem>
             <FormItem icon='church'>
                 <Select  
-                    name="venue"  
-                    value={form.venue} 
+                    name="venueId"  
+                    value={form.venueId} 
                     onChange={onChange} 
                 >
                     <option>Select Church</option>
                     <option value="new" >Add Church</option>
-                    {venues ? abc(venues).map(venue => <option key={venue.id} value={parseInt(venue.id, 10)}>{venue.name}</option>) : null}
+                    {abc(venues).map(venue => <option key={venue.id} value={parseInt(venue.id, 10)}>{venue.name}</option>)}
                 </Select>
             </FormItem>
-            <FormItem icon='image'>
-                <label htmlFor="avatar">Upload Profile Pic</label>
-            </FormItem>
-            {img ? <p>{img.name} <span onClick={() => setImg()}> Change</span></p> : <DropZone id='avatar' setState={setImg} />}            
+            <ImgUploader 
+                id='avatar'
+                img={img}
+                setImg={setImg}
+            />            
         </Form>
     );
 }

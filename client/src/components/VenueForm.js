@@ -1,10 +1,10 @@
 import { useContext, useState } from 'react';
 import { UserContext } from '../context/user';
-import { handleChange, states } from './utilities';
-import DropZone from './DropZone';
+import { Input, Select } from '../styles'
+import { camelToSnake, camelToTitle, handleChange, states } from './utilities';
 import Form from './Form';
 import FormItem from './FormItem';
-import { Input, Select } from '../styles'
+import ImgUploader from './ImgUploader';
 
 const formFields = { name: "", streetAddress: "", city: "", state: "" };
 
@@ -20,17 +20,14 @@ function VenueForm({ state, setState }) {
     // Handlers
     const onChange = (e) => handleChange(e, form, setForm);
     const handleCancel = () => handleVenueChange("")
-    const handleVenueChange = (id) => setState({ ...state, venue: id }) 
+    const handleVenueChange = (id) => setState({ ...state, venueId: id }) 
     function handleSubmit(e) {
         e.preventDefault();
         setErrors([]);
 
         const venue = new FormData();
-        venue.append('name', form.name);
-        venue.append('street_address', form.streetAddress);
-        venue.append('city', form.city);
-        venue.append('state', form.state);
-        if(form.logo){
+        Object.keys(form).map(key => venue.append(camelToSnake(key), form[key]));
+        if(img){
             venue.append('logo', img);
         }
 
@@ -69,20 +66,16 @@ function VenueForm({ state, setState }) {
                 />
             </FormItem>
             <FormItem icon='location_on'>
-                <Input 
-                    type="text" 
-                    name="streetAddress" 
-                    placeholder='Street Address' 
-                    value={form.streetAddress} 
-                    onChange={onChange} 
+                {Object.keys(form).slice(1, 3).map(key =>
+                    <Input 
+                        key={key}
+                        type="text"
+                        name={key}
+                        placeholder={camelToTitle(key)}
+                        value={form[key]}
+                        onChange={onChange}
                     />
-                <Input 
-                    type="text" 
-                    name="city" 
-                    placeholder='City' 
-                    value={form.city} 
-                    onChange={onChange} 
-                    />
+                )}
                 <Select 
                     name="state" 
                     value={form.state} 
@@ -92,14 +85,11 @@ function VenueForm({ state, setState }) {
                     {states.map(state => <option key={state} value={state}>{state}</option>)}
                 </Select>
             </FormItem>
-            <FormItem icon='image'>
-            <label htmlFor="logo">Upload Logo</label>
-            </FormItem>
-
-            {img 
-                ? <p>{img.name} <span onClick={e => setImg()}> Change</span></p> 
-                : <DropZone id='logo' setState={setImg} />
-            }            
+            <ImgUploader 
+                id='logo'
+                img={img}
+                setImg={setImg}
+            />
         </Form>
     );
 }
