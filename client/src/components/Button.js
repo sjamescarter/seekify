@@ -14,11 +14,17 @@ const secondary = {
 const StyledButton = styled.button`
     border: none;
     border-radius: 10px;
-    padding: 5px;
+    padding: 8px;
 `
 
 function Button({ onClick, children, alt=false }) {
-    return <StyledButton type="button" style={alt ? secondary : main} onClick={onClick}>{children}</StyledButton>
+    return <StyledButton 
+        type="button" 
+        style={alt ? secondary : main} 
+        onClick={onClick}
+    >
+        {children}
+    </StyledButton>
 }
 
 export default Button;
