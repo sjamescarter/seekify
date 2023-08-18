@@ -8,7 +8,7 @@ import Profile from "./pages/Profile";
 import AddInstrument from "./components/AddInstrument";
 
 function App() {
-  const { user, setUser, setVenues, setInstruments } = useContext(UserContext);
+  const { user, setUser, venues, setVenues, setInstruments } = useContext(UserContext);
 
   const navigate = useNavigate();
 
@@ -40,6 +40,7 @@ function App() {
 }
 
   if (!user) return <Landing />;
+  if (!venues) return <h1>Loading...</h1>
   if (!user.profile) return <CreateProfile handleLogout={handleLogout} />;
 
   return (
