@@ -30,12 +30,12 @@ function handleChange(e, form, setForm) {
     });
 }
 
-function toCamelCase(string) {
-    return string.replace(/[_][a-z]/g, (g) => g.slice(-1).toUpperCase());
+function toCamelCase(str) {
+    return str.replace(/[_][a-z]/g, (g) => g.slice(-1).toUpperCase());
 }
 
-function toSnakeCase(string) {
-    return string.split(/(?=[A-Z])/).join("_").toLowerCase();
+function toSnakeCase(str) {
+    return str.split(/(?=[A-Z])/).join("_").toLowerCase();
 }
 
 export { abc, addS, handleChange, toCamelCase, toSnakeCase };
