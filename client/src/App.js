@@ -1,11 +1,13 @@
 import { useContext, useEffect } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import { UserContext } from "./context/user";
+import styled from "styled-components";
 import CreateProfile from "./pages/CreateProfile";
 import Landing from "./pages/Landing";
 import NavBar from "./components/NavBar";
 import Profile from "./pages/Profile";
 import AddInstrument from "./components/AddInstrument";
+import CreateEvent from "./pages/CreateEvent";
 
 function App() {
   const { user, setUser, venues, setVenues, setInstruments } = useContext(UserContext);
@@ -47,13 +49,19 @@ function App() {
   return (
     <div>
       <NavBar handleLogout={handleLogout} />
-      <Routes>
-        <Route path="/" element={<AddInstrument />} />
-        <Route path="/profile" element={<Profile user={user} />} />
-        <Route path="/testing" element={<h1>Test Route</h1>} />
-      </Routes>
+      <Container>
+        <Routes>
+          <Route path="/" element={<AddInstrument />} />
+          <Route path="/profile" element={<Profile user={user} />} />
+          <Route path="/events/new" element={<CreateEvent />} />
+          <Route path="/testing" element={<h1>Test Route</h1>} />
+        </Routes>
+      </Container>
     </div>
   );
 }
 
+const Container = styled.div`
+  margin-top: 100px;
+`
 export default App;
