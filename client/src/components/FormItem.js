@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
-function FormItem({ children, icon }) {
+function FormItem({ children, icon, style }) {
     return (
         <Container>
-            <I className='material-symbols-rounded'>{icon}</I>
+            <I className='material-symbols-rounded' style={style}>{icon}</I>
             {children}
         </Container>
     );
