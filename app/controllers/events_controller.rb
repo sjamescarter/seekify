@@ -4,12 +4,11 @@ class EventsController < ApplicationController
   end
 
   def create
-    event = @current_user.events.build(event_params)
-    event.image.attach(:image) unless event_params[:image].nil?
+    event = @current_user.events.create!(event_params)
+    event.image.attach(event_params[:image]) unless event_params[:image].nil?
     venue = Venue.find(event_params[:venue_id])
     venue.events << event
-    venue.save!
-    render json: event, status: :created
+    render json: @current_user, status: :created
   end
 
   private
