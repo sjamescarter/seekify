@@ -47,7 +47,7 @@ function AddInstrument() {
 console.log(form);
     return (
             <Form 
-                formTitle='Add Instrument'
+                title='Add Instrument'
                 onSubmit={handleSubmit} 
                 errors={errors}
             >
