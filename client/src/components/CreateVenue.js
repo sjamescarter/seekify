@@ -1,14 +1,14 @@
 import { useContext, useState } from 'react';
 import { UserContext } from '../context/user';
 import { Input, Select } from '../styles'
-import { camelToSnake, camelToTitle, handleChange, states } from './utilities';
+import { camelToTitle, handleImgSubmit, handleChange, states } from './utilities';
 import Form from './Form';
 import FormItem from './FormItem';
 import ImgUploader from './ImgUploader';
 
 const formFields = { name: "", streetAddress: "", city: "", state: "" };
 
-function VenueForm({ state, setState }) {
+function CreateVenue({ state, setState }) {
     // Context
     const { venues, setVenues } = useContext(UserContext);
 
@@ -17,42 +17,26 @@ function VenueForm({ state, setState }) {
     const [img, setImg] = useState();
     const [errors, setErrors] = useState([]);
 
+    // Const
+    const callback = (data) => { // This is the onSubmit callback
+        setVenues([ ...venues, data ]);
+        handleVenueChange(data.id);
+        setForm(formFields);
+        setImg();
+    };
+    const endpoint = 'venues';
+    const imgLabel = 'logo';
+
     // Handlers
     const onChange = (e) => handleChange(e, form, setForm);
-    const handleCancel = () => handleVenueChange("")
-    const handleVenueChange = (id) => setState({ ...state, venueId: id }) 
-    function handleSubmit(e) {
-        e.preventDefault();
-        setErrors([]);
-
-        const venue = new FormData();
-        Object.keys(form).map(key => venue.append(camelToSnake(key), form[key]));
-        if(img){
-            venue.append('logo', img);
-        }
-
-        fetch('/venues', {
-            method: 'POST',
-            body: venue
-        })
-        .then(r => {
-            if(r.ok) {
-                r.json().then(data => {
-                    setVenues([ ...venues, data ]);
-                    handleVenueChange(data.id);
-                });
-                setForm(formFields);
-                setImg();
-            } else {
-                r.json().then(err => setErrors(err.errors));
-            }
-        })
-    }
+    const handleCancel = () => handleVenueChange("");
+    const handleVenueChange = (id) => setState({ ...state, venueId: id }); 
+    const onSubmit = (e) => handleImgSubmit(e, endpoint, setErrors, form, imgLabel, img, callback);
 
     return (
         <Form 
-            formTitle='Add Church'
-            onSubmit={handleSubmit}
+            title='Add Church'
+            onSubmit={onSubmit}
             errors={errors}
             handleCancel={handleCancel}
         >
@@ -86,7 +70,7 @@ function VenueForm({ state, setState }) {
                 </Select>
             </FormItem>
             <ImgUploader 
-                id='logo'
+                id={imgLabel}
                 img={img}
                 setImg={setImg}
             />
@@ -94,4 +78,4 @@ function VenueForm({ state, setState }) {
     );
 }
 
-export default VenueForm;
+export default CreateVenue;
