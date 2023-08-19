@@ -4,40 +4,40 @@ import { abc, addS } from '../components/utilities';
 
 function Profile({ user }) {
     // Context
-    const { profile, church, user_instruments } = user
+    const { profile, church, user_instruments, events } = user
 
     // State
     const [editProfile, setEditProfile] = useState(false);
 console.log(user.profile.avatar)
 
     return(
-        <div style={{marginTop: "100px"}}>
-            <ProfileGrid>
-                { <Avatar src={profile.avatar ? profile.avatar : "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.L-PLw9YL0s6ErCIcuprlKgAAAA%26pid%3DApi&f=1&ipt=98bca178f7faad18a400337a2735e92959f258e43128e375907f1e6d80f5b423&ipo=images" } alt="Avatar" loading="lazy" /> }
-                <div></div>
-                <Name>{user.name}</Name>
-                <Location>🏠 {profile.city}, {profile.state} | ⛪️ {church.name}</Location>
-                <div></div>
-                <Button>{editProfile ? "Save Profile" : "Edit Profile"}</Button>
-                <h6>My Connections</h6>
-                <Div>
-                    <h3>✍️ Bio</h3>
-                    <p>{profile.bio}</p>
-                </Div>
-                <Div>
-                    <h3>🎸 Instruments</h3>
-                    {abc(user_instruments).map(instrument => <li key={instrument.id}>{instrument.name} | {instrument.skill} | {instrument.experience} year{addS(instrument.experience)} experience</li>)}
-                </Div>
-                <Div>
-                    <h3>🎥 Videos</h3>
-                    <p>Check out my videos: {profile.video_url}</p>
-                </Div>
-                <Div>
-                    <h3>📅 Events</h3>
-                    {}
-                </Div>
-            </ProfileGrid>
-        </div>
+        <ProfileGrid>
+            { <Avatar src={profile.avatar ? profile.avatar : "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.L-PLw9YL0s6ErCIcuprlKgAAAA%26pid%3DApi&f=1&ipt=98bca178f7faad18a400337a2735e92959f258e43128e375907f1e6d80f5b423&ipo=images" } alt="Avatar" loading="lazy" /> }
+            <div></div>
+            <Name>{user.name}</Name>
+            <Location>🏠 {profile.city}, {profile.state} | ⛪️ {church.name}</Location>
+            <div></div>
+            <Button>{editProfile ? "Save Profile" : "Edit Profile"}</Button>
+            <h6>My Connections</h6>
+            <Div>
+                <h3>✍️ Bio</h3>
+                <p>{profile.bio}</p>
+            </Div>
+            <Div>
+                <h3>🎸 Instruments</h3>
+                {abc(user_instruments).map(instrument => <li key={instrument.id}>{instrument.name} | {instrument.skill} | {instrument.experience} year{addS(instrument.experience)} experience</li>)}
+            </Div>
+            <Div>
+                <h3>🎥 Videos</h3>
+                <p>Check out my videos: {profile.video_url}</p>
+            </Div>
+            <Div>
+                <h3>📅 Events</h3>
+                <ul>
+                    {events.map(event => <li>{event.name}</li>)}
+                </ul>
+            </Div>
+        </ProfileGrid>
     );
 }
 

@@ -48,7 +48,7 @@ function Landing() {
                 <p>A social network for worship leaders, musicians and technicians</p>
             </Container>
             <Form 
-                formTitle={showSignUp ? 'Sign Up' : 'Sign In'}
+                title={showSignUp ? 'Sign Up' : 'Sign In'}
                 onSubmit={handleSubmit} 
                 errors={errors} 
             >

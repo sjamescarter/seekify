@@ -23,10 +23,37 @@ function addS(value) {
     return value === "<1" ? null : "s";
 }
 
+// Handlers
 function handleChange(e, form, setForm) {
+    const target = e.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value
+    
     setForm({
         ...form,
-        [e.target.name]: e.target.value
+        [target.name]: value
+    });
+}
+
+function handleImgSubmit(e, endpoint, setErrors, form, imgLabel, img, callback) {
+    e.preventDefault();
+    setErrors([]);
+
+    const data = new FormData();
+    Object.keys(form).map(key => data.append(camelToSnake(key), form[key]))
+    if(img) {
+        data.append(imgLabel, img);
+    }
+
+    fetch(`/${endpoint}`, {
+        method: 'POST',
+        body: data
+    })
+    .then(r => {
+        if(r.ok) {
+            r.json().then(callback);
+        } else {
+            r.json().then(err => setErrors(err.errors))
+        }
     });
 }
 
@@ -43,4 +70,4 @@ function snakeToCamel(str) {
     return str.replace(/[_][a-z]/g, (g) => g.slice(-1).toUpperCase());
 }
 
-export { abc, addS, handleChange, camelToSnake, camelToTitle, snakeToCamel };
+export { abc, addS, handleChange, handleImgSubmit, camelToSnake, camelToTitle, snakeToCamel };

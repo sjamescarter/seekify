@@ -1,63 +1,49 @@
 import { useContext, useState } from 'react';
 import { UserContext } from '../context/user';
-import { states, handleChange, camelToTitle, camelToSnake } from '../components/utilities';
+import { states, handleChange, camelToTitle } from '../components/utilities';
 import Form from '../components/Form'
 import { Input, Select, TextArea } from '../styles';
-import VenueForm from '../components/VenueForm';
-import { abc } from '../components/utilities';
+import { handleImgSubmit } from '../components/utilities';
 import FormItem from '../components/FormItem';
 import ImgUploader from '../components/ImgUploader';
+import CreateVenue from '../components/CreateVenue';
+import VenueSelect from '../components/VenueSelect';
+
+const formFields = {
+    firstName: "", 
+    lastName: "", 
+    phone: "", 
+    city: "", 
+    state: "", 
+    bio: "", 
+    venueId: "", 
+    videoUrl: ""
+}
 
 function CreateProfile({ handleLogout }) {
     // Context
     const { setUser, venues } = useContext(UserContext);
 
     // State
-    const [form, setForm] = useState({
-        firstName: "",
-        lastName: "",
-        phone: "",
-        city: "",
-        state: "",
-        bio: "",
-        venueId: "",
-        videoUrl: "",
-    });
+    const [form, setForm] = useState(formFields);
     const [img, setImg] = useState();
     const [errors, setErrors] = useState([]);
+    
+    // Const
+    const callback = (data) => setUser(data);
+    const endpoint = 'profiles';
+    const imgLabel = 'avatar';
 
     // Handlers
     const onChange = (e) => handleChange(e, form, setForm);
+    const onSubmit = (e) => handleImgSubmit(e, endpoint, setErrors, form, imgLabel, img, callback);
 
-    function handleSubmit(e) {
-        e.preventDefault();
-        setErrors([]);
-
-        const profile = new FormData();
-        Object.keys(form).map(key => profile.append(camelToSnake(key), form[key]))
-        if(img) {
-            profile.append('avatar', img);
-        }
-
-        fetch('/profiles', {
-            method: 'POST',
-            body: profile
-        })
-        .then(r => {
-            if(r.ok) {
-                r.json().then(data => setUser(data));
-            } else {
-                r.json().then(err => setErrors(err.errors))
-            }
-        })
-    }
-
-    if(form.venueId === "new") { return <VenueForm state={form} setState={setForm} /> };
+    if(form.venueId === "new") { return <CreateVenue state={form} setState={setForm} /> };
 
     return (
         <Form 
-            formTitle='Create Profile'
-            onSubmit={handleSubmit} 
+            title='Create Profile'
+            onSubmit={onSubmit} 
             errors={errors} 
             handleCancel={handleLogout}
         >
@@ -118,19 +104,9 @@ function CreateProfile({ handleLogout }) {
                     onChange={onChange} 
                 />
             </FormItem>
-            <FormItem icon='church'>
-                <Select  
-                    name="venueId"  
-                    value={form.venueId} 
-                    onChange={onChange} 
-                >
-                    <option>Select Church</option>
-                    <option value="new" >Add Church</option>
-                    {abc(venues).map(venue => <option key={venue.id} value={parseInt(venue.id, 10)}>{venue.name}</option>)}
-                </Select>
-            </FormItem>
+            <VenueSelect onChange={onChange} value={form.venueId} venues={venues} />
             <ImgUploader 
-                id='avatar'
+                id={imgLabel}
                 img={img}
                 setImg={setImg}
             />            
