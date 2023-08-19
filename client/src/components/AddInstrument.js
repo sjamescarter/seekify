@@ -3,7 +3,7 @@ import { UserContext } from '../context/user';
 import { abc, addS, experienceLevels, skillLevels, handleChange } from './utilities';
 import { Select } from '../styles';
 import Form from './Form';
-import NewInstrument from './NewInstrument';
+import CreateInstrument from './CreateInstrument';
 import FormItem from './FormItem';
 
 const formFields = { instrumentId: "", skill: "", experience: "" }
@@ -43,7 +43,7 @@ function AddInstrument() {
         })
     }
 
-    if(form.instrumentId === "new") return <NewInstrument state={form} setState={setForm} />
+    if(form.instrumentId === "new") return <CreateInstrument state={form} setState={setForm} />
 console.log(form);
     return (
             <Form 

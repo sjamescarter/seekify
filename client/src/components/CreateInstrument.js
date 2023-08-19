@@ -7,7 +7,7 @@ import FormItem from "./FormItem";
 
 const formFields = { name: "" };
 
-function NewInstrument({state, setState}) {
+function CreateInstrument({state, setState}) {
     // Context
     const { instruments, setInstruments } = useContext(UserContext);
 
@@ -43,12 +43,23 @@ function NewInstrument({state, setState}) {
     }
 
     return (
-            <Form formTitle='Create Instrument' onSubmit={handleSubmit} errors={errors} handleCancel={handleCancel}>
+            <Form 
+                title='Create Instrument' 
+                onSubmit={handleSubmit} 
+                errors={errors} 
+                handleCancel={handleCancel}
+            >
                 <FormItem icon='piano'>
-                    <Input type="text" name="name" placeholder="Instrument Name" value={form.name} onChange={onChange} />
+                    <Input 
+                        type="text" 
+                        name="name" 
+                        placeholder="Instrument Name" 
+                        value={form.name} 
+                        onChange={onChange} 
+                    />
                 </FormItem>
             </Form>
     );
 }
 
-export default NewInstrument;
+export default CreateInstrument;
