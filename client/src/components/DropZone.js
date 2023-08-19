@@ -14,7 +14,7 @@ function DropZone({ setState }) {
       {
         isDragActive ?
           <P>Drop the files here ...</P> :
-          <P>Drag 'n' drop some files here, or click to select files</P>
+          <P>Drag 'n' drop an image here—or click to select file</P>
       }
     </Div>
   );
