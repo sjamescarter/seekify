@@ -2,10 +2,10 @@ import styled from 'styled-components';
 import Button from './Button';
 import Errors from './Errors'
 
-function Form({ formTitle, children, onSubmit, errors, handleCancel }) {
+function Form({ title, children, onSubmit, errors, handleCancel }) {
     return(
         <StyledForm onSubmit={onSubmit}>
-            <Title>{formTitle}</Title>
+            <Title>{title}</Title>
             {children}
             <Submit type="submit" value='Submit' />
             {handleCancel ? <Button onClick={handleCancel} alt='true'>Cancel</Button> : null}
@@ -16,7 +16,7 @@ function Form({ formTitle, children, onSubmit, errors, handleCancel }) {
 
 const StyledForm = styled.form`
     background-color: white;
-    border-radius: 2em;
+    border-radius: 1em;
     display: grid;
     width: 550px;
     padding: 2em;
@@ -37,7 +37,10 @@ const Submit = styled.input`
     font: inherit;
     font-size: 1.3em;
     font-weight: 800;
-
+    opacity: .8;
+    &:hover {
+        opacity: 1;
+    }
 `
 
 export default Form;
