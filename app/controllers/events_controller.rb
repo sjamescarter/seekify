@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
   def index
-    render json: Event.all
+    render json: Event.where("public = true")
   end
 
   def create
