@@ -66,7 +66,14 @@ function CreateVenue({ state, setState }) {
                     onChange={onChange} 
                     >
                     <option>State</option>
-                    {states.map(state => <option key={state} value={state}>{state}</option>)}
+                    {states.map(state => 
+                        <option 
+                            key={state} 
+                            value={state}
+                        >
+                            {state}
+                        </option>
+                    )}
                 </Select>
             </FormItem>
             <ImgUploader 
