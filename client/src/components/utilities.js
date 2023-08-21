@@ -19,6 +19,14 @@ function abc(array) {
     });
 }
 
+function chron(array) {
+    return [...array].sort((a, b) => {
+        const dateA = new Date(a.date)
+        const dateB = new Date(b.date)
+        return dateA - dateB
+    });
+}
+
 function addS(value) {
     return value === "<1" ? null : "s";
 }
@@ -70,4 +78,4 @@ function snakeToCamel(str) {
     return str.replace(/[_][a-z]/g, (g) => g.slice(-1).toUpperCase());
 }
 
-export { abc, addS, handleChange, handleImgSubmit, camelToSnake, camelToTitle, snakeToCamel };
+export { abc, addS, chron, handleChange, handleImgSubmit, camelToSnake, camelToTitle, snakeToCamel };
