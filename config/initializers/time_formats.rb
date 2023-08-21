@@ -1,0 +1,1 @@
+Time::DATE_FORMATS[:small] = '%a, %b %-d @ %l:%M %p'
