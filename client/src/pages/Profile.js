@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { abc, addS } from '../components/utilities';
+import { abc, addS, chron } from '../components/utilities';
+import EventCard from '../components/EventCard';
 
 function Profile({ user }) {
     // Context
@@ -8,7 +9,6 @@ function Profile({ user }) {
 
     // State
     const [editProfile, setEditProfile] = useState(false);
-console.log(user.profile.avatar)
 
     return(
         <ProfileGrid>
@@ -34,7 +34,7 @@ console.log(user.profile.avatar)
             <Div>
                 <h3>📅 Events</h3>
                 <ul>
-                    {events.map(event => <li>{event.name}</li>)}
+                    {chron(events).map(event => <EventCard key={event.id} event={event} />)}
                 </ul>
             </Div>
         </ProfileGrid>
