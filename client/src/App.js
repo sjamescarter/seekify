@@ -6,8 +6,8 @@ import CreateProfile from "./pages/CreateProfile";
 import Landing from "./pages/Landing";
 import NavBar from "./components/NavBar";
 import Profile from "./pages/Profile";
-import AddInstrument from "./components/AddInstrument";
 import CreateEvent from "./pages/CreateEvent";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   const { user, setUser, venues, setVenues, setInstruments } = useContext(UserContext);
@@ -51,7 +51,7 @@ function App() {
       <NavBar handleLogout={handleLogout} />
       <Container>
         <Routes>
-          <Route path="/" element={<AddInstrument />} />
+          <Route path="/" element={<Dashboard />} />
           <Route path="/profile" element={<Profile user={user} />} />
           <Route path="/events/new" element={<CreateEvent />} />
           <Route path="/testing" element={<h1>Test Route</h1>} />
