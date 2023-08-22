@@ -4,8 +4,12 @@ import { abc, addS, chron } from '../components/utilities';
 import EventCard from '../components/EventCard';
 
 function Profile({ user }) {
-    // Context
     const { profile, church, user_instruments, events } = user
+    const currentEvents = events.filter(event => {
+        const today = Date.now()
+        const date = new Date(event.date)
+        return date > today
+    })
 
     // State
     const [editProfile, setEditProfile] = useState(false);

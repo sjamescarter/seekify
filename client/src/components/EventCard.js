@@ -1,14 +1,18 @@
 import styled from "styled-components";
+import defaultEventPic from "../images/defaultEventPic.jpeg";
 
 function EventCard({ event }) {
     const { name, time, location, image, description } = event
+    
+    const eventImage = image ? image : defaultEventPic
+
     return(
         <Container>
-            <Img src={image} alt="Event cover"/>
-            <Venue>{location}</Venue>
+            <Img src={eventImage} alt="Event cover"/>
+            <div></div>
             <Title>{name}</Title>
+            <Strong>{time} | {location}</Strong>
             <Description>{description}</Description>
-            <Date>{time}</Date>
         </Container>
     );
 }
@@ -19,11 +23,12 @@ const Container = styled.div`
     background-color: #F1EDEE;
     color: #686963;
     grid-template-columns: 200px auto;
-    grid-template-rows: 35px 30px 1fr 35px;
+    grid-template-rows: 35px 30px 35px 1fr;
     height: 200px;
     // min-width: 550px;
+    border-top-right-radius: 24px;
     border-top-left-radius: 12px;
-    border-bottom-left-radius: 12px;
+    border-bottom-left-radius: 24px;
     margin: 2em 0;
     text-align: right;
 
@@ -35,12 +40,8 @@ const Img = styled.img`
     object-fit: cover;
     object-position: 50%;
     grid-row: 1 / span 4;
-    border-top-left-radius: 12px;
-    border-bottom-left-radius: 12px;
-`
-const Venue = styled.strong`
-    font-size: .8em;
-    padding: 5px 15px;
+    // border-top-left-radius: 12px;
+    border-bottom-left-radius: 24px;
 `
 const Title = styled.h2`
     color: #3D5467;
@@ -50,10 +51,9 @@ const Title = styled.h2`
 const Description = styled.p`
     padding: 0 15px;
 `
-const Date = styled.strong`
+const Strong = styled.strong`
     padding: 2px 15px;
-    font-size: .9em;
+    font-size: .8em;
     border-top: .5px solid #686963;
-    // border-top: 1px solid white;
 `
 export default EventCard;
