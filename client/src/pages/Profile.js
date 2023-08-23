@@ -38,7 +38,7 @@ function Profile({ user }) {
             <Div>
                 <h3>📅 Events</h3>
                 <ul>
-                    {chron(events).map(event => <EventCard key={event.id} event={event} />)}
+                    {chron(currentEvents).map(event => <EventCard key={event.id} event={event} />)}
                 </ul>
             </Div>
         </ProfileGrid>
