@@ -1,9 +1,13 @@
 class UserInstrumentSerializer < ActiveModel::Serializer
-  attributes :id, :name, :skill, :experience
+  attributes :id, :name, :instrument, :skill, :experience
   has_one :user
   has_one :instrument
 
   def name
+    "#{object.user.profile.first_name} #{object.user.profile.last_name}"
+  end
+
+  def instrument
     object.instrument.name
   end
 end
