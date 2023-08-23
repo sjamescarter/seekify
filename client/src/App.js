@@ -1,6 +1,7 @@
 import { useContext, useEffect } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import { UserContext } from "./context/user";
+import { InstrumentsContext } from "./context/instrument";
 import styled from "styled-components";
 import CreateProfile from "./pages/CreateProfile";
 import Landing from "./pages/Landing";
@@ -10,7 +11,8 @@ import CreateEvent from "./pages/CreateEvent";
 import Dashboard from "./pages/Dashboard";
 
 function App() {
-  const { user, setUser, venues, setVenues, setInstruments } = useContext(UserContext);
+  const { user, setUser, venues, setVenues } = useContext(UserContext);
+  const { setInstruments } = useContext(InstrumentsContext);
 
   const navigate = useNavigate();
 
