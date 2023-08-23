@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_18_203555) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_22_164705) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -62,6 +62,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_18_203555) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "invites", force: :cascade do |t|
+    t.text "message"
+    t.integer "pay"
+    t.string "status"
+    t.bigint "user_instrument_id", null: false
+    t.bigint "event_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_invites_on_event_id"
+    t.index ["user_instrument_id"], name: "index_invites_on_user_instrument_id"
+  end
+
   create_table "profiles", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
@@ -109,6 +121,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_18_203555) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "events", "users"
   add_foreign_key "events", "venues"
+  add_foreign_key "invites", "events"
+  add_foreign_key "invites", "user_instruments"
   add_foreign_key "profiles", "users"
   add_foreign_key "profiles", "venues"
   add_foreign_key "user_instruments", "instruments"
