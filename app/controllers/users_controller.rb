@@ -8,11 +8,11 @@ class UsersController < ApplicationController
   def create
     user = User.create!(user_params)
     session[:user_id] = user.id
-    render json: user, status: :created
+    render json: user, serializer: MeSerializer, status: :created
   end
 
   def show
-    render json: @current_user
+    render json: @current_user, serializer: MeSerializer
   end
 
   def destroy
