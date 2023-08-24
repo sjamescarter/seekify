@@ -21,7 +21,7 @@ function CreateInvite({ event }) {
     const [search, setSearch] = useState()
     const [errors, setErrors] = useState();
 
-    const title = "Invite for " + event.name;
+    const title = `Invite for ${event.name}`;
     // Handlers
     const onChange = (e) => handleChange(e, form, setForm);
     const handleSearch = (e) => {
@@ -54,27 +54,60 @@ console.log(search)
     return (
         <Form title={title} onSubmit={handleSubmit} errors={errors}>
             <FormItem icon='piano'>
-                <Select name="instrumentId" onChange={handleSearch}>
+                <Select 
+                    name="instrumentId" 
+                    value={form.instrumentId}
+                    onChange={handleSearch}
+                >
                     <option>Select Instrument</option>
-                    { abc(instruments).map(i => <option key={i.id} value={i.id}>{i.name}</option>) }
+                    { abc(instruments).map(i => 
+                        <option 
+                            key={i.id} 
+                            value={i.id}
+                        >
+                            {i.name}
+                        </option>) 
+                    }
                 </Select>
             </FormItem>
             <FormItem icon='person'>
-
-                <Select name="userInstrumentId" value={form.userInstrumentId} onChange={onChange}>
+                <Select 
+                    name="userInstrumentId" 
+                    value={form.userInstrumentId} 
+                    onChange={onChange}
+                >
                     <option>Select Musician</option>
                     { search 
-                        ? instruments.filter(i => i.id === parseInt(search)).map(i => abc(i.musicians).map(m => <option key={m.id} value={m.id}>{m.name} | {m.skill} | {m.experience} year{addS(m.experience)} experience </option>)) 
+                        ? instruments.filter(i => i.id === parseInt(search))
+                            .map(i => abc(i.musicians).map(m => 
+                                <option 
+                                    key={m.id} 
+                                    value={m.id}
+                                >
+                                    {m.name} | {m.skill} | {m.experience} year{addS(m.experience)} experience 
+                                </option>)
+                            ) 
                         : null 
                     }
                 </Select>
             </FormItem>
 
             <FormItem icon='paid'>
-                <Input type="number" name="pay" placeholder="Pay optional" value={form.pay} onChange={onChange} />
+                <Input 
+                    type="number" 
+                    name="pay" 
+                    placeholder="Pay optional" 
+                    value={form.pay} 
+                    onChange={onChange} 
+                />
             </FormItem>
             <FormItem icon='description'>
-                <TextArea name="message" placeholder="Message" value={form.message} onChange={onChange} />
+                <TextArea 
+                    name="message" 
+                    placeholder="Message" 
+                    value={form.message} 
+                    onChange={onChange} 
+                />
             </FormItem>
         </Form>
     );
