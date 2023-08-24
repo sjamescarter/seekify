@@ -5,7 +5,7 @@ import Form from "./Form";
 import FormItem from "./FormItem";
 import { Input, Select, TextArea } from "../styles";
 import { abc, addS, camelToSnake, handleChange } from "./utilities";
-import { InstrumentsContext } from "../context/instrument";
+import { InstrumentsContext } from "../context/instruments";
 import { MusiciansContext } from "../context/musicians";
 
 const formFields = {message: "", status: "pending", pay: "", userInstrumentId: "", instrumentId: ""};

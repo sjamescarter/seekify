@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/user";
+import { VenuesContext } from "../context/venues";
 import { Input, TextArea } from "../styles";
 import { handleChange, handleImgSubmit } from "../components/utilities";
 import CreateVenue from "../components/CreateVenue";
@@ -14,8 +15,9 @@ const formFields = {name: "", date: "", rehearsal: "", public: "", description: 
 
 function CreateEvent() {
     // Context
-    const { user, setUser, venues } = useContext(UserContext);
-
+    const { user, setUser } = useContext(UserContext);
+    const { venues } = useContext(VenuesContext);
+    
     // State
     const [form, setForm] = useState({...formFields, venueId: user.church.id});
     const [img, setImg] = useState();

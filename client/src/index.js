@@ -1,25 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { UserProvider } from './context/user';
+import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { BrowserRouter } from 'react-router-dom';
-import { InstrumentsProvider } from './context/instrument';
-import { MusiciansProvider } from './context/musicians';
+import { ContextsProvider } from './context/contexts';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <UserProvider>
-      <InstrumentsProvider>
-        <MusiciansProvider>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
-        </MusiciansProvider>
-      </InstrumentsProvider>
-    </UserProvider>
+    <ContextsProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </ContextsProvider>
   </React.StrictMode>
 );
 

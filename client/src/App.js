@@ -1,7 +1,9 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
+import { MusiciansContext } from "./context/musicians";
+import { InstrumentsContext } from "./context/instruments";
 import { UserContext } from "./context/user";
-import { InstrumentsContext } from "./context/instrument";
+import { VenuesContext } from "./context/venues";
 import styled from "styled-components";
 import CreateProfile from "./pages/CreateProfile";
 import Landing from "./pages/Landing";
@@ -9,26 +11,22 @@ import NavBar from "./components/NavBar";
 import Profile from "./pages/Profile";
 import CreateEvent from "./pages/CreateEvent";
 import Dashboard from "./pages/Dashboard";
+import { get } from "./components/fetch";
 
 function App() {
-  const { user, setUser, venues, setVenues } = useContext(UserContext);
+  // Context
+  const { user, setUser} = useContext(UserContext);
   const { setInstruments } = useContext(InstrumentsContext);
+  const { setMusicians } = useContext(MusiciansContext);
+  const { venues, setVenues } = useContext(VenuesContext);
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("/me")
-      .then((r) => {
-        if(r.ok) {
-          r.json().then((user) => setUser(user));
-        }
-      })
-    fetch("/venues")
-      .then((r) => r.json())
-      .then(venues => setVenues(venues));
-    fetch("/instruments")
-      .then((r) => r.json())
-      .then(instruments => setInstruments(instruments));
+    get("/me", setUser);
+    get("/venues", setVenues);
+    get("/instruments", setInstruments);
+    get("/users", setMusicians);
   }, []);
   console.log(user)
 

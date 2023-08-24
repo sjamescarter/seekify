@@ -8,6 +8,7 @@ import FormItem from '../components/FormItem';
 import ImgUploader from '../components/ImgUploader';
 import CreateVenue from '../components/CreateVenue';
 import VenueSelect from '../components/VenueSelect';
+import { VenuesContext } from '../context/venues';
 
 const formFields = {
     firstName: "", 
@@ -22,8 +23,9 @@ const formFields = {
 
 function CreateProfile({ handleLogout }) {
     // Context
-    const { setUser, venues } = useContext(UserContext);
-
+    const { setUser } = useContext(UserContext);
+    const { venues } = useContext(VenuesContext);
+    
     // State
     const [form, setForm] = useState(formFields);
     const [img, setImg] = useState();

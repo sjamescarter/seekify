@@ -19,24 +19,24 @@ function Profile({ user }) {
             { <Avatar src={profile.avatar ? profile.avatar : "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.L-PLw9YL0s6ErCIcuprlKgAAAA%26pid%3DApi&f=1&ipt=98bca178f7faad18a400337a2735e92959f258e43128e375907f1e6d80f5b423&ipo=images" } alt="Avatar" loading="lazy" /> }
             <div></div>
             <Name>{user.name}</Name>
-            <Location>🏠 {profile.city}, {profile.state} | ⛪️ {church.name}</Location>
+            <Location>{profile.city}, {profile.state} | {church.name}</Location>
             <div></div>
             <Button>{editProfile ? "Save Profile" : "Edit Profile"}</Button>
             <h6>My Connections</h6>
             <Div>
-                <h3>✍️ Bio</h3>
+                <h3>Bio</h3>
                 <p>{profile.bio}</p>
             </Div>
             <Div>
-                <h3>🎸 Instruments</h3>
-                {abc(user_instruments).map(instrument => <li key={instrument.id}>{instrument.name} | {instrument.skill} | {instrument.experience} year{addS(instrument.experience)} experience</li>)}
+                <h3>Instruments</h3>
+                {abc(user_instruments).map(i => <li key={i.id}>{i.instrument} | {i.skill} | {i.experience} year{addS(i.experience)} experience</li>)}
             </Div>
             <Div>
-                <h3>🎥 Videos</h3>
+                <h3>Videos</h3>
                 <p>Check out my videos: {profile.video_url}</p>
             </Div>
             <Div>
-                <h3>📅 Events</h3>
+                <h3>Events</h3>
                 <ul>
                     {chron(currentEvents).map(event => <EventCard key={event.id} event={event} />)}
                 </ul>
