@@ -17,7 +17,7 @@ function CreateEvent() {
     // Context
     const { user, setUser } = useContext(UserContext);
     const { venues } = useContext(VenuesContext);
-    
+
     // State
     const [form, setForm] = useState({...formFields, venueId: user.church.id});
     const [img, setImg] = useState();
@@ -25,8 +25,8 @@ function CreateEvent() {
 
     // Const
     const navigate = useNavigate();
-    const callback = (data) => {
-        setUser(data);
+    const callback = (event) => {
+        setUser({...user, events: [...user.events, event]});
         navigate('/');
     };
     const endpoint = 'events';
