@@ -2,17 +2,18 @@ class UsersController < ApplicationController
   skip_before_action :authorize, only: [:create]
 
   def index
-    render json: User.all
+    musicians = User.all.filter { |m| m.id != @current_user.id }
+    render json: musicians, each_serializer: MusicianSerializer
   end
 
   def create
     user = User.create!(user_params)
     session[:user_id] = user.id
-    render json: user, serializer: MeSerializer, status: :created
+    render json: user, include: user_data, status: :created
   end
 
   def show
-    render json: @current_user, serializer: MeSerializer
+    render json: @current_user, include: user_data
   end
 
   def destroy

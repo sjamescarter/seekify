@@ -17,4 +17,13 @@ class ApplicationController < ActionController::API
   def invalid_response(invalid)
     render json: { errors: invalid.record.errors.full_messages }, status: :unprocessable_entity
   end
+
+  def user_data
+    [
+        'church',
+        'events', 'events.roles', 'events.roles.user_instrument', 
+        'profile', 
+        'user_instruments', 'user_instruments.invites', 'user_instruments.invites.event'
+    ]
+  end
 end

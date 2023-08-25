@@ -1,6 +1,5 @@
 class EventsController < ApplicationController
   def index
-    # render json: Event.where("public = true")
     render json: Event.all
   end
 
@@ -9,7 +8,7 @@ class EventsController < ApplicationController
     event.image.attach(event_params[:image]) unless event_params[:image].nil?
     venue = Venue.find(event_params[:venue_id])
     venue.events << event
-    render json: @current_user, status: :created
+    render json: event, status: :created
   end
 
   private

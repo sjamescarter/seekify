@@ -8,7 +8,7 @@ class UserInstrumentsController < ApplicationController
     instrument = Instrument.find(params[:instrument_id])
     instrument.user_instruments << user_instrument
     user_instrument.save!
-    render json: @current_user, status: :created
+    render json: user_instrument, status: :created
   end
 
   private
