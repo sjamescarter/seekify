@@ -18,7 +18,7 @@ const StyledForm = styled.form`
     background-color: white;
     border-radius: 1em;
     display: grid;
-    width: 550px;
+    max-width: 550px;
     padding: 2em;
     margin: auto;
     margin-top: 2em;
