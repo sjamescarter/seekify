@@ -2,8 +2,7 @@ class EventSerializer < ActiveModel::Serializer
   include Rails.application.routes.url_helpers
 
   attributes :id, :name, :date, :time, :rehearsal, :public, :description, :image, :location
-  has_one :host
-  has_one :venue
+  has_many :roles
 
   def location
     object.venue.name.upcase
@@ -15,6 +14,10 @@ class EventSerializer < ActiveModel::Serializer
 
   def time
     object.date.to_fs(:small)
+  end
+
+  def rehearsal
+    object.rehearsal.to_fs(:small) unless object.rehearsal.nil?
   end
 
 end

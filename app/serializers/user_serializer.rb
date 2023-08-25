@@ -3,9 +3,7 @@ class UserSerializer < ActiveModel::Serializer
   has_one :profile
   has_one :church
   has_many :user_instruments
-  has_many :events do
-    object.events.filter { |event| event.public == true }
-  end
+  has_many :events
 
   def name
     return if object.profile.nil?
