@@ -5,12 +5,14 @@ import { Select } from '../styles';
 import Form from './Form';
 import CreateInstrument from './CreateInstrument';
 import FormItem from './FormItem';
+import { InstrumentsContext } from '../context/instruments';
 
 const formFields = { instrumentId: "", skill: "", experience: "" }
 
 function AddInstrument() {
     // Context
-    const { setUser, instruments } = useContext(UserContext);
+    const { user, setUser } = useContext(UserContext);
+    const { instruments } = useContext(InstrumentsContext);
 
     // State
     const [form, setForm] = useState(formFields);
@@ -35,7 +37,7 @@ function AddInstrument() {
         })
         .then(r => {
             if(r.ok) {
-                r.json().then(user => setUser(user));
+                r.json().then(userInstrument => setUser({...user, user_instruments: [...user.user_instruments, userInstrument]}));
                 setForm(formFields);
             } else {
                 r.json().then(err => setErrors(err.errors));

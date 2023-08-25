@@ -12,6 +12,7 @@ import Profile from "./pages/Profile";
 import CreateEvent from "./pages/CreateEvent";
 import Dashboard from "./pages/Dashboard";
 import { get } from "./components/fetch";
+import AddInstrument from "./components/AddInstrument";
 
 function App() {
   // Context
@@ -54,6 +55,7 @@ function App() {
           <Route path="/" element={<Dashboard />} />
           <Route path="/profile" element={<Profile user={user} />} />
           <Route path="/events/new" element={<CreateEvent />} />
+          <Route path="/instruments/new" element={<AddInstrument />} />
           <Route path="/testing" element={<h1>Test Route</h1>} />
         </Routes>
       </Container>
