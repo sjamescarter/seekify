@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { abc, addS, chron } from '../components/utilities';
-import EventCard from '../components/EventCard';
+import PublicEventCard from '../components/PublicEventCard';
 
 function Profile({ user }) {
     const { profile, church, user_instruments, events } = user
@@ -38,7 +38,7 @@ function Profile({ user }) {
             <Div>
                 <h3>Events</h3>
                 <ul>
-                    {chron(currentEvents).map(event => <EventCard key={event.id} event={event} />)}
+                    {chron(currentEvents).map(event => <PublicEventCard key={event.id} event={event} />)}
                 </ul>
             </Div>
         </ProfileGrid>
