@@ -17,7 +17,7 @@ function App() {
   // Context
   const { user, setUser} = useContext(UserContext);
   const { setInstruments } = useContext(InstrumentsContext);
-  const { setMusicians } = useContext(MusiciansContext);
+  const { musicians, setMusicians } = useContext(MusiciansContext);
   const { venues, setVenues } = useContext(VenuesContext);
 
   const navigate = useNavigate();
@@ -29,7 +29,7 @@ function App() {
     get("/users", setMusicians);
   }, []);
   console.log(user)
-
+  console.log(musicians)
   function handleLogout() {
     fetch('/logout', {
         method: "DELETE"
