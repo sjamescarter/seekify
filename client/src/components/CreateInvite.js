@@ -6,15 +6,13 @@ import FormItem from "./FormItem";
 import { Input, Select, TextArea } from "../styles";
 import { abc, addS, camelToSnake, handleChange } from "./utilities";
 import { InstrumentsContext } from "../context/instruments";
-import { MusiciansContext } from "../context/musicians";
 
 const formFields = {message: "", status: "pending", pay: "", userInstrumentId: "", instrumentId: ""};
 
-function CreateInvite({ event }) {
+function CreateInvite({ event, setInvite }) {
     // Context
-    const { user } = useContext(UserContext);
+    const { user, setUser } = useContext(UserContext);
     const { instruments } = useContext(InstrumentsContext);
-    const { musicians } = useContext(MusiciansContext);
 
     // State
     const [form, setForm] = useState({...formFields, eventId: event.id});
@@ -25,9 +23,11 @@ function CreateInvite({ event }) {
     // Handlers
     const onChange = (e) => handleChange(e, form, setForm);
     const handleSearch = (e) => {
-        setSearch(e.target.value);
-        setForm({...form, userInstrumentId: ""});
+        const value = e.target.value
+        setSearch(value);
+        setForm({...form, instrumentId: value, userInstrumentId: ""});
     }
+
     function handleSubmit(e) {
         e.preventDefault();
         setErrors([]);
@@ -41,18 +41,22 @@ function CreateInvite({ event }) {
         })
         .then(r => {
             if(r.ok) {
-                r.json().then(data => console.log(data));
+                r.json().then(invite => {
+                    setUser({...user, events: [...user.events.map(e => 
+                        e.id === event.id ? {...e, roles: [...e.roles, invite]} : e
+                    )]});
+                    setInvite();
+                });
             } else {
                 r.json().then(err => setErrors(err.errors));
             }
         })
     } 
-console.log(instruments)
-console.log(search)
+
     if(!instruments) return <h1>Loading...</h1>
 
     return (
-        <Form title={title} onSubmit={handleSubmit} errors={errors}>
+        <Form title={title} onSubmit={handleSubmit} errors={errors} handleCancel={() => setInvite()}>
             <FormItem icon='piano'>
                 <Select 
                     name="instrumentId" 
@@ -91,7 +95,6 @@ console.log(search)
                     }
                 </Select>
             </FormItem>
-
             <FormItem icon='paid'>
                 <Input 
                     type="number" 
