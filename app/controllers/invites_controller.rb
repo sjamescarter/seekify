@@ -7,6 +7,12 @@ class InvitesController < ApplicationController
     render json: invite, status: :created
   end
 
+  def update
+    invite = @current_user.invites.find(params[:id])
+    invite.update!(invite_params)
+    render json: invite, status: :accepted
+  end
+
   private
   def invite_params
     params.permit(:message, :pay, :status, :user_instrument_id)
