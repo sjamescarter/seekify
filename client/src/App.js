@@ -13,6 +13,7 @@ import CreateEvent from "./pages/CreateEvent";
 import Dashboard from "./pages/Dashboard";
 import { get } from "./components/fetch";
 import AddInstrument from "./components/AddInstrument";
+import People from "./pages/People";
 
 function App() {
   // Context
@@ -53,10 +54,13 @@ function App() {
       <Container>
         <Routes>
           <Route path="/" element={<Dashboard />} />
-          <Route path="/profile" element={<Profile user={user} />} />
+          <Route path="/events" element={<h1>Events</h1>} />
           <Route path="/events/new" element={<CreateEvent />} />
-          <Route path="/instruments/new" element={<AddInstrument />} />
-          <Route path="/testing" element={<h1>Test Route</h1>} />
+          <Route path="/people" element={<People />} />
+          {/* <Route path="/people/:id" element={<h1>Person</h1>} /> */}
+          <Route path="/profile" element={<Profile user={user} />} />
+          <Route path="/profile/add-instrument" element={<AddInstrument />} />
+          <Route path="/settings" element={<CreateProfile />} />
         </Routes>
       </Container>
     </div>
