@@ -1,11 +1,10 @@
 import { useContext, useState } from "react";
 import { UserContext } from "../context/user";
-import styled from "styled-components";
-import Form from "./Form";
-import FormItem from "./FormItem";
+import { InstrumentsContext } from "../context/instruments";
 import { Input, Select, TextArea } from "../styles";
 import { abc, addS, camelToSnake, handleChange } from "./utilities";
-import { InstrumentsContext } from "../context/instruments";
+import Form from "./Form";
+import FormItem from "./FormItem";
 
 const formFields = {message: "", status: "pending", pay: "", userInstrumentId: "", instrumentId: ""};
 
