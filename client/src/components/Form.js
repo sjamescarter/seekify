@@ -37,9 +37,10 @@ const Submit = styled.input`
     font: inherit;
     font-size: 1.3em;
     font-weight: 800;
-    opacity: .8;
+    opacity: 1;
     &:hover {
-        opacity: 1;
+        opacity: .8;
+        cursor: pointer;
     }
 `
 
