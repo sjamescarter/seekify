@@ -61,7 +61,7 @@ function Landing() {
                         onChange={onChange} 
                     />
                 </FormItem>
-                <FormItem icon='password'>
+                <FormItem icon='lock'>
                     <Input 
                         type='password' 
                         name='password'
@@ -72,7 +72,7 @@ function Landing() {
                 </FormItem>
                 {
                     showSignUp 
-                    ? <FormItem icon='password'>
+                    ? <FormItem icon='lock'>
                         <Input 
                             type='password' 
                             name='passwordConfirmation'
