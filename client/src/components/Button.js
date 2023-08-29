@@ -13,11 +13,15 @@ const secondary = {
 const StyledButton = styled.button`
     border: none;
     border-radius: 10px;
+    display: grid;
+    grid-template-columns: 35px 1fr;
+    align-items: center;
     padding: 8px;
+    margin: 10px;
     font-weight: 600;
-    opacity: .8;
+    opacity: 1;
     &:hover {
-        opacity: 1;
+        opacity: .8;
         cursor: pointer;
     }
 `
