@@ -17,7 +17,7 @@ function VenueSelect({ onChange, value, venues }) {
                         key={venue.id} 
                         value={parseInt(venue.id, 10)}
                     >
-                        {venue.name} | {venue.city}, {venue.state}
+                        {venue.name} :: {venue.city}, {venue.state}
                     </option>
                 )}
             </Select>
