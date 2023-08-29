@@ -24,8 +24,10 @@ function Dashboard() {
         <Grid>
             <h1>Dashboard</h1>
             <h2>Welcome back, {user.name}</h2>
-            <Button onClick={() => navigate('/events/new')}>Create Event</Button>
-            <Button onClick={() => navigate('/instruments/new')}>Add Instrument</Button>
+            <Button onClick={() => navigate('/events/new')}>
+                <span class="material-symbols-rounded">calendar_add_on</span>
+                Create Event
+            </Button>
             <Container>
                 <h2>Events</h2>
                 <ul>
