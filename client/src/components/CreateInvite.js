@@ -42,9 +42,16 @@ function CreateInvite({ event, setInvite }) {
         .then(r => {
             if(r.ok) {
                 r.json().then(invite => {
-                    setUser({...user, events: [...user.events.map(e => 
-                        e.id === event.id ? {...e, roles: [...e.roles, invite]} : e
-                    )]});
+                    setUser({
+                        ...user, 
+                        events: [
+                            ...user.events.map(e => 
+                                e.id === event.id 
+                                    ? {...e, roles: [...e.roles, invite]} 
+                                    : e
+                                )
+                        ]
+                    });
                     setInvite();
                 });
             } else {
