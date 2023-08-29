@@ -1,4 +1,5 @@
 import { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../context/user';
 import { abc, addS, experienceLevels, skillLevels, handleChange } from './utilities';
 import { Select } from '../styles';
@@ -17,6 +18,8 @@ function AddInstrument() {
     // State
     const [form, setForm] = useState(formFields);
     const [errors, setErrors] = useState([]);
+
+    const navigate = useNavigate();
 
     // Handlers
     const onChange = (e) => handleChange(e, form, setForm);
@@ -37,8 +40,14 @@ function AddInstrument() {
         })
         .then(r => {
             if(r.ok) {
-                r.json().then(userInstrument => setUser({...user, user_instruments: [...user.user_instruments, userInstrument]}));
-                setForm(formFields);
+                r.json().then(userInstrument => setUser({
+                    ...user, 
+                    user_instruments: [
+                        ...user.user_instruments, 
+                        userInstrument
+                    ]
+                }));
+                navigate('/profile');
             } else {
                 r.json().then(err => setErrors(err.errors));
             }
@@ -46,7 +55,7 @@ function AddInstrument() {
     }
 
     if(form.instrumentId === "new") return <CreateInstrument state={form} setState={setForm} />
-console.log(form);
+
     return (
             <Form 
                 title='Add Instrument'
