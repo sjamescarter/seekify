@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { UserContext } from '../context/user';
+import { VenuesContext } from '../context/venues';
 import { Input, Select } from '../styles'
 import { camelToTitle, handleImgSubmit, handleChange, states } from './utilities';
 import Form from './Form';
@@ -10,7 +10,7 @@ const formFields = { name: "", streetAddress: "", city: "", state: "" };
 
 function CreateVenue({ state, setState }) {
     // Context
-    const { venues, setVenues } = useContext(UserContext);
+    const { venues, setVenues } = useContext(VenuesContext);
 
     // State
     const [form, setForm] = useState(formFields);
@@ -47,6 +47,7 @@ function CreateVenue({ state, setState }) {
                     placeholder='Name' 
                     value={form.name} 
                     onChange={onChange} 
+                    autoFocus
                 />
             </FormItem>
             <FormItem icon='location_on'>
