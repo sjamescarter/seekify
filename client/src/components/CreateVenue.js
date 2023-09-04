@@ -1,44 +1,47 @@
 import { useContext, useState } from 'react';
 import { VenuesContext } from '../context/venues';
 import { Input, Select } from '../styles'
-import { camelToTitle, handleImgSubmit, handleChange, states } from './utilities';
+import { camelToTitle, handleImgSubmit, handleChange, states, handleModal } from './utilities';
 import Form from './Form';
 import FormItem from './FormItem';
 import ImgUploader from './ImgUploader';
 
 const formFields = { name: "", streetAddress: "", city: "", state: "" };
 
-function CreateVenue({ state, setState }) {
+function CreateVenue({ state, setState, handleCancel }) {
     // Context
     const { venues, setVenues } = useContext(VenuesContext);
 
     // State
     const [form, setForm] = useState(formFields);
     const [img, setImg] = useState();
-    const [errors, setErrors] = useState([]);
+    const [errors, setErrors] = useState();
 
     // Const
     const callback = (data) => { // This is the onSubmit callback
         setVenues([ ...venues, data ]);
-        handleVenueChange(data.id);
+        setState({ ...state, venueId: data.id });
         setForm(formFields);
         setImg();
+        handleModal('createVenue');
     };
     const endpoint = 'venues';
     const imgLabel = 'logo';
 
     // Handlers
-    const onChange = (e) => handleChange(e, form, setForm);
-    const handleCancel = () => handleVenueChange("");
-    const handleVenueChange = (id) => setState({ ...state, venueId: id }); 
+    const onChange = (e) => handleChange(e, form, setForm); 
     const onSubmit = (e) => handleImgSubmit(e, endpoint, setErrors, form, imgLabel, img, callback);
-
+    const onCancel = () => {
+        setErrors();
+        handleCancel();
+    }
+    
     return (
         <Form 
             title='Add Church'
             onSubmit={onSubmit}
             errors={errors}
-            handleCancel={handleCancel}
+            handleCancel={onCancel}
         >
             <FormItem icon='church'>
                 <Input 
