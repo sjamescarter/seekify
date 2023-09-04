@@ -12,29 +12,36 @@ function CreateInvite({ event, setInvite }) {
     // Context
     const { user, setUser } = useContext(UserContext);
     const { instruments } = useContext(InstrumentsContext);
-
+    
     // State
-    const [form, setForm] = useState({...formFields, eventId: event.id});
+    const [form, setForm] = useState(formFields);
     const [search, setSearch] = useState()
     const [errors, setErrors] = useState();
-
+    
     const title = `Invite for ${event.name}`;
     // Handlers
     const onChange = (e) => handleChange(e, form, setForm);
+    
+    const resetForm = () => { 
+        setForm(formFields); 
+        setInvite();
+        setErrors(); 
+    }
+    
     const handleSearch = (e) => {
         const value = e.target.value
         setSearch(value);
         setForm({...form, instrumentId: value, userInstrumentId: ""});
     }
-
+    
     function handleSubmit(e) {
         e.preventDefault();
         setErrors([]);
-
+        
         const invite = new FormData();
         Object.keys(form).map(key => invite.append(camelToSnake(key), form[key]));
-
-        fetch('/invites', {
+        
+        fetch(`/events/${event.id}/invites`, {
             method: "POST",
             body: invite
         })
@@ -46,23 +53,24 @@ function CreateInvite({ event, setInvite }) {
                         events: [
                             ...user.events.map(e => 
                                 e.id === event.id 
-                                    ? {...e, roles: [...e.roles, invite]} 
-                                    : e
+                                ? {...e, roles: [...e.roles, invite]} 
+                                : e
                                 )
-                        ]
+                            ]
+                        });
+                        resetForm()
                     });
-                    setInvite();
-                });
-            } else {
-                r.json().then(err => setErrors(err.errors));
-            }
-        })
-    } 
-
+                } else {
+                    r.json().then(err => setErrors(err.errors));
+                }
+            })
+        } 
+        
     if(!instruments) return <h1>Loading...</h1>
+    const filteredInstruments = [...instruments].filter(i => i.musicians.length !== 0);
 
     return (
-        <Form title={title} onSubmit={handleSubmit} errors={errors} handleCancel={() => setInvite()}>
+        <Form title={title} onSubmit={handleSubmit} errors={errors} handleCancel={resetForm}>
             <FormItem icon='piano'>
                 <Select 
                     name="instrumentId" 
@@ -70,7 +78,7 @@ function CreateInvite({ event, setInvite }) {
                     onChange={handleSearch}
                 >
                     <option>Select Instrument</option>
-                    { abc(instruments).map(i => 
+                    { abc(filteredInstruments).map(i => 
                         <option 
                             key={i.id} 
                             value={i.id}
@@ -79,10 +87,20 @@ function CreateInvite({ event, setInvite }) {
                         </option>) 
                     }
                 </Select>
+                <span className='material-symbols-rounded' style={{color: "#8AA29E", margin: "0 5px"}}>paid</span>
+                <Input 
+                    type="number" 
+                    name="pay"
+                    min="0" 
+                    placeholder="Pay (optional)" 
+                    value={form.pay} 
+                    onChange={onChange} 
+                />
             </FormItem>
             <FormItem icon='person'>
                 <Select 
                     name="userInstrumentId" 
+                    style={{width: "100%"}}
                     value={form.userInstrumentId} 
                     onChange={onChange}
                 >
@@ -100,15 +118,6 @@ function CreateInvite({ event, setInvite }) {
                         : null 
                     }
                 </Select>
-            </FormItem>
-            <FormItem icon='paid'>
-                <Input 
-                    type="number" 
-                    name="pay" 
-                    placeholder="Pay optional" 
-                    value={form.pay} 
-                    onChange={onChange} 
-                />
             </FormItem>
             <FormItem icon='description'>
                 <TextArea 

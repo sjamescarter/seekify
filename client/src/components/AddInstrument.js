@@ -1,12 +1,13 @@
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../context/user';
-import { abc, addS, experienceLevels, skillLevels, handleChange } from './utilities';
+import { abc, addS, experienceLevels, skillLevels, handleChange, handleModal } from './utilities';
 import { Select } from '../styles';
 import Form from './Form';
 import CreateInstrument from './CreateInstrument';
 import FormItem from './FormItem';
 import { InstrumentsContext } from '../context/instruments';
+import Modal from './Modal';
 
 const formFields = { instrumentId: "", skill: "", experience: "" }
 
@@ -23,6 +24,10 @@ function AddInstrument() {
 
     // Handlers
     const onChange = (e) => handleChange(e, form, setForm);
+    const handleCancel = () => {
+        setForm({...form, instrumentId: ""});
+        handleModal('createInstrument');
+    }
     function handleSubmit(e){
         e.preventDefault();
         setErrors();
@@ -54,14 +59,17 @@ function AddInstrument() {
         })
     }
 
-    if(form.instrumentId === "new") return <CreateInstrument state={form} setState={setForm} />
+    if(form.instrumentId === "new") {
+        handleModal('createInstrument', 'open');
+    }
 
     return (
+        <>
             <Form 
                 title='Add Instrument'
                 onSubmit={handleSubmit} 
                 errors={errors}
-            >
+                >
                 <FormItem icon='piano'>
                     <Select name="instrumentId" value={form.instrumentId} onChange={onChange}>
                         <option>Select Instrument</option>
@@ -82,6 +90,10 @@ function AddInstrument() {
                     </Select>
                 </FormItem>
             </Form>
+            <Modal id="createInstrument">
+                <CreateInstrument state={form} setState={setForm} handleCancel={handleCancel} />
+            </Modal>
+        </>
     );
 }
 

@@ -1,13 +1,13 @@
 import { useContext, useState } from "react";
 import { InstrumentsContext } from "../context/instruments";
 import { Input } from '../styles'
-import { handleChange } from './utilities';
+import { handleChange, handleModal } from './utilities';
 import Form from "./Form";
 import FormItem from "./FormItem";
 
 const formFields = { name: "" };
 
-function CreateInstrument({state, setState}) {
+function CreateInstrument({ state, setState, handleCancel }) {
     // Context
     const { instruments, setInstruments } = useContext(InstrumentsContext);
 
@@ -17,7 +17,10 @@ function CreateInstrument({state, setState}) {
 
     // Handlers
     const onChange = (e) => handleChange(e, form, setForm);
-    const handleCancel = () => setState({...state, instrumentId: ""})
+    const onCancel = () => {
+        setErrors();
+        handleCancel();
+    }
     function handleSubmit(e) {
         e.preventDefault();
         setErrors([]);
@@ -35,6 +38,7 @@ function CreateInstrument({state, setState}) {
                     setInstruments([...instruments, data]);
                     setState({...state, instrumentId: data.id});
                     setForm(formFields);
+                    handleModal('createInstrument');
                 });
             } else {
                 r.json().then(err => setErrors(err.errors));
@@ -43,23 +47,23 @@ function CreateInstrument({state, setState}) {
     }
 
     return (
-            <Form 
-                title='Create Instrument' 
-                onSubmit={handleSubmit} 
-                errors={errors} 
-                handleCancel={handleCancel}
-            >
-                <FormItem icon='piano'>
-                    <Input 
-                        type="text" 
-                        name="name" 
-                        placeholder="Instrument Name" 
-                        value={form.name} 
-                        onChange={onChange} 
-                        autoFocus
-                    />
-                </FormItem>
-            </Form>
+        <Form 
+            title='Create Instrument' 
+            onSubmit={handleSubmit} 
+            errors={errors} 
+            handleCancel={onCancel}
+        >
+            <FormItem icon='piano'>
+                <Input 
+                    type="text" 
+                    name="name" 
+                    placeholder="Instrument Name" 
+                    value={form.name} 
+                    onChange={onChange} 
+                    autoFocus
+                />
+            </FormItem>
+        </Form>
     );
 }
 
