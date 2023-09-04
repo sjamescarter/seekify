@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import { MusiciansContext } from "./context/musicians";
 import { InstrumentsContext } from "./context/instruments";
@@ -14,6 +14,7 @@ import Dashboard from "./pages/Dashboard";
 import { get } from "./components/fetch";
 import AddInstrument from "./components/AddInstrument";
 import People from "./pages/People";
+import Events from "./pages/Events";
 
 function App() {
   // Context
@@ -54,7 +55,7 @@ function App() {
       <Container>
         <Routes>
           <Route path="/" element={<Dashboard />} />
-          <Route path="/events" element={<h1>Events</h1>} />
+          <Route path="/events" element={<Events />} />
           <Route path="/events/new" element={<CreateEvent />} />
           <Route path="/people" element={<People />} />
           {/* <Route path="/people/:id" element={<h1>Person</h1>} /> */}
