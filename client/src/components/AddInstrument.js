@@ -18,7 +18,7 @@ function AddInstrument() {
 
     // State
     const [form, setForm] = useState(formFields);
-    const [errors, setErrors] = useState([]);
+    const [errors, setErrors] = useState();
 
     const navigate = useNavigate();
 

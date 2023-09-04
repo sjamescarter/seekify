@@ -23,7 +23,7 @@ function CreateInstrument({ state, setState, handleCancel }) {
     }
     function handleSubmit(e) {
         e.preventDefault();
-        setErrors([]);
+        setErrors();
 
         fetch('/instruments', {
             method: "POST",

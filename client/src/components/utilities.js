@@ -44,7 +44,7 @@ function handleChange(e, form, setForm) {
 
 function handleImgSubmit(e, endpoint, setErrors, form, imgLabel, img, callback) {
     e.preventDefault();
-    setErrors([]);
+    setErrors();
 
     const data = new FormData();
     Object.keys(form).map(key => data.append(camelToSnake(key), form[key]))
