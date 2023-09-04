@@ -25,7 +25,7 @@ function Dashboard() {
             <h1>Dashboard</h1>
             <h2>Welcome back, {user.name}</h2>
             <Button onClick={() => navigate('/events/new')}>
-                <span class="material-symbols-rounded">calendar_add_on</span>
+                <span className="material-symbols-rounded">calendar_add_on</span>
                 Create Event
             </Button>
             <Container>
