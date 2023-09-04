@@ -37,7 +37,7 @@ function Profile({ user }) {
                 <h3>Instruments</h3>
                 {abc(user_instruments).map(i => <li key={i.id}>{i.instrument} :: {i.skill} :: {i.experience} year{addS(i.experience)} experience</li>)}
                 <Button onClick={() => navigate('/profile/add-instrument')}>
-                    <span class="material-symbols-rounded">add_circle</span>
+                    <span className="material-symbols-rounded">add_circle</span>
                     Add Instrument
                 </Button>
             </Div>
