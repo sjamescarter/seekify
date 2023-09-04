@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Button from "./Button";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import CreateInvite from "./CreateInvite";
 import FormItem from "./FormItem";
 import { UserContext } from "../context/user";
@@ -9,17 +9,19 @@ import Warning from "./Warning";
 import { handleModal } from "./utilities";
 
 function EventCard({ event }) {
+    // Context
     const { user, setUser } = useContext(UserContext);
     const { name, time } = event;
+
+    // State
     const [expand, setExpand] = useState();
-    const [invite, setInvite] = useState();
+
     const inviteId = useRef();
 
-    useEffect(() => {
-        invite
-            ? handleModal('modal', 'open')
-            : handleModal('modal')
-    }, [invite])
+    // Handlers
+    function handleCancel() {
+        handleModal('createInvite');
+    }
 
     function confirmDelete(e) {
         inviteId.current = e.target.id;
@@ -28,7 +30,7 @@ function EventCard({ event }) {
 
     function handleDelete(e) {
         e.preventDefault();
-        document.getElementById('confirm').close();
+        handleModal('confirm');
         const id = inviteId.current
         fetch(`/events/${event.id}/invites/${id}`, {
             method: "DELETE",
@@ -60,7 +62,7 @@ function EventCard({ event }) {
                             <span className="material-symbols-rounded">edit</span>
                             Edit Event
                         </Button>
-                        <Button onClick={() => setInvite(!invite)}>
+                        <Button onClick={() => handleModal('createInvite', 'open')}>
                             <span className="material-symbols-rounded">person_add</span>
                             Invite Musician
                         </Button>
@@ -95,8 +97,8 @@ function EventCard({ event }) {
                 </>
                 : null
             }
-            <Modal id='modal'>
-                <CreateInvite event={event} setInvite={setInvite} />
+            <Modal id='createInvite'>
+                <CreateInvite event={event} handleCancel={handleCancel} />
             </Modal>
             <Modal id='confirm'>
                 <Warning onSubmit={handleDelete} />
@@ -105,6 +107,7 @@ function EventCard({ event }) {
     );
 }
 
+// Styles
 const Div = styled.div`
     background-color: #F1EDEE;
     border-radius: 10px;

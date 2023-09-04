@@ -2,13 +2,13 @@ import { useContext, useState } from "react";
 import { UserContext } from "../context/user";
 import { InstrumentsContext } from "../context/instruments";
 import { Input, Select, TextArea } from "../styles";
-import { abc, addS, camelToSnake, handleChange } from "./utilities";
+import { abc, addS, camelToSnake, handleChange, handleModal } from "./utilities";
 import Form from "./Form";
 import FormItem from "./FormItem";
 
 const formFields = {message: "", status: "pending", pay: "", userInstrumentId: "", instrumentId: ""};
 
-function CreateInvite({ event, setInvite }) {
+function CreateInvite({ event, handleCancel }) {
     // Context
     const { user, setUser } = useContext(UserContext);
     const { instruments } = useContext(InstrumentsContext);
@@ -24,7 +24,7 @@ function CreateInvite({ event, setInvite }) {
     
     const resetForm = () => { 
         setForm(formFields); 
-        setInvite();
+        handleCancel();
         setErrors(); 
     }
     
@@ -36,7 +36,7 @@ function CreateInvite({ event, setInvite }) {
     
     function handleSubmit(e) {
         e.preventDefault();
-        setErrors([]);
+        setErrors();
         
         const invite = new FormData();
         Object.keys(form).map(key => invite.append(camelToSnake(key), form[key]));
@@ -58,7 +58,8 @@ function CreateInvite({ event, setInvite }) {
                                 )
                             ]
                         });
-                        resetForm()
+                        resetForm();
+                        handleModal('createInvite');
                     });
                 } else {
                     r.json().then(err => setErrors(err.errors));
