@@ -19,7 +19,7 @@ const StyledForm = styled.form`
     border-radius: 1em;
     display: grid;
     max-width: 550px;
-    padding: 2em;
+    padding: 0 2em 2em;
     margin: auto;
     margin-top: 2em;
 `
@@ -37,9 +37,8 @@ const Submit = styled.input`
     font: inherit;
     font-size: 1.3em;
     font-weight: 800;
-    opacity: 1;
     &:hover {
-        opacity: .8;
+        background-color: #77928E;
         cursor: pointer;
     }
 `
