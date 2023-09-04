@@ -3,7 +3,7 @@ body {
   font-family: 'Mukta', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #E4DDDF;
+  background-color: #F1EDEE;
 }
 
 code {
@@ -14,8 +14,10 @@ code {
 /* 
 Initial Color Scheme
 Cambridge blue: #8AA29E
+  2 Shades Darker: #77928E
 Charcoal: #3D5467
 Dim gray: #686963
 Indian red: #DB5461
+  2 Shades Darker: #D43545
 White smoke: #F1EDEE
  */
