@@ -13,6 +13,13 @@ class InvitesController < ApplicationController
     render json: invite, status: :accepted
   end
 
+  def destroy
+    event = @current_user.events.find(params[:event_id])
+    invite = event.invites.find(params[:id].to_i) 
+    invite.destroy
+    head :no_content
+  end
+
   private
   def invite_params
     params.permit(:message, :pay, :status, :user_instrument_id)
