@@ -19,7 +19,7 @@ function Landing() {
     const onChange = (e) => handleChange(e, form, setForm);
     function handleSubmit(e) {
         e.preventDefault();
-        setErrors([]);
+        setErrors();
         const endpoint = showSignUp ? '/signup' : '/login';
 
         fetch(endpoint, {
@@ -44,7 +44,7 @@ function Landing() {
     return (
         <div>
             <Container>
-                <h1>Welcome to Seekify.io</h1>
+                <h1 style={{fontSize: "2.5em"}}>Welcome to Seekify.io</h1>
                 <p>A social network for worship leaders, musicians and technicians</p>
             </Container>
             <Form 
