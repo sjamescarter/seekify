@@ -30,15 +30,11 @@ function Dashboard() {
             </Button>
             <Container>
                 <h2>Events</h2>
-                <ul>
-                    {currentEvents ? chron(currentEvents).map(event => <EventCard key={event.id} event={event} />) : null}
-                </ul>
+                {currentEvents ? chron(currentEvents).map(event => <EventCard key={event.id} event={event} />) : null}
             </Container>
             <Container>
                 <h2>Invites</h2>
-                <ul>
-                    {user.user_instruments.map(instrument => instrument.invites.map(i => <InviteCard key={i.id} invite={i} />))}
-                </ul>
+                {user.user_instruments.map(instrument => instrument.invites.map(i => <InviteCard key={i.id} invite={i} />))}
             </Container>
         </Grid>
     );
