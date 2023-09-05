@@ -110,7 +110,6 @@ const Div = styled.div`
     margin: auto;
     margin-bottom: 15px;
     padding: 20px;
-    max-width: 500px;
     &:hover{
         cursor: pointer;
         box-shadow: 0 5px 16.83px 0.17px rgba(0, 0, 0, 0.25);
