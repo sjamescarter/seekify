@@ -2,11 +2,11 @@ import styled from "styled-components";
 import Button from "./Button";
 import { useContext, useRef, useState } from "react";
 import CreateInvite from "./CreateInvite";
-import FormItem from "./FormItem";
 import { UserContext } from "../context/user";
 import Modal from "./Modal";
 import Warning from "./Warning";
 import { handleModal } from "./utilities";
+import RoleCard from "./RoleCard";
 
 function EventCard({ event }) {
     // Context
@@ -69,30 +69,18 @@ function EventCard({ event }) {
                     </div>
                     <div>
                         <h3>Roles</h3>
-                        <ul>
-                            {event.roles.map(r => 
-                                <FormItem key={r.id} icon='pending'>
-                                    <div style={{
-                                        display: "grid", 
-                                        gridTemplateColumns: "1fr 1fr 1fr 30px", 
-                                        alignItems: "center", 
-                                        width: "100%"
-                                    }}>
-                                        <p>{r.status.toUpperCase()}</p>
-                                        <p>{r.user_instrument.name}</p>
-                                        <p>{r.role}</p>
-                                        <i 
-                                            id={r.id} 
-                                            className='material-symbols-rounded' 
-                                            style={{color: "#DB5461"}} 
-                                            onClick={confirmDelete}
-                                        >
-                                            delete
-                                        </i>
-                                    </div>
-                                </FormItem>
-                            )}
-                        </ul>
+                        <div style={{display: "grid", gridTemplateColumns: "1fr 1fr 1fr 30px", margin: "0 15px", borderBottom: "1px solid #686963"}}>
+                            <h4>Status</h4>
+                            <h4>Musician</h4>
+                            <h4>Instrument</h4>
+                        </div>
+                        {event.roles.map(musician => 
+                            <RoleCard 
+                                key={musician.id} 
+                                musician={musician} 
+                                onClick={confirmDelete} 
+                            />
+                        )}
                     </div>
                 </>
                 : null
@@ -117,7 +105,6 @@ const Div = styled.div`
     margin: auto;
     margin-bottom: 15px;
     padding: 20px;
-    max-width: 500px;
     &:hover{
         cursor: pointer;
         box-shadow: 0 5px 16.83px 0.17px rgba(0, 0, 0, 0.25);
