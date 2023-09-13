@@ -15,7 +15,7 @@ class EventsController < ApplicationController
     event = find_event
     event.update!(event_params)
     event.image.attach(event_params[:image]) unless event_params[:image].nil?
-    render json: event, status: :accepted
+    render json: event, include: ['roles', 'roles.user_instrument', 'venue'], status: :accepted
   end
 
   def destroy
