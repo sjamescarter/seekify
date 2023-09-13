@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { colors } from '../styles';
 
 function FormItem({ children, icon, style }) {
     return (
@@ -15,7 +16,7 @@ const Container = styled.div`
     margin-bottom: 12px;
 `
 const I = styled.i`
-    color: #8AA29E;
+    color: ${colors.main};
     margin: 0 5px;
 `
 export { I };

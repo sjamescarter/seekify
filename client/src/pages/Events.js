@@ -1,6 +1,5 @@
 import { useContext } from "react";
 import { MusiciansContext } from "../context/musicians";
-import styled from "styled-components";
 import PublicEventCard from "../components/PublicEventCard";
 
 function Events() {

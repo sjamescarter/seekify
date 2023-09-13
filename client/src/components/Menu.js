@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
+import { colors } from '../styles';
 
 function Menu({ name, handleMenu, handleLogout }) {
 
@@ -34,7 +35,7 @@ function Menu({ name, handleMenu, handleLogout }) {
 const Container = styled.div`
     background-color: white;
     box-shadow: 0 5px 16.83px 0.17px rgba(0, 0, 0, 0.25);
-    color: #686963;
+    color: ${colors.gray};
     border-radius: 10px;
     display: block;
     position: fixed;
@@ -44,7 +45,7 @@ const Container = styled.div`
 const StyledNavLink = styled(NavLink)`
     border: solid 2px white;
     border-radius: 10px;
-    color: #686963;
+    color: ${colors.gray};
     display: flex;
     text-decoration: none;
     padding: 4px 10px;
@@ -52,15 +53,15 @@ const StyledNavLink = styled(NavLink)`
     &:hover {
         cursor: pointer;
         color: white;
-        border: solid 2px #686963;
-        background-color: #686963;
+        border: solid 2px ${colors.gray};
+        background-color: ${colors.gray};
     }
 `
 const I = styled.i`
     padding: 0 10px 0 0;
 `
 const Line = styled.div`
-    border: solid .5px #686963;
+    border: solid .5px ${colors.gray};
     opacity: .5;
     margin: 10px 15px;
 `

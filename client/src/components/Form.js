@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import Button from './Button';
 import Errors from './Errors'
+import { colors } from '../styles';
 
 function Form({ title, children, onSubmit, errors, handleCancel }) {
     return(
@@ -24,11 +25,11 @@ const StyledForm = styled.form`
     margin-top: 2em;
 `
 const Title = styled.h1`
-    color: #3D5467;
+    color: ${colors.secondary};
     text-align: center;
 `
 const Submit = styled.input`
-    background-color: #8AA29E;
+    background-color: ${colors.main};
     color: white;
     border: none;
     border-radius: 10px;
@@ -38,7 +39,7 @@ const Submit = styled.input`
     font-size: 1.3em;
     font-weight: 800;
     &:hover {
-        background-color: #77928E;
+        background-color: ${colors.mainHover};
         cursor: pointer;
     }
 `

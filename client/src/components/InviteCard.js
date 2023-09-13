@@ -1,6 +1,7 @@
 import { useContext, useState } from 'react';
 import { UserContext } from '../context/user';
 import styled from 'styled-components';
+import { colors } from '../styles';
 
 function InviteCard({ invite }) {
     const { user, setUser } = useContext(UserContext)
@@ -47,7 +48,7 @@ function InviteCard({ invite }) {
             <Title 
                 style={{ 
                     gridColumn: "1 / span 2",
-                    color: status === "pending" ? "#3D5467" : status === "accepted" ? "#77928E" : "#DB5461"
+                    color: status === "pending" ? colors.secondary : status === "accepted" ? colors.main : colors.red
                 }} 
                 onClick={() => setShow(!show)}>{status.toUpperCase()} request for {time}
             </Title>
@@ -102,7 +103,7 @@ function InviteCard({ invite }) {
 }
 
 const Div = styled.div`
-    background-color: #F1EDEE;
+    background-color: ${colors.nuetral};
     border-radius: 10px;
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -126,7 +127,7 @@ const Item = styled.div`
 const Accept = styled.input`
     margin: auto;
     width: 100%;
-    background-color: #8AA29E;
+    background-color: ${colors.main};
     color: white;
     border: none;
     border-radius: 10px;
@@ -136,14 +137,14 @@ const Accept = styled.input`
     font-size: 1.3em;
     font-weight: 800;
     &:hover {
-        background-color: #77928E;
+        background-color: ${colors.mainHover};
         cursor: pointer;
     }
 `
 const Decline = styled.input`
     margin: auto;
     width: 100%;
-    background-color: #DB5461;
+    background-color: ${colors.red};
     color: white;
     border: none;
     border-radius: 10px;
@@ -153,7 +154,7 @@ const Decline = styled.input`
     font-size: 1.3em;
     font-weight: 800;
     &:hover {
-        background-color: #D43545;
+        background-color: ${colors.redHover};
         cursor: pointer;
     }
 `

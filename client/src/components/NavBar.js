@@ -3,6 +3,7 @@ import { UserContext } from "../context/user";
 import styled from 'styled-components';
 import Menu from './Menu';
 import { NavLink } from 'react-router-dom';
+import { colors } from '../styles';
 
 function NavBar({ handleLogout }) {
     // Context
@@ -42,7 +43,7 @@ function NavBar({ handleLogout }) {
 
 // Styles
 const Main = styled.div`
-    background-color: #8AA29E;
+    background-color: ${colors.main};
     color: white;
     position: fixed;
     top: 0;
@@ -66,18 +67,18 @@ const Search = styled.i`
     padding: 3px;
     border-radius: 1em;
     &.active {
-        background-color: #686963;
+        background-color: ${colors.gray};
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;        
         cursor: pointer;
     }
     &:hover {
-        background-color: #686963;
+        background-color: ${colors.gray};
         cursor: pointer;
     }
 `
 const SearchBar = styled.input`
-    border: 2px solid #686963;
+    border: 2px solid ${colors.gray};
     border-radius: 1em;
     padding: 5px 8px;
 `
@@ -89,14 +90,14 @@ const Avatar = styled.img`
     object-position: 50%;
     margin: auto;
     &.active {
-        border: 3px solid #686963;
+        border: 3px solid ${colors.gray};
     }
     &:hover {
-        border: 3px solid #686963;
+        border: 3px solid ${colors.gray};
     }
 `
 const StyledNavLink = styled(NavLink)`
-    border: 2px solid #8AA29E;
+    // border: 2px solid ${colors.main};
     color: white;
     text-decoration: none;
     font-weight: 400;

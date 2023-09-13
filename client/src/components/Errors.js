@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import FormItem from './FormItem';
+import { colors } from '../styles';
 
 function Errors({ errors }) {
     return(
@@ -9,7 +10,7 @@ function Errors({ errors }) {
                 <FormItem 
                     key={err} 
                     icon='error' 
-                    style={{color: "#DB5461"}}
+                    style={{color: colors.red}}
                 >
                     <Item>{err}</Item>
                 </FormItem>)
@@ -19,16 +20,16 @@ function Errors({ errors }) {
 }
 
 const List = styled.fieldset`
-    border: 2px solid #DB5461;
+    border: 2px solid ${colors.red};
     border-radius: 10px;
     background-color: #FBEEEF;
     font-weight: 600;
 `
 const Legend = styled.legend`
-    color: #DB5461;
+    color: ${colors.red};
 `
 const Item = styled.li`
-    color: #DB5461;
+    color: ${colors.red};
     list-style-type: none;
 `
 export default Errors;

@@ -8,9 +8,12 @@ function People() {
     if(!musicians) return <h1>Loading...</h1>
 
     return (
-        <div>
-            {musicians.map(person => person.profile ? <Profile key={person.id} user={person} /> : null)}
-        </div>
+        <>
+            {musicians.map(person => person.profile 
+                ? <Profile key={person.id} person={person} /> 
+                : null
+            )}
+        </>
     );
 }
 

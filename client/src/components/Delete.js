@@ -7,8 +7,12 @@ import Warning from "./Warning";
 
 function Delete({ id, endpoint, callback }) {
     // Handlers
-    const openModal = () => handleModal(id, true);
-    const closeModal = () => handleModal(id);
+    const openModal = () => {
+        handleModal(id, true);
+    }
+    const closeModal = () => {
+        handleModal(id);
+    }
 
     function handleDelete(e) {
         e.preventDefault();
@@ -37,7 +41,7 @@ function Delete({ id, endpoint, callback }) {
 
 // Styles
 const I = styled.i`
-    color: ${colors.main};
+    color: ${colors.gray};
     &:hover {
         color: ${colors.red};
         cursor: pointer;

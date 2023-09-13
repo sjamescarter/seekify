@@ -14,13 +14,13 @@ import Modal from "../components/Modal";
 
 const formFields = {name: "", date: "", rehearsal: "", public: "", description: "", venueId: ""}
 
-function CreateEvent() {
+function CreateEvent({ event=formFields }) {
     // Context
     const { user, setUser } = useContext(UserContext);
     const { venues } = useContext(VenuesContext);
 
     // State
-    const [form, setForm] = useState({...formFields, venueId: user.church.id});
+    const [form, setForm] = useState({...event, venueId: user.church.id});
     const [img, setImg] = useState();
     const [errors, setErrors] = useState();
 

@@ -1,5 +1,4 @@
 import { useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../context/user';
 import { abc, addS, experienceLevels, skillLevels, handleChange, handleModal } from './utilities';
 import { Select } from '../styles';
@@ -19,8 +18,6 @@ function AddInstrument() {
     // State
     const [form, setForm] = useState(formFields);
     const [errors, setErrors] = useState();
-
-    const navigate = useNavigate();
 
     // Handlers
     const onChange = (e) => handleChange(e, form, setForm);
@@ -52,7 +49,8 @@ function AddInstrument() {
                         userInstrument
                     ]
                 }));
-                navigate('/profile');
+                handleModal('addInstrument');
+                setForm(formFields);
             } else {
                 r.json().then(err => setErrors(err.errors));
             }
@@ -60,7 +58,7 @@ function AddInstrument() {
     }
 
     if(form.instrumentId === "new") {
-        handleModal('createInstrument', 'open');
+        handleModal('createInstrument', true);
     }
 
     return (
@@ -68,6 +66,10 @@ function AddInstrument() {
             <Form 
                 title='Add Instrument'
                 onSubmit={handleSubmit} 
+                handleCancel={() => {
+                    setForm(formFields);
+                    handleModal('addInstrument');
+                }}
                 errors={errors}
                 >
                 <FormItem icon='piano'>

@@ -13,7 +13,7 @@ function CreateInstrument({ state, setState, handleCancel }) {
 
     // State
     const [form, setForm] = useState(formFields);
-    const [errors, setErrors] = useState([]);
+    const [errors, setErrors] = useState();
 
     // Handlers
     const onChange = (e) => handleChange(e, form, setForm);

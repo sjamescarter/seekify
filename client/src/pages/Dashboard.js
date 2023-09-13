@@ -29,12 +29,27 @@ function Dashboard() {
                 Create Event
             </Button>
             <Container>
-                <h2>Events</h2>
-                {currentEvents ? chron(currentEvents).map(event => <EventCard key={event.id} event={event} />) : null}
+                <h2>Upcoming Events</h2>
+                {currentEvents 
+                    ? chron(currentEvents).map(event => 
+                        <EventCard 
+                            key={event.id} 
+                            event={event} 
+                        />
+                    ) 
+                    : null
+                }
             </Container>
             <Container>
                 <h2>Invites</h2>
-                {user.user_instruments.map(instrument => instrument.invites.map(i => <InviteCard key={i.id} invite={i} />))}
+                {user.user_instruments.map(instrument => 
+                    instrument.invites.map(i => 
+                        <InviteCard 
+                            key={i.id} 
+                            invite={i} 
+                        />
+                    )
+                )}
             </Container>
         </Grid>
     );
