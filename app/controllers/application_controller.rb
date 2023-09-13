@@ -21,7 +21,7 @@ class ApplicationController < ActionController::API
   def user_data
     [
         'church',
-        'events', 'events.roles', 'events.roles.user_instrument', 
+        'events', 'events.roles', 'events.roles.user_instrument', 'events.venue',
         'profile', 
         'user_instruments', 'user_instruments.invites', 'user_instruments.invites.event'
     ]
