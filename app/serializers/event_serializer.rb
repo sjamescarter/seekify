@@ -3,6 +3,11 @@ class EventSerializer < ActiveModel::Serializer
 
   attributes :id, :name, :date, :time, :rehearsal, :public, :description, :image, :location
   has_many :roles
+  belongs_to :venue
+
+  def date
+    object.date.to_fs(:fe)
+  end
 
   def location
     object.venue.name.upcase
@@ -17,7 +22,7 @@ class EventSerializer < ActiveModel::Serializer
   end
 
   def rehearsal
-    object.rehearsal.to_fs(:small) unless object.rehearsal.nil?
+    object.rehearsal.to_fs(:fe) unless object.rehearsal.nil?
   end
 
 end
