@@ -67,7 +67,7 @@ function handleImgSubmit(e, endpoint, setErrors, form, imgLabel, img, callback) 
 
 function handleModal(id, action) {
     const modal = document.getElementById(id);
-    action === 'open' ? modal.showModal() : modal.close();
+    action === true ? modal.showModal() : modal.close();
 }
 
 // Text Case Convertors
