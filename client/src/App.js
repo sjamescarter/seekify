@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate, useParams } from "react-router-dom";
 import { MusiciansContext } from "./context/musicians";
 import { InstrumentsContext } from "./context/instruments";
 import { UserContext } from "./context/user";
@@ -24,6 +24,7 @@ function App() {
   const { venues, setVenues } = useContext(VenuesContext);
 
   const navigate = useNavigate();
+  const params = useParams();
 
   useEffect(() => {
     get("/me", setUser);
@@ -58,10 +59,10 @@ function App() {
           <Route path="/events" element={<Events />} />
           <Route path="/events/new" element={<CreateEvent />} />
           <Route path="/people" element={<People />} />
-          {/* <Route path="/people/:id" element={<h1>Person</h1>} /> */}
-          <Route path="/profile" element={<Profile user={user} />} />
+          {/* <Route path="/people/:id" element={<Profile user={musicians.find(m => m.id === params.id)} />} /> */}
+          <Route path="/profile" element={<Profile person={user} />} />
           <Route path="/profile/add-instrument" element={<AddInstrument />} />
-          <Route path="/settings" element={<CreateProfile />} />
+          <Route path="/settings" element={<h1>Edit Profile</h1>} />
         </Routes>
       </Container>
     </div>
