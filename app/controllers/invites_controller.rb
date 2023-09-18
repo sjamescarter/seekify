@@ -9,7 +9,7 @@ class InvitesController < ApplicationController
 
   def update
     invite = @current_user.invites.find(params[:id])
-    invite.update!(invite_params)
+    invite.update!(params.permit(:status))
     render json: invite, status: :accepted
   end
 
