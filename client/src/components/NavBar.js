@@ -1,9 +1,9 @@
 import { useContext, useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import { UserContext } from "../context/user";
 import styled from 'styled-components';
-import Menu from './Menu';
-import { NavLink } from 'react-router-dom';
 import { colors } from '../styles';
+import Menu from './Menu';
 
 function NavBar({ handleLogout }) {
     // Context
@@ -35,7 +35,14 @@ function NavBar({ handleLogout }) {
                     loading="lazy" 
                     onClick={handleMenu} 
                 />
-            {showMenu ? <Menu name={user.name} handleMenu={handleMenu} handleLogout={handleLogout}/> : null}
+            {showMenu 
+                ? <Menu 
+                    name={user.name} 
+                    handleMenu={handleMenu} 
+                    handleLogout={handleLogout}
+                /> 
+                : null
+            }
             </NavGrid>
         </Main>
     );
