@@ -1,20 +1,19 @@
 import { useContext, useEffect } from "react";
-import { Routes, Route, useNavigate, useParams } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import { MusiciansContext } from "./context/musicians";
 import { InstrumentsContext } from "./context/instruments";
 import { UserContext } from "./context/user";
 import { VenuesContext } from "./context/venues";
 import styled from "styled-components";
+import { get } from "./components/fetch";
+import CreateEvent from "./pages/CreateEvent";
 import CreateProfile from "./pages/CreateProfile";
+import Dashboard from "./pages/Dashboard";
+import Events from "./pages/Events";
 import Landing from "./pages/Landing";
 import NavBar from "./components/NavBar";
-import Profile from "./pages/Profile";
-import CreateEvent from "./pages/CreateEvent";
-import Dashboard from "./pages/Dashboard";
-import { get } from "./components/fetch";
-import AddInstrument from "./components/AddInstrument";
 import People from "./pages/People";
-import Events from "./pages/Events";
+import Profile from "./pages/Profile";
 
 function App() {
   // Context
@@ -24,7 +23,6 @@ function App() {
   const { venues, setVenues } = useContext(VenuesContext);
 
   const navigate = useNavigate();
-  const params = useParams();
 
   useEffect(() => {
     get("/me", setUser);
@@ -58,10 +56,10 @@ function App() {
           <Route path="/" element={<Dashboard />} />
           <Route path="/events" element={<Events />} />
           <Route path="/events/new" element={<CreateEvent />} />
-          <Route path="/people" element={<People />} />
-          {/* <Route path="/people/:id" element={<Profile user={musicians.find(m => m.id === params.id)} />} /> */}
+          <Route path="/people" element={<People />}>
+            <Route path=":id" element={<People />} />
+          </Route>
           <Route path="/profile" element={<Profile person={user} />} />
-          <Route path="/profile/add-instrument" element={<AddInstrument />} />
           <Route path="/settings" element={<h1>Edit Profile</h1>} />
         </Routes>
       </Container>
