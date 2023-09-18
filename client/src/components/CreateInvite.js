@@ -1,31 +1,42 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../context/user";
 import { InstrumentsContext } from "../context/instruments";
-import { Input, Select, TextArea } from "../styles";
+import { Input, Select, TextArea, colors } from "../styles";
 import { abc, addS, camelToSnake, handleChange, handleModal } from "./utilities";
 import Form from "./Form";
 import FormItem from "./FormItem";
+import Icon from "./Icon";
 
-const formFields = {message: "", status: "pending", pay: "", userInstrumentId: "", instrumentId: ""};
+const formFields = {message: "", status: "pending", pay: "", instrumentId: "", userInstrumentId: ""};
 
-function CreateInvite({ event, handleCancel }) {
+function CreateInvite({ event, instrumentId="", userInstrumentId="", handleCancel }) {
+    useEffect(() => {
+        setSearch(instrumentId)
+    }, [])
+
     // Context
     const { user, setUser } = useContext(UserContext);
     const { instruments } = useContext(InstrumentsContext);
     
     // State
-    const [form, setForm] = useState(formFields);
+    const [form, setForm] = useState({
+        ...formFields, 
+        instrumentId: instrumentId, 
+        userInstrumentId: userInstrumentId
+    });
     const [search, setSearch] = useState()
     const [errors, setErrors] = useState();
-    
+
+    if(!event) return <h1>Loading...</h1>
     const title = `Invite for ${event.name}`;
+
     // Handlers
     const onChange = (e) => handleChange(e, form, setForm);
     
     const resetForm = () => { 
+        setErrors(); 
         setForm(formFields); 
         handleCancel();
-        setErrors(); 
     }
     
     const handleSearch = (e) => {
@@ -59,7 +70,7 @@ function CreateInvite({ event, handleCancel }) {
                             ]
                         });
                         resetForm();
-                        handleModal('createInvite');
+                        handleModal(`createInvite${event.id}`);
                     });
                 } else {
                     r.json().then(err => setErrors(err.errors));
@@ -88,7 +99,7 @@ function CreateInvite({ event, handleCancel }) {
                         </option>) 
                     }
                 </Select>
-                <span className='material-symbols-rounded' style={{color: "#8AA29E", margin: "0 5px"}}>paid</span>
+                <Icon style={{color: colors.main, margin: "0 6px"}}>paid</Icon>
                 <Input 
                     type="number" 
                     name="pay"
@@ -114,8 +125,8 @@ function CreateInvite({ event, handleCancel }) {
                                     value={m.id}
                                 >
                                     {m.name} | {m.skill} | {m.experience} year{addS(m.experience)} experience 
-                                </option>)
-                            ) 
+                                </option>
+                            )) 
                         : null 
                     }
                 </Select>
