@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { camelToTitle } from "./utilities";
 import DropZone from "./DropZone";
 import FormItem from "./FormItem";
+import { colors } from "../styles";
 
 function ImgUploader({ id, img, setImg }) {
     return (
@@ -24,12 +25,11 @@ const Div = styled.div`
     display: flex;
 `
 const I = styled.i`
-    color: #DB5461;
-    opacity: .8;
+    color: ${colors.gray};
     padding: 5px;
     &:hover {
         cursor: pointer;
-        opacity: 1;
+        color: ${colors.red};
     }
 `
 export default ImgUploader;
