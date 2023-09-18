@@ -1,10 +1,11 @@
 import styled from 'styled-components';
 import { colors } from '../styles';
+import Icon from './Icon';
 
-function FormItem({ children, icon, style }) {
+function FormItem({ children, icon, style={color: colors.main} }) {
     return (
         <Container>
-            <I className='material-symbols-rounded' style={style}>{icon}</I>
+            <Icon style={style}>{icon}</Icon>
             {children}
         </Container>
     );
@@ -15,9 +16,4 @@ const Container = styled.div`
     align-items: center;
     margin-bottom: 12px;
 `
-const I = styled.i`
-    color: ${colors.main};
-    margin: 0 5px;
-`
-export { I };
 export default FormItem;
