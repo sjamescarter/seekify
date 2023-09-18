@@ -1,42 +1,72 @@
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "../context/user";
 import styled from "styled-components";
+import { TableRow, colors } from "../styles";
+import Delete from "./Delete";
+import { MusiciansContext } from "../context/musicians";
 
-function RoleCard({ musician, onClick }) {
+function RoleCard({ eventId, musician }) {
     const { id, status, role, user_instrument } = musician;
     const { name } = user_instrument
-    const color = status === "pending" ? "#3D5467" : status === "accepted" ? "#8AA29E" : "#DB5461";
+
+    // Context
+    const { user, setUser } = useContext(UserContext);
+    const { musicians } = useContext(MusiciansContext);
+
+    // Constants
+    const color = status === "pending" 
+        ? colors.secondary 
+        : status === "accepted" 
+            ? colors.main 
+            : colors.red;
     
+    const navigate = useNavigate();
+    const personId = musicians.find(musician => musician.name === name).id
+
+    // Handlers
+    function handleClick() {
+        navigate(`/people/${personId}`);
+    }
+
+    function handleDelete() {
+        setUser({
+            ...user,
+            events: user.events.map(evnt => 
+                evnt.id === eventId 
+                    ? {...evnt,
+                        roles: evnt.roles.filter(role => role.id !== parseInt(id))
+                    }
+                    : evnt
+            )
+        });
+    }
+
     return (
-        <Grid>
+        <TableRow>
             <Span style={{color: color}}>
                 <i className='material-symbols-rounded'>
-                    { status === "pending" ? "pending" : status === "accepted" ? "check_circle" : "cancel"}
+                    { status === "pending" 
+                        ? "pending" 
+                        : status === "accepted" 
+                        ? "check_circle" 
+                        : "cancel"
+                    }
                 </i>
                 {status.toUpperCase()}
             </Span>
-            <p>{name}</p>
+            <P onClick={handleClick}>{name}</P>
             <p>{role}</p>
             <Delete 
-                id={id} 
-                className='material-symbols-rounded'  
-                onClick={onClick}
-            >
-                delete
-            </Delete>
-        </Grid>
+                id={`inviteDelete${id}`} 
+                endpoint={`/events/${eventId}/invites/${id}`} 
+                callback={handleDelete}
+            />
+        </TableRow>
     );
 }
 
 // Styles
-const Grid = styled.div`
-    align-items: center;
-    border-bottom: .5px solid #686963;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 30px;
-    padding: 0 15px;
-    // &:hover {
-    //     background-color: #E4DDDF;
-    // }
-`
 const Span = styled.span`
     align-items: center;
     display: grid;
@@ -44,11 +74,11 @@ const Span = styled.span`
     gap: 5px;
     font-weight: 600;
 `
-const Delete = styled.i`
-    color: #8AA29E;
+const P = styled.p`
     &:hover {
-        color: #DB5461;
+        color: ${colors.secondary};
         cursor: pointer;
+        text-decoration: underline;
     }
 `
 export default RoleCard;
