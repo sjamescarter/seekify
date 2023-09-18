@@ -1,113 +1,78 @@
-import styled from "styled-components";
-import Button from "./Button";
-import { useContext, useRef, useState } from "react";
-import CreateInvite from "./CreateInvite";
+import { useContext, useState } from "react";
 import { UserContext } from "../context/user";
-import Modal from "./Modal";
-import Warning from "./Warning";
+import styled from "styled-components";
+import { colors } from "../styles";
 import { handleModal } from "./utilities";
-import RoleCard from "./RoleCard";
+import Button from "../styles/Button";
+import CreateInvite from "./CreateInvite";
+import Delete from "./Delete";
+import Modal from "./Modal";
+import UpdateEvent from "./UpdateEvent";
+import PublicEventCard from "./PublicEventCard";
+import Roles from "./Roles";
+import Icon from "./Icon";
 
 function EventCard({ event }) {
     // Context
     const { user, setUser } = useContext(UserContext);
-    const { name, time } = event;
+    const { id } = event;
 
     // State
     const [expand, setExpand] = useState();
 
-    const inviteId = useRef();
-
     // Handlers
-    function handleCancel() {
-        handleModal('createInvite');
-    }
-
-    function confirmDelete(e) {
-        inviteId.current = e.target.id;
-        handleModal('confirm', 'open');
-    }
-
-    function handleDelete(e) {
-        e.preventDefault();
-        handleModal('confirm');
-        const id = inviteId.current
-        fetch(`/events/${event.id}/invites/${id}`, {
-            method: "DELETE",
-        })
-        .then(r => {
-            if(r.ok) {
-                setUser({
-                    ...user,
-                    events: user.events.map(evnt => 
-                        evnt.id === event.id 
-                            ? {...evnt,
-                                roles: evnt.roles.filter(role => role.id !== parseInt(id))
-                            }
-                            : evnt
-                    )
-                });
-            }
+    function handleDelete() {
+        setUser({
+            ...user,
+            events: user.events.filter(evnt => evnt.id !== parseInt(id))
         });
     }
 
     return(
-        <Div>
-            <h2 onClick={() => setExpand(!expand)}>{name}</h2>
-            <small>{time}</small>
+        <PublicEventCard event={event} onClick={() => setExpand(!expand)}>
+            <Delete 
+                id={`deleteEvent${id}`} 
+                endpoint={`/events/${id}`} 
+                callback={handleDelete}
+            />
             { expand
-                ? <>
-                    <div>
-                        <Button>
-                            <span className="material-symbols-rounded">edit</span>
+                ? <Container>
+                    <Grid>
+                        <Button onClick={() => handleModal(`updateEvent${id}`, true)}>
+                            <Icon>edit</Icon>
                             Edit Event
                         </Button>
-                        <Button onClick={() => handleModal('createInvite', 'open')}>
-                            <span className="material-symbols-rounded">person_add</span>
+                        <Button onClick={() => handleModal(`createInvite${id}`, true)}>
+                            <Icon>person_add</Icon>
                             Invite Musician
                         </Button>
-                    </div>
-                    <div>
-                        <h3>Roles</h3>
-                        <div style={{display: "grid", gridTemplateColumns: "1fr 1fr 1fr 30px", margin: "0 15px", borderBottom: "1px solid #686963"}}>
-                            <h4>Status</h4>
-                            <h4>Musician</h4>
-                            <h4>Instrument</h4>
-                        </div>
-                        {event.roles.map(musician => 
-                            <RoleCard 
-                                key={musician.id} 
-                                musician={musician} 
-                                onClick={confirmDelete} 
-                            />
-                        )}
-                    </div>
-                </>
+                    </Grid>
+                    <Roles event={event} />
+                </Container>
                 : null
             }
-            <Modal id='createInvite'>
-                <CreateInvite event={event} handleCancel={handleCancel} />
+            <Modal id={`updateEvent${id}`}>
+                <UpdateEvent event={event} handleCancel={() => handleModal(`updateEvent${id}`)} />
             </Modal>
-            <Modal id='confirm'>
-                <Warning onSubmit={handleDelete} />
+            <Modal id={`createInvite${id}`}>
+                <CreateInvite event={event} handleCancel={() => handleModal(`createInvite${id}`)} />
             </Modal>
-        </Div>
+        </PublicEventCard>                      
     );
 }
 
 // Styles
-const Div = styled.div`
-    background-color: #F1EDEE;
-    border-radius: 10px;
-    display: grid;
-    grid-template-rows: 40px 30px 1fr;
-    gap: 10px;
-    margin: auto;
+const Container = styled.div`
+    background-color: ${colors.nuetral};
+    margin: 2px 0 0 30px;
     margin-bottom: 15px;
+    border-bottom-right-radius: 12px;
     padding: 20px;
-    &:hover{
-        cursor: pointer;
-        box-shadow: 0 5px 16.83px 0.17px rgba(0, 0, 0, 0.25);
-    }
+`
+const Grid = styled.div`
+    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 30px;
 `
 export default EventCard;
