@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Button from "./Button";
+import Button from "../styles/Button";
 import { colors } from "../styles";
 
 function Warning({ onSubmit, handleCancel }) {
@@ -32,7 +32,6 @@ const H2 = styled.h2`
     font-size: 40px;
     margin-bottom: 0px;
     padding: 0 1em;
-    // border-bottom: .5px solid #686963;
 `
 const P = styled.p`
     padding: 0 10px 20px;

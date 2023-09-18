@@ -1,11 +1,12 @@
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/user";
 import styled from "styled-components";
 import { chron } from "../components/utilities";
+import Button from "../styles/Button";
 import EventCard from "../components/EventCard";
 import InviteCard from "../components/InviteCard";
-import Button from "../components/Button";
-import { useNavigate } from "react-router-dom";
+import Icon from "../components/Icon";
 
 function Dashboard() {
     // Context
@@ -22,12 +23,13 @@ function Dashboard() {
 
     return (
         <Grid>
-            <h1>Dashboard</h1>
-            <h2>Welcome back, {user.name}</h2>
-            <Button onClick={() => navigate('/events/new')}>
-                <span className="material-symbols-rounded">calendar_add_on</span>
-                Create Event
-            </Button>
+            <Container style={{display: "flex", alignItems: "center", justifyContent: "space-between"}}>
+                <h1>Dashboard</h1>
+                <Button onClick={() => navigate('/events/new')} style={{height: "3em"}}>
+                    <Icon>calendar_add_on</Icon>
+                    Create Event
+                </Button>
+            </Container>
             <Container>
                 <h2>Upcoming Events</h2>
                 {currentEvents 
@@ -58,6 +60,7 @@ function Dashboard() {
 const Grid = styled.div`
     background-color: white;
     border-radius: 10px;
+    // display: flex;
     max-width: 800px;
     min-width: 500px;
     margin: auto;

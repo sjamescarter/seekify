@@ -20,9 +20,11 @@ function NavBar({ handleLogout }) {
         <Main>
             <NavGrid>
                 <Logo>Seekify.io</Logo>
-                <StyledNavLink to="/">Dash</StyledNavLink>
-                <StyledNavLink to="/events">Events</StyledNavLink>
-                <StyledNavLink to="/people">People</StyledNavLink>
+                <div>
+                    <StyledNavLink to="/">Dashboard</StyledNavLink>
+                    <StyledNavLink to="/events">Events</StyledNavLink>
+                    <StyledNavLink to="/people">People</StyledNavLink>
+                </div>
                 {search ? <SearchBar type='text' placeholder='Search Bar' /> : <div></div>}
                 <Search className="material-symbols-rounded" onClick={() => setSearch(!search)}>search</Search>
                 <Avatar 
@@ -60,7 +62,7 @@ const Main = styled.div`
 const NavGrid = styled.div`
     align-items: center;
     display: grid;
-    grid-template-columns: 160px 60px 60px 60px 4fr 30px 50px;
+    grid-template-columns: 160px auto 1fr 30px 50px;
     grid-template-rows: 50px;
     padding: 10px;
     // max-width: 800px;
@@ -104,12 +106,11 @@ const Avatar = styled.img`
     }
 `
 const StyledNavLink = styled(NavLink)`
-    // border: 2px solid ${colors.main};
     color: white;
     text-decoration: none;
     font-weight: 400;
     text-align: center;
-    margin: auto;
+    margin: 0 15px;
     &.active {
         border-bottom: 2px solid white;
         font-weight: 600;

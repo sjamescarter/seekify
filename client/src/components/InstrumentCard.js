@@ -1,48 +1,63 @@
-import styled from "styled-components";
-import Button from "./Button";
-import { addS } from "./utilities";
 import { useContext } from "react";
 import { UserContext } from "../context/user";
+import styled from "styled-components";
+import { TableRow, colors } from "../styles";
+import { addS, camelToTitle, handleModal } from "./utilities";
+import Delete from "./Delete";
+import FindEvent from "./FindEvent";
+import Modal from "./Modal";
 
 function InstrumentCard({ userInstrument }) {
     const { id, name, instrument, skill, experience } = userInstrument
+    const modalId = `findEvent${id}`;
 
     // Context
-    const { user } = useContext(UserContext);
+    const { user, setUser } = useContext(UserContext);
     const loggedIn = user.user_instruments.find( u => u.id === id ? true : false)
-console.log(loggedIn)
+
+    // Handlers
+    function handleState() {
+        setUser({
+            ...user,
+            user_instruments: user.user_instruments.filter(u => u.id !== id)
+        });
+    }
+
     return(
-        <Grid>
+        <TableRow>
             <p>{instrument}</p>
-            <p>{skill}</p>
-            <p>{experience} year{addS(experience)} experience</p>
+            <p>{camelToTitle(skill)}</p>
+            <p>{experience} Year{addS(experience)} Experience</p>
             { loggedIn
-                ? <Button>
-                    <span 
-                        className='material-symbols-rounded' 
-                    >
-                        delete
-                    </span>
-                </Button>
-                : <Button
+                ? <Delete 
+                    id={`instrumentDelete${id}`} 
+                    endpoint={`user_instruments/${id}`} 
+                    callback={handleState} 
+                />
+                :<I 
+                    onClick={() => handleModal(modalId, true)}
                     title={`Invite ${name.split(" ")[0]} to play ${instrument}`}
+                    className='material-symbols-rounded' 
                 >
-                    <span 
-                        className='material-symbols-rounded' 
-                    >
-                        person_add
-                    </span>
-                </Button>
+                    person_add
+                </I>
             }
-        </Grid>
+            <Modal id={modalId}>
+                <FindEvent 
+                    userInstrument={userInstrument} 
+                    handleCancel={() => handleModal(modalId)} 
+                />
+            </Modal>
+        </TableRow>
     );
 }
 
 // Styles
-const Grid = styled.li`
-    border-bottom: .5px solid #686963;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 60px;
+const I = styled.i`
+    color: ${colors.gray};
+    &:hover {
+        color: ${colors.main};
+        cursor: pointer;
+    }
 `
-
 export default InstrumentCard;

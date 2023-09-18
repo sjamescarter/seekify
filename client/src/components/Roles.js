@@ -2,6 +2,8 @@ import { TableHeader, colors } from "../styles";
 import RoleCard from "./RoleCard";
 
 function Roles({ event }) {
+    const ordered = event.roles
+    console.log(ordered)
     return(
         <div>
             <h2 style={{color: colors.secondary}}>Roles</h2>

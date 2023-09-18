@@ -1,7 +1,7 @@
 import { TableHeader, TableRow } from "../styles";
 import { abc, handleModal } from "./utilities";
 import AddInstrument from "./AddInstrument";
-import Button from "./Button";
+import Button from "../styles/Button";
 import InstrumentCard from "./InstrumentCard";
 import Modal from "./Modal";
 
