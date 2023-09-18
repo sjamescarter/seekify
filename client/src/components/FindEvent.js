@@ -62,7 +62,10 @@ function FindEvent({ userInstrument, handleCancel }) {
                     event={event} 
                     instrumentId={instrumentId}
                     userInstrumentId={id} 
-                    handleCancel={() => handleModal(`createInvite${form.event}`)} 
+                    handleCancel={() => {
+                        handleModal(`createInvite${form.event}`);
+                        handleCancel();
+                    }} 
                 />
             </Modal>
         </>
