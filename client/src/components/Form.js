@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Button from './Button';
+import Button from '../styles/Button';
 import Errors from './Errors'
 import { colors } from '../styles';
 
@@ -9,7 +9,7 @@ function Form({ title, children, onSubmit, errors, handleCancel }) {
             <Title>{title}</Title>
             {children}
             <Submit type="submit" value='Submit' />
-            {handleCancel ? <Button onClick={handleCancel} alt='true'>Cancel</Button> : null}
+            {handleCancel ? <CancelBtn type="button" onClick={handleCancel}>Cancel</CancelBtn> : null}
             {errors ? <Errors errors={errors} /> : null}
         </StyledForm>
     );
@@ -43,5 +43,14 @@ const Submit = styled.input`
         cursor: pointer;
     }
 `
-
+const CancelBtn = styled(Button)`
+    color: ${colors.gray};
+    background-color: white;
+    padding: 1em 2em;
+    width: auto;
+    margin: auto;
+    &:hover {
+        background-color: ${colors.nuetral};
+    }
+`
 export default Form;
