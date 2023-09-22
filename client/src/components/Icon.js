@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-function Icon({ children, style }) {
+function Icon({ children, style, title }) {
     return (
-        <I className='material-symbols-rounded' style={style}>{children}</I>
+        <I title={title} className='material-symbols-rounded' style={style}>{children}</I>
     );
 }
 const I = styled.i`
