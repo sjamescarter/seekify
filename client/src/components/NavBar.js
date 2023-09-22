@@ -10,7 +10,7 @@ function NavBar({ handleLogout }) {
     const { user } = useContext(UserContext);
 
     // State
-    const [search, setSearch] = useState(0);
+    // const [search, setSearch] = useState(0);
     const [showMenu, setShowMenu] = useState(0);
 
     // Handlers
@@ -25,8 +25,8 @@ function NavBar({ handleLogout }) {
                     <StyledNavLink to="/events">Events</StyledNavLink>
                     <StyledNavLink to="/people">People</StyledNavLink>
                 </div>
-                {search ? <SearchBar type='text' placeholder='Search Bar' /> : <div></div>}
-                <Search className="material-symbols-rounded" onClick={() => setSearch(!search)}>search</Search>
+                {/* {search ? <SearchBar type='text' placeholder='Search Bar' /> : <div></div>} */}
+                {/* <Search className="material-symbols-rounded" onClick={() => setSearch(!search)}>search</Search> */}
                 <Avatar 
                     className={showMenu ? "active" : null}
                     src={user.profile.avatar 
@@ -39,6 +39,7 @@ function NavBar({ handleLogout }) {
                 />
             {showMenu 
                 ? <Menu 
+                    id={user.id}
                     name={user.name} 
                     handleMenu={handleMenu} 
                     handleLogout={handleLogout}
@@ -62,7 +63,7 @@ const Main = styled.div`
 const NavGrid = styled.div`
     align-items: center;
     display: grid;
-    grid-template-columns: 160px auto 1fr 30px 50px;
+    grid-template-columns: 160px auto 50px;
     grid-template-rows: 50px;
     padding: 10px;
     // max-width: 800px;
@@ -72,25 +73,25 @@ const NavGrid = styled.div`
 const Logo = styled.h1`
     // background-color: #3D5467;
 `
-const Search = styled.i`
-    padding: 3px;
-    border-radius: 1em;
-    &.active {
-        background-color: ${colors.gray};
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;        
-        cursor: pointer;
-    }
-    &:hover {
-        background-color: ${colors.gray};
-        cursor: pointer;
-    }
-`
-const SearchBar = styled.input`
-    border: 2px solid ${colors.gray};
-    border-radius: 1em;
-    padding: 5px 8px;
-`
+// const Search = styled.i`
+//     padding: 3px;
+//     border-radius: 1em;
+//     &.active {
+//         background-color: ${colors.gray};
+//         border-top-left-radius: 0;
+//         border-bottom-left-radius: 0;        
+//         cursor: pointer;
+//     }
+//     &:hover {
+//         background-color: ${colors.gray};
+//         cursor: pointer;
+//     }
+// `
+// const SearchBar = styled.input`
+//     border: 2px solid ${colors.gray};
+//     border-radius: 1em;
+//     padding: 5px 8px;
+// `
 const Avatar = styled.img`
     width: 30px;
     height: 30px;
