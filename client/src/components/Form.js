@@ -1,7 +1,6 @@
 import styled from 'styled-components';
-import Button from '../styles/Button';
+import { CancelBtn, colors } from '../styles';
 import Errors from './Errors'
-import { colors } from '../styles';
 
 function Form({ title, children, onSubmit, errors, handleCancel }) {
     return(
@@ -23,6 +22,7 @@ const StyledForm = styled.form`
     padding: 0 2em 2em;
     margin: auto;
     margin-top: 2em;
+    box-shadow: 0 5px 16.83px 0.17px rgba(0, 0, 0, 0.25);
 `
 const Title = styled.h1`
     color: ${colors.secondary};
@@ -41,16 +41,6 @@ const Submit = styled.input`
     &:hover {
         background-color: ${colors.mainHover};
         cursor: pointer;
-    }
-`
-const CancelBtn = styled(Button)`
-    color: ${colors.gray};
-    background-color: white;
-    padding: 1em 2em;
-    width: auto;
-    margin: auto;
-    &:hover {
-        background-color: ${colors.nuetral};
     }
 `
 export default Form;
