@@ -27,6 +27,14 @@ function chron(array) {
     });
 }
 
+function currentEvents(array) {
+    return [...array].filter(event => {
+        const today = Date.now()
+        const date = new Date(event.date)
+        return date > today
+    });
+}
+
 function addS(value) {
     return value === "<1" ? null : "s";
 }
@@ -83,4 +91,4 @@ function snakeToCamel(str) {
     return str.replace(/[_][a-z]/g, (g) => g.slice(-1).toUpperCase());
 }
 
-export { abc, addS, chron, handleChange, handleImgSubmit, handleModal, camelToSnake, camelToTitle, snakeToCamel };
+export { abc, addS, chron, currentEvents, handleChange, handleImgSubmit, handleModal, camelToSnake, camelToTitle, snakeToCamel };

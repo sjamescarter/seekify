@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { UserContext } from "../context/user";
 import { InstrumentsContext } from "../context/instruments";
 import { Select } from "../styles";
-import { handleChange, handleModal } from "./utilities";
+import { currentEvents, handleChange, handleModal } from "./utilities";
 import CreateInvite from "./CreateInvite";
 import Form from "./Form";
 import Modal from "./Modal";
@@ -20,6 +20,7 @@ function FindEvent({ userInstrument, handleCancel }) {
     // Constants
     const event = user.events.find(e => e.id === parseInt(form.event));
     const instrumentId = instruments.find(i => i.name === instrument).id;
+    const upcomingEvents = currentEvents(user.events);
 
     // Handlers
     const onChange = (e) => handleChange(e, form, setForm);
@@ -46,8 +47,7 @@ function FindEvent({ userInstrument, handleCancel }) {
                     onChange={onChange}
                 >
                     <option>Select Event</option>
-                    {/* <option>Create New Event</option> */}
-                    {user.events.map(event => 
+                    {upcomingEvents.map(event => 
                         <option 
                             key={event.id}
                             value={event.id}
