@@ -102,7 +102,7 @@ function UpdateEvent({ event }) {
                         />
                 </FormItem>
                 <FormItem icon="event_note">
-                    <label style={{width: '100%', margin: '5px', padding: '5px 10px'}}>Rehearsal</label>
+                    <p style={{width: '100%', margin: '5px', padding: '5px 10px'}}>Rehearsal</p>
                     <Input
                         type='datetime-local'
                         name='rehearsal'
@@ -120,21 +120,16 @@ function UpdateEvent({ event }) {
                         onChange={onChange}
                         />
                 </FormItem>
-                { form.public 
-                    ? <>
-                        <FormItem icon='description'>
-                            <TextArea 
-                                name='description' 
-                                placeholder='Give us all the details about your event...' 
-                                rows='5' 
-                                value={form.description} 
-                                onChange={onChange} 
-                                />
-                        </FormItem>
-                        <ImgUploader id={imgLabel} img={img} setImg={setImg} />
-                    </> 
-                    : null
-                }
+                <FormItem icon='description'>
+                    <TextArea 
+                        name='description' 
+                        placeholder='Give us all the details about your event...' 
+                        rows='5' 
+                        value={form.description} 
+                        onChange={onChange} 
+                        />
+                </FormItem>
+                <ImgUploader id={imgLabel} img={img} setImg={setImg} />
             </Form>
             <Modal id={`createVenue${id}`}>
                 <CreateVenue state={form} setState={setForm} handleCancel={handleCancel} />
