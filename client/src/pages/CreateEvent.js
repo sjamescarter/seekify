@@ -10,6 +10,7 @@ import FormItem from "../components/FormItem";
 import ImgUploader from "../components/ImgUploader";
 import VenueSelect from "../components/VenueSelect";
 import Modal from "../components/Modal";
+import { MusiciansContext } from "../context/musicians";
 
 
 const formFields = {name: "", date: "", rehearsal: "", public: "", description: "", venueId: ""}
@@ -17,6 +18,7 @@ const formFields = {name: "", date: "", rehearsal: "", public: "", description: 
 function CreateEvent({ event=formFields }) {
     // Context
     const { user, setUser } = useContext(UserContext);
+    const { musicians, setMusicians } = useContext(MusiciansContext);
     const { venues } = useContext(VenuesContext);
 
     // State
@@ -28,6 +30,16 @@ function CreateEvent({ event=formFields }) {
     const navigate = useNavigate();
     const callback = (event) => {
         setUser({...user, events: [...user.events, event]});
+        setMusicians([...musicians.map(m => m.id === user.id 
+            ? {
+                ...m,
+                events: [
+                    ...m.events,
+                    event
+                ]
+            }
+            : m
+        )])
         navigate('/');
     };
     const endpoint = 'events';
@@ -40,8 +52,6 @@ function CreateEvent({ event=formFields }) {
         handleModal('createVenue');
     }
     const onSubmit = (e) => handleImgSubmit(e, endpoint, setErrors, form, imgLabel, img, callback);
-
-console.log(form)
 
     if(form.venueId === "new") { 
         handleModal('createVenue', 'open')
@@ -89,21 +99,16 @@ console.log(form)
                         onChange={onChange}
                         />
                 </FormItem>
-                { form.public 
-                    ? <>
-                        <FormItem icon='description'>
-                            <TextArea 
-                                name='description' 
-                                placeholder='Give us all the details about your event...' 
-                                rows='5' 
-                                value={form.description} 
-                                onChange={onChange} 
-                                />
-                        </FormItem>
-                        <ImgUploader id={imgLabel} img={img} setImg={setImg} />
-                    </> 
-                    : null
-                }
+                <FormItem icon='description'>
+                    <TextArea 
+                        name='description' 
+                        placeholder='Give us all the details about your event...' 
+                        rows='5' 
+                        value={form.description} 
+                        onChange={onChange} 
+                        />
+                </FormItem>
+                <ImgUploader id={imgLabel} img={img} setImg={setImg} />
             </Form>
             <Modal id='createVenue'>
                 <CreateVenue state={form} setState={setForm} handleCancel={handleCancel} />

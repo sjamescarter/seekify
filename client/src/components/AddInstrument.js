@@ -1,12 +1,14 @@
 import { useContext, useState } from 'react';
 import { UserContext } from '../context/user';
-import { abc, addS, experienceLevels, skillLevels, handleChange, handleModal } from './utilities';
+import { InstrumentsContext } from '../context/instruments';
 import { Select } from '../styles';
+import { abc, addS, experienceLevels, skillLevels, handleChange, handleModal } from './utilities';
 import Form from './Form';
 import CreateInstrument from './CreateInstrument';
 import FormItem from './FormItem';
-import { InstrumentsContext } from '../context/instruments';
 import Modal from './Modal';
+import { styled } from 'styled-components';
+import { MusiciansContext } from '../context/musicians';
 
 const formFields = { instrumentId: "", skill: "", experience: "" }
 
@@ -14,6 +16,7 @@ function AddInstrument() {
     // Context
     const { user, setUser } = useContext(UserContext);
     const { instruments } = useContext(InstrumentsContext);
+    const { musicians, setMusicians } = useContext(MusiciansContext);
 
     // State
     const [form, setForm] = useState(formFields);
@@ -42,13 +45,27 @@ function AddInstrument() {
         })
         .then(r => {
             if(r.ok) {
-                r.json().then(userInstrument => setUser({
-                    ...user, 
-                    user_instruments: [
-                        ...user.user_instruments, 
-                        userInstrument
-                    ]
-                }));
+                r.json().then(userInstrument => {
+                    setUser({
+                        ...user, 
+                        user_instruments: [
+                            ...user.user_instruments, 
+                            userInstrument
+                        ]
+                    })
+                    setMusicians([
+                        ...musicians.map(m => m.id === user.id
+                            ? {
+                                ...m,
+                                user_instruments: [
+                                    ...m.user_instruments,
+                                    userInstrument
+                                ]
+                            }
+                            : m
+                        )
+                    ])
+                });
                 handleModal('addInstrument');
                 setForm(formFields);
             } else {
@@ -73,23 +90,23 @@ function AddInstrument() {
                 errors={errors}
                 >
                 <FormItem icon='piano'>
-                    <Select name="instrumentId" value={form.instrumentId} onChange={onChange}>
+                    <WideSelect name="instrumentId" value={form.instrumentId} onChange={onChange}>
                         <option>Select Instrument</option>
                         <option value="new">New Instrument</option>
                         { instruments ? abc(instruments).map(i => <option key={i.id} value={i.id}>{i.name}</option>) : null }
-                    </Select>
+                    </WideSelect>
                 </FormItem>
                 <FormItem icon='star'>
-                    <Select name="skill" value={form.skill} onChange={onChange}>
+                    <WideSelect name="skill" value={form.skill} onChange={onChange}>
                         <option>Select Skill Level</option>
                         { skillLevels.map(skill => <option key={skill} value={skill}>{skill[0].toUpperCase() + skill.substring(1)}</option>) }
-                    </Select>
+                    </WideSelect>
                 </FormItem>
                 <FormItem icon='history'>
-                    <Select name="experience" value={form.experience} onChange={onChange}>
+                    <WideSelect name="experience" value={form.experience} onChange={onChange}>
                         <option>Select Experience Level</option>
                         { experienceLevels.map(xp => <option key={xp} value={xp}>{xp} year{addS(xp)} experience</option>) }
-                    </Select>
+                    </WideSelect>
                 </FormItem>
             </Form>
             <Modal id="createInstrument">
@@ -99,4 +116,8 @@ function AddInstrument() {
     );
 }
 
+// Styles
+const WideSelect = styled(Select)`
+    width: 100%
+`
 export default AddInstrument;
