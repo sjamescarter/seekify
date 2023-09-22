@@ -11,11 +11,8 @@ function PublicEventCard({ children, event, onClick }) {
         <Container>
             <Grid onClick={onClick}>
                 <Img src={eventImage} alt="Event cover"/>
-                <div></div>
-                <Div>
-                    <Title>{name}</Title>
-                    {children ? children[0] : null}
-                </Div>
+                <Div>{children ? children[0] : null}</Div>
+                <Title>{name}</Title>
                 <Strong>{time} | {location}</Strong>
                 <Description>{description}</Description>
             </Grid>
@@ -28,14 +25,14 @@ function PublicEventCard({ children, event, onClick }) {
 const Container = styled.div`
     // min-width: 500px;
     min-height: 200px;
-    margin: 2em 1em;
+    margin: 0 1em 2em;
 `
 const Grid = styled.div`
     background-color: ${colors.nuetral};
     display: grid;
-    color: #686963;
+    color: ${colors.gray};
     grid-template-columns: 200px auto;
-    grid-template-rows: 35px .25fr 35px 1fr;
+    grid-template-rows: 35px .25fr .25fr 1fr;
     min-height: 200px;
     border-top-right-radius: 24px;
     border-bottom-left-radius: 24px;
@@ -50,20 +47,22 @@ const Img = styled.img`
     height: 100%;
     object-fit: cover;
     object-position: 50%;
-    grid-row: 1 / span 4;
+    grid-row: 1 / span 5;
     border-bottom-left-radius: 24px;
 `
 const Div = styled.div`
-    display: grid;
-    grid-template-columns: auto 40px;
-
+    display: flex;
+    justify-content: right;
+    padding: 12px;
 `
 const Title = styled.h2`
     color: ${colors.secondary};
     margin: 0 15px;
-    line-height: 1;
+    font-size: 1.6em;
+    line-height: 1.3;
 `
 const Description = styled.p`
+    font-size: 1.2em;
     padding: 0 15px;
 `
 const Strong = styled.strong`
