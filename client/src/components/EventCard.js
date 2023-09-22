@@ -74,5 +74,6 @@ const Grid = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 30px;
+    gap: 10px;
 `
 export default EventCard;
