@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { UserContext } from "../context/user";
+import { MusiciansContext } from "../context/musicians";
 import styled from "styled-components";
 import { TableRow, colors } from "../styles";
 import { addS, camelToTitle, handleModal } from "./utilities";
@@ -13,14 +14,24 @@ function InstrumentCard({ userInstrument }) {
 
     // Context
     const { user, setUser } = useContext(UserContext);
+    const { musicians, setMusicians } = useContext(MusiciansContext);
     const loggedIn = user.user_instruments.find( u => u.id === id ? true : false)
-
+    
     // Handlers
     function handleState() {
         setUser({
             ...user,
             user_instruments: user.user_instruments.filter(u => u.id !== id)
         });
+        setMusicians([
+            ...musicians.map(m => m.id === user.id 
+                ? {
+                    ...m,
+                    user_instruments: m.user_instruments.filter(u => u.id !== id)
+                }
+                : m
+            ) 
+        ]);
     }
 
     return(
@@ -31,7 +42,7 @@ function InstrumentCard({ userInstrument }) {
             { loggedIn
                 ? <Delete 
                     id={`instrumentDelete${id}`} 
-                    endpoint={`user_instruments/${id}`} 
+                    endpoint={`/user_instruments/${id}`} 
                     callback={handleState} 
                 />
                 :<I 
@@ -42,12 +53,15 @@ function InstrumentCard({ userInstrument }) {
                     person_add
                 </I>
             }
-            <Modal id={modalId}>
-                <FindEvent 
-                    userInstrument={userInstrument} 
-                    handleCancel={() => handleModal(modalId)} 
-                />
-            </Modal>
+            { !loggedIn
+                ? <Modal id={modalId}>
+                    <FindEvent 
+                        userInstrument={userInstrument} 
+                        handleCancel={() => handleModal(modalId)} 
+                    />
+                </Modal>
+                : null
+            }
         </TableRow>
     );
 }
