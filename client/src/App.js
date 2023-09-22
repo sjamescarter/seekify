@@ -13,7 +13,6 @@ import Events from "./pages/Events";
 import Landing from "./pages/Landing";
 import NavBar from "./components/NavBar";
 import People from "./pages/People";
-import Profile from "./pages/Profile";
 
 function App() {
   // Context
@@ -30,6 +29,7 @@ function App() {
     get("/instruments", setInstruments);
     get("/users", setMusicians);
   }, []);
+
   console.log(user)
   console.log(musicians)
   function handleLogout() {
@@ -59,7 +59,6 @@ function App() {
           <Route path="/people" element={<People />}>
             <Route path=":id" element={<People />} />
           </Route>
-          <Route path="/profile" element={<Profile person={user} />} />
           <Route path="/settings" element={<h1>Edit Profile</h1>} />
         </Routes>
       </Container>

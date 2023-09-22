@@ -1,12 +1,12 @@
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { colors } from '../styles';
 
-function Menu({ name, handleMenu, handleLogout }) {
+function Menu({ id, name, handleMenu, handleLogout }) {
 
     return (
         <Container>
-            <StyledNavLink to="/profile" onClick={handleMenu}>
+            <StyledNavLink to={`/people/${id}`} onClick={handleMenu}>
                 <I className="material-symbols-rounded">person</I>
                 {name}
             </StyledNavLink>
@@ -42,7 +42,7 @@ const Container = styled.div`
     right: 10px;
     top: 55px;
 `
-const StyledNavLink = styled(NavLink)`
+const StyledNavLink = styled(Link)`
     border: solid 2px white;
     border-radius: 10px;
     color: ${colors.gray};
