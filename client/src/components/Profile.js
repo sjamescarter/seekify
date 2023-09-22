@@ -1,21 +1,17 @@
 import { useContext } from 'react';
 import styled from 'styled-components';
-import { chron } from '../components/utilities';
-import PublicEventCard from '../components/PublicEventCard';
+import { chron, currentEvents } from './utilities';
+import PublicEventCard from './PublicEventCard';
 import { UserContext } from '../context/user';
-import InstrumentsTable from '../components/InstrumentsTable';
+import InstrumentsTable from './InstrumentsTable';
 
 function Profile({ person }) {
     const { user } = useContext(UserContext);
     const { profile, church, user_instruments, events } = person
 
     const loggedIn = person.id === user.id ? true : false;
-    
-    const currentEvents = events.filter(event => {
-        const today = Date.now()
-        const date = new Date(event.date)
-        return date > today
-    })
+
+    const upcomingEvents = currentEvents(events);
 
     return(
         <ProfileGrid>
@@ -23,7 +19,7 @@ function Profile({ person }) {
             <div></div>
             <Name>{person.name}</Name>
             <Location>{profile.city}, {profile.state} :: {church.name}</Location>
-            <p>{person.email} :: {profile.phone}</p>
+            <Location>{person.email} :: {profile.phone}</Location>
             <div></div>
             <Div>
                 <h3>Bio</h3>
@@ -32,13 +28,17 @@ function Profile({ person }) {
             <Div>
                 <InstrumentsTable userInstruments={user_instruments} loggedIn={loggedIn} />
             </Div>
+            { profile.video_url
+                ? <Div>
+                    <h3>Videos</h3> 
+                    {/* <a href={profile.video_url} rel="noreferrer" target="_blank">Check out my videos</a> */}
+                    <Videos src={profile.video_url} title="Videos"></Videos>
+                </Div>
+                : null
+            }
             <Div>
-                <h3>Videos</h3>
-                <p>Check out my videos: {profile.video_url}</p>
-            </Div>
-            <Div>
-                <h3>Events</h3>
-                {chron(currentEvents).map(event => 
+                <h3>Upcoming Events</h3>
+                {chron(upcomingEvents).map(event => 
                     <PublicEventCard key={event.id} event={event} />
                 )}
             </Div>
@@ -83,5 +83,10 @@ const Div = styled.div`
     grid-column: 1 / span 2;
     margin: 1em;
     padding: 1em;
+`
+const Videos = styled.iframe`
+    width: 100%;
+    height: 24em;
+    border: none;
 `
 export default Profile;
