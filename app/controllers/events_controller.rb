@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
   def index
-    render json: Event.all
+    render json: Event.all.sort_by(&:date)
   end
 
   def create
