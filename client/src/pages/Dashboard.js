@@ -2,11 +2,12 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/user";
 import styled from "styled-components";
-import { chron } from "../components/utilities";
+import { chron, currentEvents } from "../components/utilities";
 import Button from "../styles/Button";
 import EventCard from "../components/EventCard";
 import InviteCard from "../components/InviteCard";
 import Icon from "../components/Icon";
+import { Container, PageTitle } from "../styles";
 
 function Dashboard() {
     // Context
@@ -15,25 +16,21 @@ function Dashboard() {
 
     const navigate = useNavigate();
 
-    const currentEvents = events.filter(event => {
-        const today = Date.now()
-        const date = new Date(event.date)
-        return date > today
-    })
+    const upcomingEvents = currentEvents(events)
 
     return (
-        <Grid>
-            <Container style={{display: "flex", alignItems: "center", justifyContent: "space-between"}}>
+        <Container>
+            <PageTitle>
                 <h1>Dashboard</h1>
                 <Button onClick={() => navigate('/events/new')} style={{height: "3em"}}>
                     <Icon>calendar_add_on</Icon>
                     Create Event
                 </Button>
-            </Container>
-            <Container>
-                <h2>Upcoming Events</h2>
-                {currentEvents 
-                    ? chron(currentEvents).map(event => 
+            </PageTitle>
+            <Div>
+                <h2>Your Events</h2>
+                {upcomingEvents 
+                    ? chron(upcomingEvents).map(event => 
                         <EventCard 
                             key={event.id} 
                             event={event} 
@@ -41,9 +38,9 @@ function Dashboard() {
                     ) 
                     : null
                 }
-            </Container>
-            <Container>
-                <h2>Invites</h2>
+            </Div>
+            <Div>
+                <h2>Invites to You</h2>
                 {user.user_instruments.map(instrument => 
                     instrument.invites.map(i => 
                         <InviteCard 
@@ -52,20 +49,12 @@ function Dashboard() {
                         />
                     )
                 )}
-            </Container>
-        </Grid>
+            </Div>
+        </Container>
     );
 }
 
-const Grid = styled.div`
-    background-color: white;
-    border-radius: 10px;
-    // display: flex;
-    max-width: 800px;
-    min-width: 500px;
-    margin: auto;
-`
-const Container = styled.div`
+const Div = styled.div`
     margin: auto;
     padding: 20px;
 `

@@ -1,15 +1,26 @@
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { MusiciansContext } from "../context/musicians";
-import styled from "styled-components";
+import { Button, Container, PageTitle } from "../styles";
+import Icon from "../components/Icon";
 import PublicEventCard from "../components/PublicEventCard";
 
 function Events() {
     const { musicians } = useContext(MusiciansContext);
 
+    const navigate = useNavigate();
+
     if(!musicians) return <h1>Loading...</h1>
+
     return (
         <Container>
-            <h1>Events</h1>
+            <PageTitle>
+                <h1>Events</h1>
+                <Button onClick={() => navigate('/events/new')} style={{height: "3em"}}>
+                        <Icon>calendar_add_on</Icon>
+                        Create Event
+                </Button>
+            </PageTitle>
             <ul>
                 {musicians.map(musician => 
                     musician.events.map(event => <PublicEventCard key={event.id} event={event} />)
@@ -19,14 +30,4 @@ function Events() {
     );
 }
 
-// Styles
-const Container = styled.div`
-    background-color: white;
-    border-radius: 1em;
-    padding: 1em;
-    margin: auto;
-    margin-bottom: 50px;
-    max-width: 800px;
-    min-width: 550px;
-`
 export default Events;
