@@ -1,15 +1,16 @@
 import { useContext, useState } from 'react';
+import { MusiciansContext } from '../context/musicians';
 import { UserContext } from '../context/user';
+import { VenuesContext } from '../context/venues';
 import { states, handleChange, camelToTitle, handleModal } from '../components/utilities';
-import Form from '../components/Form'
 import { Input, Select, TextArea } from '../styles';
 import { handleImgSubmit } from '../components/utilities';
+import CreateVenue from '../components/CreateVenue';
+import Form from '../components/Form'
 import FormItem from '../components/FormItem';
 import ImgUploader from '../components/ImgUploader';
-import CreateVenue from '../components/CreateVenue';
-import VenueSelect from '../components/VenueSelect';
-import { VenuesContext } from '../context/venues';
 import Modal from '../components/Modal';
+import VenueSelect from '../components/VenueSelect';
 
 const formFields = {
     firstName: "", 
@@ -24,6 +25,7 @@ const formFields = {
 
 function CreateProfile({ handleLogout }) {
     // Context
+    const { musicians, setMusicians } = useContext(MusiciansContext);
     const { setUser } = useContext(UserContext);
     const { venues } = useContext(VenuesContext);
 
@@ -33,20 +35,23 @@ function CreateProfile({ handleLogout }) {
     const [errors, setErrors] = useState();
     
     // Const
-    const callback = (data) => setUser(data);
+    const callback = (data) => {
+        setUser(data);
+        setMusicians([...musicians, data]);
+    };
     const endpoint = 'profiles';
     const imgLabel = 'avatar';
 
     // Handlers
     const onChange = (e) => handleChange(e, form, setForm);
     const handleCancel = () => {
-        handleModal('createVenue');
+        handleModal('createPrrofileVenue');
         setForm({ ...form, venueId: "" });
     }
     const onSubmit = (e) => handleImgSubmit(e, endpoint, setErrors, form, imgLabel, img, callback);
 
     if(form.venueId === "new") { 
-        handleModal('createVenue', 'open');
+        handleModal('createProfileVenue', true);
     };
 
     return (
@@ -121,8 +126,13 @@ function CreateProfile({ handleLogout }) {
                     setImg={setImg}
                 />            
             </Form>
-            <Modal id="createVenue">
-                <CreateVenue state={form} setState={setForm} handleCancel={handleCancel} />
+            <Modal id="createProfileVenue">
+                <CreateVenue 
+                    state={form} 
+                    setState={setForm} 
+                    handleCancel={handleCancel} 
+                    closeModal={() => handleModal('createProfileVenue')}
+                />
             </Modal>
         </>
     );
