@@ -4,6 +4,7 @@ import { chron, currentEvents } from './utilities';
 import PublicEventCard from './PublicEventCard';
 import { UserContext } from '../context/user';
 import InstrumentsTable from './InstrumentsTable';
+import Icon from './Icon';
 
 function Profile({ person }) {
     const { user } = useContext(UserContext);
@@ -31,8 +32,9 @@ function Profile({ person }) {
             { profile.video_url
                 ? <Div>
                     <h3>Videos</h3> 
-                    {/* <a href={profile.video_url} rel="noreferrer" target="_blank">Check out my videos</a> */}
-                    <Videos src={profile.video_url} title="Videos"></Videos>
+                    <a href={profile.video_url} rel="noreferrer" target="_blank">Check out my videos</a>
+                    {/* <Icon>open_in_new</Icon> */}
+                    {/* <Videos src={profile.video_url} title="Videos"></Videos> */}
                 </Div>
                 : null
             }

@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   skip_before_action :authorize, only: [:create]
 
   def index
-    musicians = User.all
+    musicians = User.all.filter { |m| m.profile != nil }
     render json: musicians, each_serializer: MusicianSerializer
   end
 
