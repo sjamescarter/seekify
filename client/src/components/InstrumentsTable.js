@@ -3,9 +3,9 @@ import { TableHeader, TableRow } from "../styles";
 import { abc, handleModal } from "./utilities";
 import AddInstrument from "./AddInstrument";
 import Button from "../styles/Button";
+import Icon from "./Icon";
 import InstrumentCard from "./InstrumentCard";
 import Modal from "./Modal";
-import Icon from "./Icon";
 
 function InstrumentsTable({ userInstruments, loggedIn }) {
     return (
@@ -29,7 +29,7 @@ function InstrumentsTable({ userInstruments, loggedIn }) {
                 ? <TableRow>
                     <p>None Listed</p>
                 </TableRow>
-                : abc(userInstruments).map(i => <InstrumentCard key={i.id} userInstrument={i} />)
+                : abc(userInstruments, "instrument").map(i => <InstrumentCard key={i.id} userInstrument={i} />)
             }
             <Modal id="addInstrument">
                 <AddInstrument />
