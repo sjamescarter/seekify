@@ -1,7 +1,7 @@
 class UserInstrument < ApplicationRecord
   belongs_to :user
   belongs_to :instrument
-  has_many :invites
+  has_many :invites, dependent: :destroy
   has_many :events, through: :invites
 
   validates :skill, 
