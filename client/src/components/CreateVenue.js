@@ -1,14 +1,14 @@
 import { useContext, useState } from 'react';
 import { VenuesContext } from '../context/venues';
 import { Input, Select } from '../styles'
-import { camelToTitle, handleImgSubmit, handleChange, states, handleModal } from './utilities';
+import { camelToTitle, handleImgSubmit, handleChange, states } from './utilities';
 import Form from './Form';
 import FormItem from './FormItem';
 import ImgUploader from './ImgUploader';
 
 const formFields = { name: "", streetAddress: "", city: "", state: "" };
 
-function CreateVenue({ state, setState, handleCancel }) {
+function CreateVenue({ state, setState, handleCancel, closeModal }) {
     // Context
     const { venues, setVenues } = useContext(VenuesContext);
 
@@ -23,7 +23,7 @@ function CreateVenue({ state, setState, handleCancel }) {
         setState({ ...state, venueId: data.id });
         setForm(formFields);
         setImg();
-        handleModal('createVenue');
+        closeModal();
     };
     const endpoint = 'venues';
     const imgLabel = 'logo';
@@ -35,7 +35,7 @@ function CreateVenue({ state, setState, handleCancel }) {
         setErrors();
         handleCancel();
     }
-    
+
     return (
         <Form 
             title='Add Church'
