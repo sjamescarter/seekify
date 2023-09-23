@@ -2,27 +2,23 @@ import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/user";
 import { VenuesContext } from "../context/venues";
-import { Input, TextArea } from "../styles";
-import { handleChange, handleImgSubmit, handleModal } from "../components/utilities";
+import { handleImgSubmit, handleModal } from "../components/utilities";
 import CreateVenue from "../components/CreateVenue";
-import Form from "../components/Form";
-import FormItem from "../components/FormItem";
-import ImgUploader from "../components/ImgUploader";
-import VenueSelect from "../components/VenueSelect";
 import Modal from "../components/Modal";
 import { MusiciansContext } from "../context/musicians";
+import EventForm from "../components/EventForm";
 
 
 const formFields = {name: "", date: "", rehearsal: "", public: "", description: "", venueId: ""}
 
-function CreateEvent({ event=formFields }) {
+function CreateEvent() {
     // Context
     const { user, setUser } = useContext(UserContext);
     const { musicians, setMusicians } = useContext(MusiciansContext);
     const { venues } = useContext(VenuesContext);
 
     // State
-    const [form, setForm] = useState({...event, venueId: user.church.id});
+    const [form, setForm] = useState({formFields, venueId: user.church.id});
     const [img, setImg] = useState();
     const [errors, setErrors] = useState();
 
@@ -46,7 +42,6 @@ function CreateEvent({ event=formFields }) {
     const imgLabel = 'image';
 
     // Handlers
-    const onChange = (e) => handleChange(e, form, setForm);
     const handleCancel = () => {
         setForm({...form, venueId: ""});
         handleModal('createVenue');
@@ -54,64 +49,30 @@ function CreateEvent({ event=formFields }) {
     const onSubmit = (e) => handleImgSubmit(e, endpoint, setErrors, form, imgLabel, img, callback);
 
     if(form.venueId === "new") { 
-        handleModal('createVenue', 'open')
+        handleModal('createVenue', true)
     };
 
     return (
         <>
-            <Form 
-                title='Create Event'
-                onSubmit={onSubmit}
+            <EventForm
                 errors={errors}
-                handleCancel={() => navigate('/')}
-                >
-                <FormItem icon='event'>
-                    <Input 
-                        type='text'
-                        name='name'
-                        placeholder="Name"
-                        value={form.name}
-                        onChange={onChange}
-                        />
-                    <Input
-                        type='datetime-local'
-                        name='date'
-                        value={form.date}
-                        onChange={onChange}
-                        />
-                </FormItem>
-                <FormItem icon="event_note">
-                    <label style={{width: '100%', margin: '5px', padding: '5px 10px'}}>Rehearsal</label>
-                    <Input
-                        type='datetime-local'
-                        name='rehearsal'
-                        value={form.rehearsal}
-                        onChange={onChange}
-                        />
-                </FormItem>
-                <VenueSelect onChange={onChange} value={form.venueId} venues={venues} />
-                <FormItem icon="public">
-                    <p style={{width: '100%', margin: '5px', padding: '5px 10px'}}>Public Event?</p>
-                    <Input
-                        type="checkbox"
-                        name="public"
-                        checked={form.public}
-                        onChange={onChange}
-                        />
-                </FormItem>
-                <FormItem icon='description'>
-                    <TextArea 
-                        name='description' 
-                        placeholder='Give us all the details about your event...' 
-                        rows='5' 
-                        value={form.description} 
-                        onChange={onChange} 
-                        />
-                </FormItem>
-                <ImgUploader id={imgLabel} img={img} setImg={setImg} />
-            </Form>
+                form={form}
+                img={img}
+                imgLabel={imgLabel}
+                onCancel={() => navigate('/')}
+                onSubmit={onSubmit}
+                setForm={setForm}
+                setImg={setImg}
+                title="Create Event"
+                venues={venues}
+            />
             <Modal id='createVenue'>
-                <CreateVenue state={form} setState={setForm} handleCancel={handleCancel} />
+                <CreateVenue 
+                    state={form} 
+                    setState={setForm} 
+                    handleCancel={handleCancel} 
+                    closeModal={() => handleModal('createVenue')}
+                />
             </Modal>
         </>
     );
