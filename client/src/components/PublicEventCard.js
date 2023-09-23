@@ -23,7 +23,6 @@ function PublicEventCard({ children, event, onClick }) {
 
 // Styles
 const Container = styled.div`
-    // min-width: 500px;
     min-height: 200px;
     margin: 0 1em 2em;
 `
@@ -32,7 +31,7 @@ const Grid = styled.div`
     display: grid;
     color: ${colors.gray};
     grid-template-columns: 200px auto;
-    grid-template-rows: 35px .25fr .25fr 1fr;
+    grid-template-rows: 30px .25fr .25fr 1fr;
     min-height: 200px;
     border-top-right-radius: 24px;
     border-bottom-left-radius: 24px;
