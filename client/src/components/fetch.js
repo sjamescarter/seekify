@@ -7,15 +7,28 @@ function get(endpoint, setState) {
     });
 } 
 
-function destroy(endpoint, callBack) {
+function destroy(endpoint, callback) {
     fetch(endpoint, {
         method: "DELETE"
     })
     .then(r => {
         if(r.ok) {
-            callBack();
+            callback();
         }
     })
 }
 
-export { get, destroy };
+function postImg(endpoint, callback, data, setErrors) {
+    fetch(`/${endpoint}`, {
+        method: 'POST',
+        body: data
+    })
+    .then(r => {
+        if(r.ok) {
+            r.json().then(callback);
+        } else {
+            r.json().then(err => setErrors(err.errors))
+        }
+    });
+}
+export { get, destroy, postImg };

@@ -1,3 +1,5 @@
+import { postImg } from "./fetch";
+
 // Constants
 const experienceLevels = ["<1", "1–4", "5–9", "10–20", ">20"];
 const skillLevels = ["beginner", "intermediate", "advanced", "professional"];
@@ -6,10 +8,10 @@ const states = ['AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA', 'HI'
 export { experienceLevels, skillLevels, states };
 
 // Functions
-function abc(array) { 
+function abc(array, sortBy="name") { 
     return [...array].sort((a, b) => {
-        const nameA = a.name
-        const nameB = b.name
+        const nameA = a[sortBy]
+        const nameB = b[sortBy]
         if (nameA < nameB) {
             return -1;
         }
@@ -60,17 +62,7 @@ function handleImgSubmit(e, endpoint, setErrors, form, imgLabel, img, callback) 
         data.append(imgLabel, img);
     }
 
-    fetch(`/${endpoint}`, {
-        method: 'POST',
-        body: data
-    })
-    .then(r => {
-        if(r.ok) {
-            r.json().then(callback);
-        } else {
-            r.json().then(err => setErrors(err.errors))
-        }
-    });
+    postImg(endpoint, callback, data, setErrors);
 }
 
 function handleModal(id, action) {
