@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { UserContext } from "../context/user";
 import { VenuesContext } from "../context/venues";
-import { handleModal, camelToSnake } from "../components/utilities";
+import { handleModal, handleImgSubmit } from "../components/utilities";
 import CreateVenue from "../components/CreateVenue";
 import Modal from "../components/Modal";
 import EventForm from "./EventForm";
@@ -27,47 +27,28 @@ function UpdateEvent({ event }) {
     const [errors, setErrors] = useState();
 
     // Const
+    const endpoint = `/events/${id}`;
+    const method = "PATCH";
     const imgLabel = 'image';
+    const callback = (data) => {
+        setUser({
+            ...user,
+            events: [
+                ...user.events.map(evnt => evnt.id === id 
+                    ? data
+                    : evnt
+                )
+            ]
+        });
+        handleModal(`updateEvent${id}`);
+    }
 
     // Handlers
     const handleCancel = () => {
         setForm({...form, venueId: ""});
         handleModal(`createVenue${event.id}`);
     }
-
-    function handleSubmit(e) {
-        e.preventDefault();
-        setErrors();
-    
-        const data = new FormData();
-        Object.keys(form).map(key => data.append(camelToSnake(key), form[key]))
-        if(img) {
-            data.append(imgLabel, img);
-        }
-    
-        fetch(`/events/${id}`, {
-            method: 'PATCH',
-            body: data
-        })
-        .then(r => {
-            if(r.ok) {
-                r.json().then(data => {
-                    setUser({
-                        ...user,
-                        events: [
-                            ...user.events.map(evnt => evnt.id === id 
-                                ? data
-                                : evnt
-                            )
-                        ]
-                    });
-                    handleModal(`updateEvent${id}`);
-                })
-            } else {
-                r.json().then(err => setErrors(err.errors));
-            }
-        });
-    }
+    const onSubmit = (e) => handleImgSubmit(e, endpoint, method, setErrors, form, imgLabel, img, callback)
 
     if(form.venueId === "new") { 
         handleModal(`createVenue${id}`, true)
@@ -81,7 +62,7 @@ function UpdateEvent({ event }) {
                 img={img}
                 imgLabel={imgLabel}
                 onCancel={() => handleModal(`updateEvent${id}`)}
-                onSubmit={handleSubmit}
+                onSubmit={onSubmit}
                 setForm={setForm}
                 setImg={setImg}
                 title="Update Event"
