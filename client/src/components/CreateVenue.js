@@ -1,10 +1,11 @@
 import { useContext, useState } from 'react';
 import { VenuesContext } from '../context/venues';
-import { Input, Select } from '../styles'
-import { camelToTitle, handleImgSubmit, handleChange, states } from './utilities';
+import { Input } from '../styles'
+import { camelToTitle, handleImgSubmit, handleChange } from './utilities';
 import Form from './Form';
 import FormItem from './FormItem';
 import ImgUploader from './ImgUploader';
+import StateSelect from './StateSelect';
 
 const formFields = { name: "", streetAddress: "", city: "", state: "" };
 
@@ -18,19 +19,20 @@ function CreateVenue({ state, setState, handleCancel, closeModal }) {
     const [errors, setErrors] = useState();
 
     // Const
-    const callback = (data) => { // This is the onSubmit callback
+    const callback = (data) => { // onSubmit callback
         setVenues([ ...venues, data ]);
         setState({ ...state, venueId: data.id });
         setForm(formFields);
         setImg();
         closeModal();
     };
-    const endpoint = 'venues';
+    const endpoint = '/venues';
+    const method = "POST";
     const imgLabel = 'logo';
 
     // Handlers
     const onChange = (e) => handleChange(e, form, setForm); 
-    const onSubmit = (e) => handleImgSubmit(e, endpoint, setErrors, form, imgLabel, img, callback);
+    const onSubmit = (e) => handleImgSubmit(e, endpoint, method, setErrors, form, imgLabel, img, callback);
     const onCancel = () => {
         setErrors();
         handleCancel();
@@ -64,21 +66,10 @@ function CreateVenue({ state, setState, handleCancel, closeModal }) {
                         onChange={onChange}
                     />
                 )}
-                <Select 
-                    name="state" 
+                <StateSelect 
                     value={form.state} 
                     onChange={onChange} 
-                    >
-                    <option>State</option>
-                    {states.map(state => 
-                        <option 
-                            key={state} 
-                            value={state}
-                        >
-                            {state}
-                        </option>
-                    )}
-                </Select>
+                />
             </FormItem>
             <ImgUploader 
                 id={imgLabel}

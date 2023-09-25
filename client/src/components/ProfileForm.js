@@ -1,9 +1,10 @@
-import { Input, Select, TextArea } from '../styles';
-import { states, handleChange, camelToTitle } from '../components/utilities';
+import { Input, TextArea } from '../styles';
+import { handleChange, camelToTitle } from '../components/utilities';
 import Form from '../components/Form'
 import FormItem from '../components/FormItem';
 import ImgUploader from '../components/ImgUploader';
 import VenueSelect from '../components/VenueSelect';
+import StateSelect from './StateSelect';
 
 function ProfileForm({ form, setForm, title, onSubmit, errors, venues, onCancel, imgLabel, img, setImg }) {
     // Handlers
@@ -46,14 +47,7 @@ function ProfileForm({ form, setForm, title, onSubmit, errors, venues, onCancel,
                     value={form.city} 
                     onChange={onChange}
                 />
-                <Select 
-                    name="state" 
-                    value={form.state} 
-                    onChange={onChange} 
-                    >
-                    <option>State</option>
-                    {states.map(state => <option key={state} value={state}>{state}</option>)}
-                </Select>
+                <StateSelect value={form.state} onChange={onChange} />
             </FormItem>
             <FormItem icon='description'>
                 <TextArea 
