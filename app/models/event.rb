@@ -7,5 +7,10 @@ class Event < ApplicationRecord
   alias :host :user
   
   validates :name, :date, presence: true
-  validates :rehearsal, comparison: { less_than: :date, message: "must be scheduled before the event" }, allow_nil: true
+  validates :rehearsal, 
+    comparison: { 
+      less_than: :date, 
+      message: "must be scheduled before the event" 
+    }, 
+    allow_nil: true
 end
