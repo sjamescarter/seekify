@@ -6,12 +6,12 @@ import { UserContext } from "../context/user";
 import Icon from "../components/Icon";
 import Modal from "../components/Modal";
 import { handleModal } from "../components/utilities";
-import Delete from "../components/Delete";
 
 function Settings() {
     const { user } = useContext(UserContext);
     const { user_instruments } = user;
-    const modalId = `updateProfile`
+    const modalId = `updateProfile`;
+    
     return (
         <div>
             <Container>

@@ -77,7 +77,7 @@ function UpdateProfile() {
                 onSubmit={onSubmit}
                 errors={errors}
                 venues={venues}
-                onCancel={() => navigate(`/people/${user.id}`)}
+                onCancel={() => handleModal('updateProfile')}
                 imgLabel={imgLabel}
                 img={img}
                 setImg={setImg}
