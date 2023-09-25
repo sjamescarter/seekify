@@ -4,6 +4,7 @@ import { styled } from 'styled-components';
 import { chron, currentEvents } from './utilities';
 import InstrumentsTable from './InstrumentsTable';
 import PublicEventCard from './PublicEventCard';
+import { colors } from '../styles';
 
 function Profile({ person }) {
     const { user } = useContext(UserContext);
@@ -18,8 +19,8 @@ function Profile({ person }) {
             { <Avatar src={profile.avatar ? profile.avatar : "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.L-PLw9YL0s6ErCIcuprlKgAAAA%26pid%3DApi&f=1&ipt=98bca178f7faad18a400337a2735e92959f258e43128e375907f1e6d80f5b423&ipo=images" } alt="Avatar" loading="lazy" /> }
             <div></div>
             <Name>{person.name}</Name>
-            <Location>{profile.city}, {profile.state} :: {church.name}</Location>
-            <Location>{person.email} :: {profile.phone}</Location>
+            <p>{profile.city}, {profile.state} :: {church.name}</p>
+            <p>{person.email} :: {profile.phone}</p>
             <div></div>
             <Div>
                 <h3>Bio</h3>
@@ -51,7 +52,7 @@ const ProfileGrid = styled.div`
     border-radius: 1em;
     display: grid;
     grid-template-columns: 1fr 2fr;
-    grid-template-rows: 6em 4em 1em 3em 3em 3em auto auto auto auto;
+    grid-template-rows: 6em 4em 1em 2em 3em 3em auto auto auto auto;
     align-items: center;
     justify-content: center;
     padding: 1em;
@@ -71,12 +72,9 @@ const Avatar = styled.img`
     grid-row: 1 / span 4;
 `
 const Name = styled.h1`
-    color: #3D5467;
+    color: ${colors.secondary};
     font-size: 2.5em;
     font-weight: 800;
-`
-const Location = styled.small`
-    // grid-row: 3 / span 4;
 `
 const Div = styled.div`
     grid-column: 1 / span 2;
