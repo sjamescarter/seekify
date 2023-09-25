@@ -13,6 +13,7 @@ import Events from "./pages/Events";
 import Landing from "./pages/Landing";
 import NavBar from "./components/NavBar";
 import People from "./pages/People";
+import UpdateProfile from "./components/UpdateProfile";
 
 function App() {
   // Context
@@ -59,7 +60,7 @@ function App() {
           <Route path="/people" element={<People />}>
             <Route path=":id" element={<People />} />
           </Route>
-          <Route path="/settings" element={<h1>Edit Profile</h1>} />
+          <Route path="/settings" element={<UpdateProfile />} />
         </Routes>
       </Container>
     </div>
