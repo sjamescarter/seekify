@@ -1,10 +1,9 @@
 import { useContext } from 'react';
-import styled from 'styled-components';
-import { chron, currentEvents } from './utilities';
-import PublicEventCard from './PublicEventCard';
 import { UserContext } from '../context/user';
+import { styled } from 'styled-components';
+import { chron, currentEvents } from './utilities';
 import InstrumentsTable from './InstrumentsTable';
-import Icon from './Icon';
+import PublicEventCard from './PublicEventCard';
 
 function Profile({ person }) {
     const { user } = useContext(UserContext);
@@ -33,8 +32,6 @@ function Profile({ person }) {
                 ? <Div>
                     <h3>Videos</h3> 
                     <a href={profile.video_url} rel="noreferrer" target="_blank">Check out my videos</a>
-                    {/* <Icon>open_in_new</Icon> */}
-                    {/* <Videos src={profile.video_url} title="Videos"></Videos> */}
                 </Div>
                 : null
             }
@@ -85,10 +82,5 @@ const Div = styled.div`
     grid-column: 1 / span 2;
     margin: 1em;
     padding: 1em;
-`
-const Videos = styled.iframe`
-    width: 100%;
-    height: 24em;
-    border: none;
 `
 export default Profile;
