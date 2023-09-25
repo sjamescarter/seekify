@@ -1,14 +1,14 @@
 import { useContext, useState } from 'react';
-import { UserContext } from '../context/user';
 import { InstrumentsContext } from '../context/instruments';
+import { MusiciansContext } from '../context/musicians';
+import { UserContext } from '../context/user';
+import { styled } from 'styled-components';
 import { Select } from '../styles';
 import { abc, addS, experienceLevels, skillLevels, handleChange, handleModal } from './utilities';
 import Form from './Form';
 import CreateInstrument from './CreateInstrument';
 import FormItem from './FormItem';
 import Modal from './Modal';
-import { styled } from 'styled-components';
-import { MusiciansContext } from '../context/musicians';
 
 const formFields = { instrumentId: "", skill: "", experience: "" }
 

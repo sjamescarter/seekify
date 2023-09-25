@@ -73,7 +73,7 @@ function UpdateProfile() {
             <ProfileForm 
                 form={form}
                 setForm={setForm}
-                title="Settings"
+                title="Edit Profile"
                 onSubmit={onSubmit}
                 errors={errors}
                 venues={venues}

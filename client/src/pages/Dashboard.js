@@ -28,7 +28,7 @@ function Dashboard() {
                 </Button>
             </PageTitle>
             <Div>
-                <h2>Your Events</h2>
+                <h2>Events You Host</h2>
                 {upcomingEvents 
                     ? chron(upcomingEvents).map(event => 
                         <EventCard 
@@ -40,7 +40,7 @@ function Dashboard() {
                 }
             </Div>
             <Div>
-                <h2>Invites to You</h2>
+                <h2>Invites You've Received</h2>
                 {user.user_instruments.map(instrument => 
                     instrument.invites.map(i => 
                         <InviteCard 

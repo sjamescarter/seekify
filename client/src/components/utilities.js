@@ -1,11 +1,10 @@
-import { postImg } from "./fetch";
+import { imgFetch } from "./fetch";
 
 // Constants
 const experienceLevels = ["<1", "1–4", "5–9", "10–20", ">20"];
 const skillLevels = ["beginner", "intermediate", "advanced", "professional"];
-const states = ['AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY'];
 
-export { experienceLevels, skillLevels, states };
+export { experienceLevels, skillLevels };
 
 // Functions
 function abc(array, sortBy="name") { 
@@ -52,7 +51,7 @@ function handleChange(e, form, setForm) {
     });
 }
 
-function handleImgSubmit(e, endpoint, setErrors, form, imgLabel, img, callback) {
+function handleImgSubmit(e, endpoint, method, setErrors, form, imgLabel, img, callback) {
     e.preventDefault();
     setErrors();
 
@@ -62,7 +61,7 @@ function handleImgSubmit(e, endpoint, setErrors, form, imgLabel, img, callback) 
         data.append(imgLabel, img);
     }
 
-    postImg(endpoint, callback, data, setErrors);
+    imgFetch(endpoint, method, callback, data, setErrors);
 }
 
 function handleModal(id, action) {

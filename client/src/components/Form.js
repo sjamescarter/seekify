@@ -22,6 +22,7 @@ const StyledForm = styled.form`
     padding: 0 2em 2em;
     margin: auto;
     margin-top: 2em;
+    margin-bottom: 2em;
     box-shadow: 0 5px 16.83px 0.17px rgba(0, 0, 0, 0.25);
 `
 const Title = styled.h1`

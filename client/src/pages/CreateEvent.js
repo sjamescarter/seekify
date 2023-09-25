@@ -38,7 +38,8 @@ function CreateEvent() {
         )])
         navigate('/');
     };
-    const endpoint = 'events';
+    const endpoint = '/events';
+    const method = 'POST';
     const imgLabel = 'image';
 
     // Handlers
@@ -46,7 +47,7 @@ function CreateEvent() {
         setForm({...form, venueId: ""});
         handleModal('createVenue');
     }
-    const onSubmit = (e) => handleImgSubmit(e, endpoint, setErrors, form, imgLabel, img, callback);
+    const onSubmit = (e) => handleImgSubmit(e, endpoint, method, setErrors, form, imgLabel, img, callback);
 
     if(form.venueId === "new") { 
         handleModal('createVenue', true)

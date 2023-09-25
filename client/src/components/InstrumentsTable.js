@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import { styled } from "styled-components";
 import { TableHeader, TableRow } from "../styles";
 import { abc, handleModal } from "./utilities";
 import AddInstrument from "./AddInstrument";

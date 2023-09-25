@@ -42,11 +42,9 @@ function Landing() {
     }
 
     return (
-        <div>
-            <Container>
-                <h1 style={{fontSize: "2.5em"}}>Welcome to Seekify.io</h1>
-                <p>A social network for worship leaders, musicians and technicians</p>
-            </Container>
+        <Container>
+            <h1 style={{fontSize: "2.5em"}}>Welcome to Seekify.io</h1>
+            <p>A social network for worship leaders, musicians and technicians</p>
             <Form 
                 title={showSignUp ? 'Sign Up' : 'Sign In'}
                 onSubmit={handleSubmit} 
@@ -70,8 +68,7 @@ function Landing() {
                         onChange={onChange}
                     />
                 </FormItem>
-                {
-                    showSignUp 
+                { showSignUp 
                     ? <FormItem icon='lock'>
                         <Input 
                             type='password' 
@@ -84,14 +81,11 @@ function Landing() {
                     : null
                 }
             </Form>
-            <Container>
-                {
-                    showSignUp 
-                    ? <P>Already have an account? <Span onClick={() => setShowSignUp(false)}>Sign In Here!</Span></P>
-                    : <P>Need an account? <Span onClick={() => setShowSignUp(true)}>Sign Up Here!</Span></P>
-                }
-            </Container>
-        </div>
+            { showSignUp 
+                ? <P>Already have an account? <Span onClick={() => setShowSignUp(false)}>Sign In Here!</Span></P>
+                : <P>Need an account? <Span onClick={() => setShowSignUp(true)}>Sign Up Here!</Span></P>
+            }
+        </Container>
     );
 }
 

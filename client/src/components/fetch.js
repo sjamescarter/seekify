@@ -18,9 +18,9 @@ function destroy(endpoint, callback) {
     })
 }
 
-function postImg(endpoint, callback, data, setErrors) {
-    fetch(`/${endpoint}`, {
-        method: 'POST',
+function imgFetch(endpoint, method, callback, data, setErrors) {
+    fetch(endpoint, {
+        method: method,
         body: data
     })
     .then(r => {
@@ -31,4 +31,4 @@ function postImg(endpoint, callback, data, setErrors) {
         }
     });
 }
-export { get, destroy, postImg };
+export { get, destroy, imgFetch };
