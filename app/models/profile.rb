@@ -1,7 +1,7 @@
 class Profile < ApplicationRecord
   belongs_to :user
   belongs_to :venue
-  has_one_attached :avatar
+  has_one_attached :avatar, dependent: :destroy
 
   validates :avatar, content_type: ['image/gif', 'image/jpg', 'image/jpeg', 'image/png']
   validates :first_name, :last_name, :city, presence: true, format: { without: /[0-9]/ }
