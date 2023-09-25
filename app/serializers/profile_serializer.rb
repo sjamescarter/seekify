@@ -1,7 +1,7 @@
 class ProfileSerializer < ActiveModel::Serializer
   include Rails.application.routes.url_helpers
 
-  attributes :id, :avatar, :phone, :city, :state, :bio, :video_url
+  attributes :id, :avatar, :first_name, :last_name, :phone, :city, :state, :bio, :video_url
   has_one :user
   has_one :venue
 
