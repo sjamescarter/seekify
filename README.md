@@ -96,7 +96,7 @@ updated_at      timestamp
 ```
 
 ### Active Storage
-Additionally, the schema includes active storage tables for storing and associating images with Events and Profiles.
+Additionally, the schema includes active storage tables for storing and associating images with Events, Profiles and Venues.
 
 ## Seed Data
 Seed data is commented out in the db/seeds.rb file. To use this data, uncomment the appropriate lines and run:
