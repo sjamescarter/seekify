@@ -5,12 +5,14 @@ import { handleModal, handleImgSubmit } from "../components/utilities";
 import CreateVenue from "../components/CreateVenue";
 import Modal from "../components/Modal";
 import EventForm from "./EventForm";
+import { MusiciansContext } from "../context/musicians";
 
 function UpdateEvent({ event }) {
     const { id, date, description, name, rehearsal, venue } = event 
 
     // Context
     const { user, setUser } = useContext(UserContext);
+    const { musicians, setMusicians } = useContext(MusiciansContext)
     const { venues } = useContext(VenuesContext);
 
     // State
@@ -31,6 +33,47 @@ function UpdateEvent({ event }) {
     const method = "PATCH";
     const imgLabel = 'image';
     const callback = (data) => {
+        if(event.public && data.public) {
+            setMusicians([
+                ...musicians.map(m => m.id === user.id
+                    ? {
+                        ...m,
+                        events: [
+                            m.events.map(evnt => evnt.id === id
+                                ? data
+                                : evnt
+                            )
+                        ]
+                    }
+                    : m
+                )
+            ]);
+        } else if (!event.public && data.public) {
+            setMusicians([
+                ...musicians.map(m => m.id === user.id
+                    ? {
+                        ...m,
+                        events: [
+                            ...m.events,
+                            data
+                        ]
+                    }
+                    : m
+                )
+            ]);
+        } else {
+            setMusicians([
+                ...musicians.map(m => m.id === user.id
+                    ? {
+                        ...m,
+                        events: [
+                            ...m.events.filter(evnt => evnt.id !== id)
+                        ]
+                    }
+                    : m
+                )
+            ]);
+        }
         setUser({
             ...user,
             events: [

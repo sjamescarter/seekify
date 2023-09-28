@@ -24,9 +24,11 @@ const List = styled.fieldset`
     border-radius: 10px;
     background-color: #FBEEEF;
     font-weight: 600;
+    font-size: 1.1em;
 `
 const Legend = styled.legend`
     color: ${colors.red};
+    text-align: left;
 `
 const Item = styled.li`
     color: ${colors.red};

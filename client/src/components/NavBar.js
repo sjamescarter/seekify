@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { UserContext } from "../context/user";
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 import { colors } from '../styles';
 import Menu from './Menu';
 
@@ -100,10 +100,10 @@ const Avatar = styled.img`
     object-position: 50%;
     margin: auto;
     &.active {
-        border: 3px solid ${colors.gray};
+        border: 1px solid white;
     }
     &:hover {
-        border: 3px solid ${colors.gray};
+        border: 1px solid white;
     }
 `
 const StyledNavLink = styled(NavLink)`

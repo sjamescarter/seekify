@@ -6,7 +6,12 @@ class Event < ApplicationRecord
   alias :roles :invites
   alias :host :user
   
-  validates :name, :date, presence: true
+  validates :name, presence: true
+  validates :date, 
+    comparison: { 
+      greater_than: Time.now, 
+      message: ": Please select a future date" 
+    }
   validates :rehearsal, 
     comparison: { 
       less_than: :date, 

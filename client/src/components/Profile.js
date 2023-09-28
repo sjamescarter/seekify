@@ -36,12 +36,15 @@ function Profile({ person }) {
                 </Div>
                 : null
             }
-            <Div>
-                <h3>Upcoming Events</h3>
-                {chron(upcomingEvents).map(event => 
-                    <PublicEventCard key={event.id} event={event} />
-                )}
-            </Div>
+            { upcomingEvents.length > 0
+                ? <Div>
+                    <h3>Upcoming Events</h3>
+                    {chron(upcomingEvents).map(event => 
+                        <PublicEventCard key={event.id} event={event} />
+                    )}
+                </Div>
+                : null
+            }
         </ProfileGrid>
     );
 }

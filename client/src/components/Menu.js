@@ -1,31 +1,32 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { colors } from '../styles';
+import Icon from './Icon';
 
 function Menu({ id, name, handleMenu, handleLogout }) {
 
     return (
         <Container>
             <StyledNavLink to={`/people/${id}`} onClick={handleMenu}>
-                <I className="material-symbols-rounded">person</I>
+                <I>person</I>
                 {name}
             </StyledNavLink>
             <Line />
             <StyledNavLink to="/" onClick={handleMenu}>
-                <I className="material-symbols-rounded">dashboard</I>
+                <I>dashboard</I>
                 Dashboard
             </StyledNavLink>
             <StyledNavLink to="/events/new" onClick={handleMenu}>
-                <I className="material-symbols-rounded">calendar_add_on</I>
+                <I>calendar_add_on</I>
                 Create Event
             </StyledNavLink>
             <StyledNavLink to="/settings" onClick={handleMenu}>
-                <I className="material-symbols-rounded">settings</I>
+                <I>settings</I>
                 Settings
             </StyledNavLink>
             <Line />
             <StyledNavLink to="/" onClick={handleLogout}>
-                <I className="material-symbols-rounded">logout</I>
+                <I>logout</I>
                 Sign Out
             </StyledNavLink>
         </Container>
@@ -57,7 +58,7 @@ const StyledNavLink = styled(Link)`
         background-color: ${colors.gray};
     }
 `
-const I = styled.i`
+const I = styled(Icon)`
     padding: 0 10px 0 0;
 `
 const Line = styled.div`

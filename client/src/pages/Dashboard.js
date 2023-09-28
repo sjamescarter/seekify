@@ -1,22 +1,21 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/user";
-import styled from "styled-components";
+import { styled } from "styled-components";
+import { Container, PageTitle } from "../styles";
 import { chron, currentEvents } from "../components/utilities";
 import Button from "../styles/Button";
 import EventCard from "../components/EventCard";
-import InviteCard from "../components/InviteCard";
 import Icon from "../components/Icon";
-import { Container, PageTitle } from "../styles";
+import InviteCard from "../components/InviteCard";
 
 function Dashboard() {
     // Context
     const { user } = useContext(UserContext);
     const { events } = user;
-
+    const invites = user.user_instruments;
+    const upcomingEvents = currentEvents(events);
     const navigate = useNavigate();
-
-    const upcomingEvents = currentEvents(events)
 
     return (
         <Container>
@@ -29,19 +28,19 @@ function Dashboard() {
             </PageTitle>
             <Div>
                 <h2>Events You Host</h2>
-                {upcomingEvents 
+                {upcomingEvents.length > 0 
                     ? chron(upcomingEvents).map(event => 
                         <EventCard 
                             key={event.id} 
                             event={event} 
                         />
                     ) 
-                    : null
+                    : <p>You have no upcoming events.</p>
                 }
             </Div>
             <Div>
                 <h2>Invites You've Received</h2>
-                {user.user_instruments.map(instrument => 
+                {invites.map(instrument => 
                     instrument.invites.map(i => 
                         <InviteCard 
                             key={i.id} 
@@ -54,6 +53,7 @@ function Dashboard() {
     );
 }
 
+// Styles
 const Div = styled.div`
     margin: auto;
     padding: 20px;
