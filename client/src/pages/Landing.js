@@ -45,7 +45,7 @@ function Landing() {
     return (
         <Container>
             <h1 style={{fontSize: "2.5em"}}>Welcome to Seekify.io</h1>
-            <p>A social network for worship leaders, musicians and technicians</p>
+            <P>A social network for worship leaders, musicians and technicians</P>
             <Form 
                 title={showSignUp ? 'Sign Up' : 'Sign In'}
                 onSubmit={handleSubmit} 
@@ -106,5 +106,6 @@ const Span = styled.span`
 `
 const P = styled.p`
     text-align: center;
+    font-size: 1.2em;
 `
 export default Landing;

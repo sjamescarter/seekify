@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../context/user";
 import { InstrumentsContext } from "../context/instruments";
 import { Input, Select, TextArea, colors } from "../styles";
-import { abc, addS, camelToSnake, handleChange, handleModal } from "./utilities";
+import { abc, addS, camelToSnake, handleChange } from "./utilities";
 import Form from "./Form";
 import FormItem from "./FormItem";
 import Icon from "./Icon";
@@ -32,7 +32,7 @@ function CreateInvite({ event, instrumentId="", userInstrumentId="", handleCance
 
     // Handlers
     const onChange = (e) => handleChange(e, form, setForm);
-    
+
     const resetForm = () => { 
         setErrors(); 
         setForm(formFields); 
@@ -64,15 +64,15 @@ function CreateInvite({ event, instrumentId="", userInstrumentId="", handleCance
                         events: [
                             ...user.events.map(e => 
                                 e.id === event.id 
-                                ? {...e, roles: [...e.roles, invite]} 
-                                : e
-                                )
-                            ]
-                        });
-                        resetForm();
-                        handleModal(`createInvite${event.id}`);
+                                    ? {...e, roles: [...e.roles, invite]} 
+                                    : e
+                            )
+                        ]
                     });
-                } else {
+                    resetForm();
+                    handleCancel();
+                });
+            } else {
                     r.json().then(err => setErrors(err.errors));
                 }
             })
