@@ -1,13 +1,13 @@
 import { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { MusiciansContext } from '../context/musicians';
-import { UserContext } from '../context/user';
 import { VenuesContext } from '../context/venues';
+import { UserContext } from '../context/user';
 import { handleModal } from '../components/utilities';
 import { handleImgSubmit } from '../components/utilities';
 import CreateVenue from '../components/CreateVenue';
 import Modal from '../components/Modal';
 import ProfileForm from '../components/ProfileForm';
-import { useNavigate } from 'react-router-dom';
 
 const formFields = {
     firstName: "", 

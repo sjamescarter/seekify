@@ -22,8 +22,9 @@ class ApplicationController < ActionController::API
     [
         'church',
         'events', 'events.roles', 'events.roles.user_instrument', 'events.venue',
+        'invites', 'invites.event',
         'profile', 
-        'user_instruments', 'user_instruments.invites', 'user_instruments.invites.event'
+        'user_instruments'
     ]
   end
 end

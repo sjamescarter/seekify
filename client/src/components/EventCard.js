@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { UserContext } from "../context/user";
-import styled from "styled-components";
+import { styled } from "styled-components";
 import { colors } from "../styles";
 import { handleModal } from "./utilities";
 import Button from "../styles/Button";

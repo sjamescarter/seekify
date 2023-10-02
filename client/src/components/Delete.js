@@ -1,7 +1,7 @@
-import styled from "styled-components";
+import { styled } from "styled-components";
+import { colors } from "../styles";
 import { destroy } from "./fetch";
 import { handleModal } from "./utilities";
-import { colors } from "../styles";
 import Modal from "./Modal";
 import Warning from "./Warning";
 

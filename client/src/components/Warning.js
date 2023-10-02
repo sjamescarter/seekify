@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import { styled } from "styled-components";
 import { CancelBtn, colors } from "../styles";
 
 function Warning({ onSubmit, handleCancel }) {

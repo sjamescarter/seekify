@@ -1,10 +1,10 @@
-import styled from "styled-components";
-import defaultEventPic from "../images/defaultEventPic.jpeg";
+import { styled } from "styled-components";
 import { colors } from "../styles";
+import defaultEventPic from "../images/defaultEventPic.jpeg";
 
 function PublicEventCard({ children, event, onClick }) {
     const { name, time, location, image, description } = event
-    
+
     const eventImage = image ? image : defaultEventPic
 
     return(
@@ -16,7 +16,11 @@ function PublicEventCard({ children, event, onClick }) {
                 <Strong>{time} | {location}</Strong>
                 <Description>{description}</Description>
             </Grid>
-            {children ? children.slice(1) : null}
+            {
+                children
+                    ? children.slice(1) 
+                    : null 
+            }
         </Container>
     );
 }

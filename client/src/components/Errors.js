@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import FormItem from './FormItem';
+import { styled } from 'styled-components';
 import { colors } from '../styles';
+import FormItem from './FormItem';
 
 function Errors({ errors }) {
     return(

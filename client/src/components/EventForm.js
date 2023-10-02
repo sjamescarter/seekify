@@ -1,4 +1,5 @@
 import { Input, TextArea } from "../styles";
+import { styled } from "styled-components";
 import { handleChange } from "../components/utilities";
 import Form from "../components/Form";
 import FormItem from "../components/FormItem";
@@ -32,7 +33,7 @@ function EventForm({ title, form, setForm, imgLabel, img, setImg, onSubmit, onCa
                     />
             </FormItem>
             <FormItem icon="event_note">
-                <label style={{width: '100%', margin: '5px', padding: '5px 10px'}}>Rehearsal</label>
+                <p style={{width: '100%', margin: '5px', padding: '5px 10px'}}>Rehearsal</p>
                 <Input
                     type='datetime-local'
                     name='rehearsal'
@@ -42,10 +43,11 @@ function EventForm({ title, form, setForm, imgLabel, img, setImg, onSubmit, onCa
             </FormItem>
             <VenueSelect onChange={onChange} value={form.venueId} venues={venues} />
             <FormItem icon="public">
-                <p style={{width: '100%', margin: '5px', padding: '5px 10px'}}>Public Event?</p>
+                <p style={{width: '100%', margin: '5px', padding: '5px 10px'}}>Is this event public?</p>
                 <Input
                     type="checkbox"
                     name="public"
+                    value="public"
                     checked={form.public}
                     onChange={onChange}
                     />
@@ -64,4 +66,10 @@ function EventForm({ title, form, setForm, imgLabel, img, setImg, onSubmit, onCa
     );
 }
 
+// Styles
+const P = styled.p`
+    width: 100%; 
+    margin: 5px; 
+    padding: 5px 10px;
+`
 export default EventForm;

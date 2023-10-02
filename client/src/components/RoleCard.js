@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/user";
 import { MusiciansContext } from "../context/musicians";
-import styled from "styled-components";
+import { styled } from "styled-components";
 import { TableRow, colors } from "../styles";
 import Delete from "./Delete";
 

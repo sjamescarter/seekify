@@ -1,17 +1,17 @@
 import { useContext } from "react";
-import InstrumentsTable from "../components/InstrumentsTable";
-import UpdateProfile from "../components/UpdateProfile";
-import { Button, Container, PageTitle } from "../styles";
 import { UserContext } from "../context/user";
-import Icon from "../components/Icon";
-import Modal from "../components/Modal";
+import { Button, Container, PageTitle } from "../styles";
 import { handleModal } from "../components/utilities";
+import Icon from "../components/Icon";
+import InstrumentsTable from "../components/InstrumentsTable";
+import Modal from "../components/Modal";
+import UpdateProfile from "../components/UpdateProfile";
 
 function Settings() {
     const { user } = useContext(UserContext);
     const { user_instruments } = user;
     const modalId = `updateProfile`;
-    
+
     return (
         <div>
             <Container>

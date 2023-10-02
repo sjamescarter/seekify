@@ -1,10 +1,10 @@
 import { useContext, useState } from 'react';
 import { UserContext } from '../context/user';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
+import { Input, colors } from '../styles'
 import { handleChange } from '../components/utilities';
 import Form from '../components/Form';
 import FormItem from '../components/FormItem';
-import { Input } from '../styles'
 
 function Landing() {
     // Context
@@ -17,6 +17,7 @@ function Landing() {
 
     // Handlers
     const onChange = (e) => handleChange(e, form, setForm);
+    const handleClick = () => setShowSignUp(!showSignUp);
     function handleSubmit(e) {
         e.preventDefault();
         setErrors();
@@ -82,8 +83,8 @@ function Landing() {
                 }
             </Form>
             { showSignUp 
-                ? <P>Already have an account? <Span onClick={() => setShowSignUp(false)}>Sign In Here!</Span></P>
-                : <P>Need an account? <Span onClick={() => setShowSignUp(true)}>Sign Up Here!</Span></P>
+                ? <P>Already have an account? <Span onClick={handleClick}>Sign In Here!</Span></P>
+                : <P>Need an account? <Span onClick={handleClick}>Sign Up Here!</Span></P>
             }
         </Container>
     );
@@ -98,7 +99,7 @@ const Container = styled.div`
 `
 const Span = styled.span`
     text-decoration-line: underline;
-    color: #3D5467;
+    color: ${colors.secondary};
     &:hover {
         cursor: pointer;
     }

@@ -6,7 +6,7 @@ class Event < ApplicationRecord
   alias :roles :invites
   alias :host :user
   
-  validates :name, presence: true
+  validates :name, :description, presence: true
   validates :date, 
     comparison: { 
       greater_than: Time.now, 

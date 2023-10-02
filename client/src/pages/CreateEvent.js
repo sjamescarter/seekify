@@ -1,12 +1,12 @@
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "../context/user";
+import { MusiciansContext } from "../context/musicians";
 import { VenuesContext } from "../context/venues";
+import { UserContext } from "../context/user";
 import { handleImgSubmit, handleModal } from "../components/utilities";
 import CreateVenue from "../components/CreateVenue";
-import Modal from "../components/Modal";
-import { MusiciansContext } from "../context/musicians";
 import EventForm from "../components/EventForm";
+import Modal from "../components/Modal";
 
 
 const formFields = {name: "", date: "", rehearsal: "", public: "", description: "", venueId: ""}

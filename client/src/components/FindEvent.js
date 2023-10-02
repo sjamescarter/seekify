@@ -21,7 +21,8 @@ function FindEvent({ userInstrument, handleCancel }) {
     const event = user.events.find(e => e.id === parseInt(form.event));
     const instrumentId = instruments.find(i => i.name === instrument).id;
     const upcomingEvents = currentEvents(user.events);
-
+    const modalId = `createInvite${id}`;
+    
     // Handlers
     const onChange = (e) => handleChange(e, form, setForm);
     const onCancel = () => {
@@ -30,7 +31,7 @@ function FindEvent({ userInstrument, handleCancel }) {
     }
     function handleSubmit(e) {
         e.preventDefault();
-        handleModal(`createInvite${form.event}`, true);
+        handleModal(modalId, true);
         // handleCancel();
     } 
 
@@ -57,13 +58,13 @@ function FindEvent({ userInstrument, handleCancel }) {
                     )}
                 </Select>
             </Form>
-            <Modal id={`createInvite${form.event}`}>
+            <Modal id={modalId}>
                 <CreateInvite 
                     event={event} 
                     instrumentId={instrumentId}
                     userInstrumentId={id} 
                     handleCancel={() => {
-                        handleModal(`createInvite${form.event}`);
+                        handleModal(modalId);
                         handleCancel();
                     }} 
                 />

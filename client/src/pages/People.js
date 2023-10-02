@@ -2,8 +2,8 @@ import { useContext } from "react";
 import { useParams } from "react-router-dom";
 import { MusiciansContext } from "../context/musicians";
 import { UserContext } from "../context/user";
-import Profile from "../components/Profile";
 import { abc } from "../components/utilities";
+import Profile from "../components/Profile";
 
 function People() {
     // Context

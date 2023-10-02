@@ -12,10 +12,12 @@ import InviteCard from "../components/InviteCard";
 function Dashboard() {
     // Context
     const { user } = useContext(UserContext);
-    const { events } = user;
-    const invites = user.user_instruments;
-    const upcomingEvents = currentEvents(events);
+    const { events, invites } = user;
+
     const navigate = useNavigate();
+
+    const upcomingEvents = currentEvents(events);
+    const upcomingInvites = currentEvents(invites)
 
     return (
         <Container>
@@ -40,14 +42,15 @@ function Dashboard() {
             </Div>
             <Div>
                 <h2>Invites You've Received</h2>
-                {invites.map(instrument => 
-                    instrument.invites.map(i => 
+                {invites.length > 0
+                    ? chron(upcomingInvites).map(i => 
                         <InviteCard 
                             key={i.id} 
                             invite={i} 
                         />
                     )
-                )}
+                    : <p>You have no upcoming invites.</p>
+                }
             </Div>
         </Container>
     );

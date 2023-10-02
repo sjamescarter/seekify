@@ -1,15 +1,25 @@
-import styled from "styled-components";
+import { styled } from "styled-components";
+import { colors } from "../styles";
 import { camelToTitle } from "./utilities";
 import DropZone from "./DropZone";
 import FormItem from "./FormItem";
-import { colors } from "../styles";
 
 function ImgUploader({ id, img, setImg }) {
     return (
         <>
             <FormItem icon='image'>
                 <Label htmlFor={id}>Upload {camelToTitle(id)}:</Label>
-                {img ? <Div><p>{img.name}</p> <I className='material-symbols-rounded' onClick={() => setImg()}>backspace</I></Div> : null}
+                { img 
+                        ? <Div>
+                            <p>{img.name}</p> 
+                            <I 
+                                className='material-symbols-rounded' 
+                                onClick={() => setImg()}>
+                                backspace
+                            </I>
+                        </Div> 
+                        : null
+                }
             </FormItem>
             {img ? null : <DropZone id={id} setState={setImg} />}
         </>

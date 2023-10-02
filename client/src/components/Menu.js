@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 import { colors } from '../styles';
 import Icon from './Icon';
 
@@ -7,28 +7,28 @@ function Menu({ id, name, handleMenu, handleLogout }) {
 
     return (
         <Container>
-            <StyledNavLink to={`/people/${id}`} onClick={handleMenu}>
+            <StyledLink to={`/people/${id}`} onClick={handleMenu}>
                 <I>person</I>
                 {name}
-            </StyledNavLink>
+            </StyledLink>
             <Line />
-            <StyledNavLink to="/" onClick={handleMenu}>
+            <StyledLink to="/" onClick={handleMenu}>
                 <I>dashboard</I>
                 Dashboard
-            </StyledNavLink>
-            <StyledNavLink to="/events/new" onClick={handleMenu}>
+            </StyledLink>
+            <StyledLink to="/events/new" onClick={handleMenu}>
                 <I>calendar_add_on</I>
                 Create Event
-            </StyledNavLink>
-            <StyledNavLink to="/settings" onClick={handleMenu}>
+            </StyledLink>
+            <StyledLink to="/settings" onClick={handleMenu}>
                 <I>settings</I>
                 Settings
-            </StyledNavLink>
+            </StyledLink>
             <Line />
-            <StyledNavLink to="/" onClick={handleLogout}>
+            <StyledLink to="/" onClick={handleLogout}>
                 <I>logout</I>
                 Sign Out
-            </StyledNavLink>
+            </StyledLink>
         </Container>
     );
 }
@@ -43,7 +43,7 @@ const Container = styled.div`
     right: 10px;
     top: 55px;
 `
-const StyledNavLink = styled(Link)`
+const StyledLink = styled(Link)`
     border: solid 2px white;
     border-radius: 10px;
     color: ${colors.gray};

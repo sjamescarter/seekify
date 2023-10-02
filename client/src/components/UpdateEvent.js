@@ -1,11 +1,11 @@
 import { useContext, useState } from "react";
-import { UserContext } from "../context/user";
+import { MusiciansContext } from "../context/musicians";
 import { VenuesContext } from "../context/venues";
+import { UserContext } from "../context/user";
 import { handleModal, handleImgSubmit } from "../components/utilities";
 import CreateVenue from "../components/CreateVenue";
 import Modal from "../components/Modal";
 import EventForm from "./EventForm";
-import { MusiciansContext } from "../context/musicians";
 
 function UpdateEvent({ event }) {
     const { id, date, description, name, rehearsal, venue } = event 
@@ -91,7 +91,10 @@ function UpdateEvent({ event }) {
         setForm({...form, venueId: ""});
         handleModal(`createVenue${event.id}`);
     }
-    const onSubmit = (e) => handleImgSubmit(e, endpoint, method, setErrors, form, imgLabel, img, callback)
+    const onSubmit = (e) => {
+        handleImgSubmit(e, endpoint, method, setErrors, form, imgLabel, img, callback);
+        setImg();
+    }
 
     if(form.venueId === "new") { 
         handleModal(`createVenue${id}`, true)

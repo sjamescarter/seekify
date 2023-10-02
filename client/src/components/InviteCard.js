@@ -28,19 +28,10 @@ function InviteCard({ invite }) {
         .then(updatedInvite => {
             setUser({
                 ...user, 
-                user_instruments: [
-                    ...user.user_instruments.map(i => 
-                        i.instrument === role 
-                            ? {
-                                ...i, 
-                                invites: [
-                                    ...i.invites.map(inv => 
-                                        inv.id === id 
-                                            ? updatedInvite
-                                            : inv
-                                    )
-                                ]
-                            }
+                invites: [
+                    ...user.invites.map(i => 
+                        i.id === id 
+                            ? updatedInvite
                             : i 
                     )
                 ]
@@ -75,7 +66,7 @@ function InviteCard({ invite }) {
                 <PublicEventCard event={event} onClick={() => setExpand(!expand)}>
                     { pay ? <Icon title={`Paid Gig: $${pay}`}>paid</Icon> : <div></div> }
                     { expand 
-                        ?<Container>
+                        ? <Container>
                             <Item>
                                 <H4>HOST</H4>
                                 <P>{host}</P>

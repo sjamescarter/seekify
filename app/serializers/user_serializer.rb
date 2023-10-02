@@ -3,6 +3,7 @@ class UserSerializer < ActiveModel::Serializer
   has_one :profile
   has_one :church
   has_many :user_instruments
+  has_many :invites
   has_many :events
 
   def name

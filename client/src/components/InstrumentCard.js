@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { UserContext } from "../context/user";
 import { MusiciansContext } from "../context/musicians";
-import styled from "styled-components";
+import { styled } from "styled-components";
 import { TableRow, colors } from "../styles";
 import { addS, camelToTitle, handleModal } from "./utilities";
 import Delete from "./Delete";
@@ -11,7 +11,7 @@ import Modal from "./Modal";
 function InstrumentCard({ userInstrument }) {
     const { id, name, instrument, skill, experience } = userInstrument
     const modalId = `findEvent${id}`;
-
+console.log(modalId);
     // Context
     const { user, setUser } = useContext(UserContext);
     const { musicians, setMusicians } = useContext(MusiciansContext);

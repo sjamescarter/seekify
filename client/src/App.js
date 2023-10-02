@@ -4,7 +4,7 @@ import { MusiciansContext } from "./context/musicians";
 import { InstrumentsContext } from "./context/instruments";
 import { UserContext } from "./context/user";
 import { VenuesContext } from "./context/venues";
-import styled from "styled-components";
+import { styled } from "styled-components";
 import { get } from "./components/fetch";
 import CreateEvent from "./pages/CreateEvent";
 import CreateProfile from "./pages/CreateProfile";
@@ -19,7 +19,7 @@ function App() {
   // Context
   const { user, setUser} = useContext(UserContext);
   const { setInstruments } = useContext(InstrumentsContext);
-  const { musicians, setMusicians } = useContext(MusiciansContext);
+  const { setMusicians } = useContext(MusiciansContext);
   const { venues, setVenues } = useContext(VenuesContext);
 
   const navigate = useNavigate();
@@ -31,8 +31,6 @@ function App() {
     get("/users", setMusicians);
   }, []);
 
-  console.log(user)
-  console.log(musicians)
   function handleLogout() {
     fetch('/logout', {
         method: "DELETE"
