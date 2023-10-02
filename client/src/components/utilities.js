@@ -1,7 +1,7 @@
 import { imgFetch } from "./fetch";
 
 // Constants
-const experienceLevels = ["<1", "1–4", "5–9", "10–20", ">20"];
+const experienceLevels = ["<1", "1–4", "5–9", "10–20", "20+"];
 const skillLevels = ["beginner", "intermediate", "advanced", "professional"];
 
 export { experienceLevels, skillLevels };
