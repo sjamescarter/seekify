@@ -106,3 +106,4 @@ $ rails db:migrate db:seed
 
 ## Video
 Find a video walk-through of this project here:
+https://watch.screencastify.com/v/STRObuZNejvSuLsdhPdq
