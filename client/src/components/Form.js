@@ -19,6 +19,7 @@ const StyledForm = styled.form`
     border-radius: 1em;
     display: grid;
     max-width: 550px;
+    min-width: 500px;
     padding: 0 2em 2em;
     margin: auto;
     margin-top: 2em;

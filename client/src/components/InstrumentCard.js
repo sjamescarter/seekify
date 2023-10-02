@@ -11,7 +11,7 @@ import Modal from "./Modal";
 function InstrumentCard({ userInstrument }) {
     const { id, name, instrument, skill, experience } = userInstrument
     const modalId = `findEvent${id}`;
-console.log(modalId);
+
     // Context
     const { user, setUser } = useContext(UserContext);
     const { musicians, setMusicians } = useContext(MusiciansContext);

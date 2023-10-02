@@ -33,7 +33,7 @@ function EventForm({ title, form, setForm, imgLabel, img, setImg, onSubmit, onCa
                     />
             </FormItem>
             <FormItem icon="event_note">
-                <p style={{width: '100%', margin: '5px', padding: '5px 10px'}}>Rehearsal</p>
+                <P>Rehearsal</P>
                 <Input
                     type='datetime-local'
                     name='rehearsal'
@@ -43,7 +43,7 @@ function EventForm({ title, form, setForm, imgLabel, img, setImg, onSubmit, onCa
             </FormItem>
             <VenueSelect onChange={onChange} value={form.venueId} venues={venues} />
             <FormItem icon="public">
-                <p style={{width: '100%', margin: '5px', padding: '5px 10px'}}>Is this event public?</p>
+                <P>Is this event public?</P>
                 <Input
                     type="checkbox"
                     name="public"

@@ -18,7 +18,7 @@ function CreateEvent() {
     const { venues } = useContext(VenuesContext);
 
     // State
-    const [form, setForm] = useState({formFields, venueId: user.church.id});
+    const [form, setForm] = useState({...formFields, venueId: user.church.id});
     const [img, setImg] = useState();
     const [errors, setErrors] = useState();
 

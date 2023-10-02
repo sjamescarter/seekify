@@ -1,6 +1,6 @@
-# Seekify.io README
+# Seekify.io
 
-This project is a social network app for worship leaders, musicians and technicians to connect through events. Users can create events and invite other users to participate in various roles. The frontend of this project uses ReactJS and is found in the client folder. The backend is a Rails API built in Ruby v2.7.4. 
+This project is a social network app for worship leaders, musicians and technicians to connect through events. Users can create events and invite other users to participate in various roles. The frontend of this project uses ReactJS v18.2.0 and is found in the client folder. The backend is a Rails v7.0.5 API built in Ruby v2.7.4. 
 
 ## Setup
 To get set up, run:

@@ -22,7 +22,7 @@ function UpdateEvent({ event }) {
         description: description,
         name: name,
         public: event.public,
-        rehearsal: rehearsal,
+        rehearsal: rehearsal || "",
         venueId: venue.id
     });
     const [img, setImg] = useState();
@@ -33,16 +33,13 @@ function UpdateEvent({ event }) {
     const method = "PATCH";
     const imgLabel = 'image';
     const callback = (data) => {
-        if(event.public && data.public) {
+        if(!data.public) {
             setMusicians([
                 ...musicians.map(m => m.id === user.id
                     ? {
                         ...m,
                         events: [
-                            m.events.map(evnt => evnt.id === id
-                                ? data
-                                : evnt
-                            )
+                            ...m.events.filter(evnt => evnt.id !== id)
                         ]
                     }
                     : m
@@ -67,7 +64,10 @@ function UpdateEvent({ event }) {
                     ? {
                         ...m,
                         events: [
-                            ...m.events.filter(evnt => evnt.id !== id)
+                            ...m.events.map(evnt => evnt.id === id
+                                ? data
+                                : evnt
+                            )
                         ]
                     }
                     : m
