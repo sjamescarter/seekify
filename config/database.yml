@@ -84,3 +84,4 @@ production:
   database: seekify_production
   username: seekify
   password: <%= ENV["SEEKIFY_DATABASE_PASSWORD"] %>
+  # url: <%= ENV['DATABASE_URL'] %>

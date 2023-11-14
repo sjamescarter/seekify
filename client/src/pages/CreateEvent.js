@@ -1,7 +1,6 @@
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MusiciansContext } from "../context/musicians";
-import { VenuesContext } from "../context/venues";
 import { UserContext } from "../context/user";
 import { handleImgSubmit, handleModal } from "../components/utilities";
 import CreateVenue from "../components/CreateVenue";
@@ -15,7 +14,6 @@ function CreateEvent() {
     // Context
     const { user, setUser } = useContext(UserContext);
     const { musicians, setMusicians } = useContext(MusiciansContext);
-    const { venues } = useContext(VenuesContext);
 
     // State
     const [form, setForm] = useState({...formFields, venueId: user.church.id});
@@ -65,7 +63,6 @@ function CreateEvent() {
                 setForm={setForm}
                 setImg={setImg}
                 title="Create Event"
-                venues={venues}
             />
             <Modal id='createVenue'>
                 <CreateVenue 

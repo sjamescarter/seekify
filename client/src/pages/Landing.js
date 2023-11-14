@@ -6,7 +6,7 @@ import { handleChange } from '../components/utilities';
 import Form from '../components/Form';
 import FormItem from '../components/FormItem';
 
-function Landing() {
+function Landing({ loadState }) {
     // Context
     const { setUser } = useContext(UserContext);
 
@@ -35,7 +35,10 @@ function Landing() {
             })
         }).then(r => {
             if(r.ok) {
-                r.json().then(user => setUser(user))
+                r.json().then(user => {
+                    setUser(user);
+                    loadState();
+                })
             } else {
                 r.json().then((err) => setErrors(err.errors))
             }

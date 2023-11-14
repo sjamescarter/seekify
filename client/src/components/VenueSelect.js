@@ -1,8 +1,14 @@
+import { useContext } from "react";
+import { VenuesContext } from "../context/venues";
 import { Select } from "../styles";
 import { abc } from "./utilities";
 import FormItem from "./FormItem";
 
-function VenueSelect({ onChange, value, venues }) {
+function VenueSelect({ onChange, value }) {
+    const { venues } = useContext(VenuesContext);
+
+    if(!venues) return <h1>Loading...</h1>;
+
     return(
         <FormItem icon='church'>
             <Select  

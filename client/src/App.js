@@ -20,16 +20,18 @@ function App() {
   const { user, setUser} = useContext(UserContext);
   const { setInstruments } = useContext(InstrumentsContext);
   const { setMusicians } = useContext(MusiciansContext);
-  const { venues, setVenues } = useContext(VenuesContext);
+  const { setVenues } = useContext(VenuesContext);
 
   const navigate = useNavigate();
 
-  useEffect(() => {
+  const loadState = () => {
     get("/me", setUser);
     get("/venues", setVenues);
     get("/instruments", setInstruments);
     get("/users", setMusicians);
-  }, []);
+  }
+
+  useEffect(loadState, []);
 
   function handleLogout() {
     fetch('/logout', {
@@ -43,8 +45,7 @@ function App() {
       });
 }
 
-  if (!user) return <Landing />;
-  if (!venues) return <h1>Loading...</h1>
+  if (!user) return <Landing loadState={loadState}/>;
   if (!user.profile) return <CreateProfile handleLogout={handleLogout} />;
 
   return (

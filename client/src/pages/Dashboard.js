@@ -17,7 +17,7 @@ function Dashboard() {
     const navigate = useNavigate();
 
     const upcomingEvents = currentEvents(events);
-    const upcomingInvites = currentEvents(invites)
+    const upcomingInvites = currentEvents(invites);
 
     return (
         <Container>

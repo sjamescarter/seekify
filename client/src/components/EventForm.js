@@ -6,7 +6,7 @@ import FormItem from "../components/FormItem";
 import ImgUploader from "../components/ImgUploader";
 import VenueSelect from "../components/VenueSelect";
 
-function EventForm({ title, form, setForm, imgLabel, img, setImg, onSubmit, onCancel, errors, venues }) {
+function EventForm({ title, form, setForm, imgLabel, img, setImg, onSubmit, onCancel, errors }) {
     // Handlers
     const onChange = (e) => handleChange(e, form, setForm);
 
@@ -41,7 +41,7 @@ function EventForm({ title, form, setForm, imgLabel, img, setImg, onSubmit, onCa
                     onChange={onChange}
                     />
             </FormItem>
-            <VenueSelect onChange={onChange} value={form.venueId} venues={venues} />
+            <VenueSelect onChange={onChange} value={form.venueId} />
             <FormItem icon="public">
                 <P>Is this event public?</P>
                 <Input

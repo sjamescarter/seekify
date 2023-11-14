@@ -1,6 +1,5 @@
 import { useContext, useState } from "react";
 import { MusiciansContext } from "../context/musicians";
-import { VenuesContext } from "../context/venues";
 import { UserContext } from "../context/user";
 import { handleModal, handleImgSubmit } from "../components/utilities";
 import CreateVenue from "../components/CreateVenue";
@@ -13,7 +12,6 @@ function UpdateEvent({ event }) {
     // Context
     const { user, setUser } = useContext(UserContext);
     const { musicians, setMusicians } = useContext(MusiciansContext)
-    const { venues } = useContext(VenuesContext);
 
     // State
     const [form, setForm] = useState({
@@ -112,7 +110,6 @@ function UpdateEvent({ event }) {
                 setForm={setForm}
                 setImg={setImg}
                 title="Update Event"
-                venues={venues}
             />
             <Modal id={`createVenue${id}`}>
                 <CreateVenue 
