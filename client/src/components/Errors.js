@@ -6,14 +6,16 @@ function Errors({ errors }) {
     return(
         <List>
             <Legend>Errors</Legend>
-            {errors.map(err => 
-                <FormItem 
-                    key={err} 
-                    icon='error' 
-                    style={{color: colors.red}}
-                >
-                    <Item>{err}</Item>
-                </FormItem>)
+            {
+                errors.map(err => 
+                    <FormItem 
+                        key={err} 
+                        icon='error' 
+                        style={{color: colors.red}}
+                    >
+                        <Item>{err}</Item>
+                    </FormItem>
+                )
             }
         </List>
     )
