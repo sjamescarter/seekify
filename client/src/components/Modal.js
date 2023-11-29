@@ -1,12 +1,13 @@
+import { forwardRef } from "react";
 import { styled } from "styled-components";
 
-function Modal({ id, children }) {
+const Modal = forwardRef(({ id, children }, ref) => {
     return (
-        <Dialog id={id}>
+        <Dialog id={id} ref={ref}>
             {children}
         </Dialog>
     );
-}
+})
 
 const Dialog = styled.dialog`
     border: none;

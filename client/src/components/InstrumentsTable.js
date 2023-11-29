@@ -1,6 +1,7 @@
+import { useRef } from "react";
 import { styled } from "styled-components";
 import { TableHeader, TableRow } from "../styles";
-import { abc, handleModal } from "./utilities";
+import { abc } from "./utilities";
 import AddInstrument from "./AddInstrument";
 import Button from "../styles/Button";
 import Icon from "./Icon";
@@ -8,12 +9,15 @@ import InstrumentCard from "./InstrumentCard";
 import Modal from "./Modal";
 
 function InstrumentsTable({ userInstruments, loggedIn }) {
+    // Ref
+    const addInstrumentModal = useRef(null);
+
     return (
         <>
             <Div>
                 <h3>Instruments</h3>
                 { loggedIn
-                    ? <Button onClick={() => handleModal("addInstrument", true)}>
+                    ? <Button onClick={() => addInstrumentModal.current.showModal()}>
                         <Icon>add_circle</Icon>
                         Add Instrument
                     </Button>
@@ -31,8 +35,8 @@ function InstrumentsTable({ userInstruments, loggedIn }) {
                 </TableRow>
                 : abc(userInstruments, "instrument").map(i => <InstrumentCard key={i.id} userInstrument={i} />)
             }
-            <Modal id="addInstrument">
-                <AddInstrument />
+            <Modal ref={addInstrumentModal}>
+                <AddInstrument addInstrumentModal={addInstrumentModal}/>
             </Modal>
         </>
     );

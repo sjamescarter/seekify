@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MusiciansContext } from '../context/musicians';
 import { UserContext } from '../context/user';
@@ -9,7 +9,7 @@ import CreateVenue from '../components/CreateVenue';
 import Modal from '../components/Modal';
 import ProfileForm from '../components/ProfileForm';
 
-function UpdateProfile() {
+function UpdateProfile({ updateProfileModal }) {
     // Context
     const { musicians, setMusicians } = useContext(MusiciansContext);
     const { user, setUser } = useContext(UserContext);
@@ -31,11 +31,13 @@ function UpdateProfile() {
     const [img, setImg] = useState();
     const [errors, setErrors] = useState();
     
+    // Ref
+    const createVenueModal = useRef(null);
+
     // Const
     const endpoint = `/profiles/${id}`;
     const method = "PATCH";
     const imgLabel = 'avatar';
-    const modalId = `createProfileVenue${id}`;
 
     const navigate = useNavigate();
     const callback = (data) => {
@@ -59,13 +61,13 @@ function UpdateProfile() {
 
     // Handlers
     const handleCancel = () => {
-        handleModal(modalId);
+        createVenueModal.current.close();
         setForm({ ...form, venueId: "" });
     }
     const onSubmit = (e) => handleImgSubmit(e, endpoint, method, setErrors, form, imgLabel, img, callback)
 
     if(form.venueId === "new") { 
-        handleModal(modalId, true);
+        createVenueModal.current.showModal();
     };
 
     return (
@@ -77,17 +79,17 @@ function UpdateProfile() {
                 onSubmit={onSubmit}
                 errors={errors}
                 venues={venues}
-                onCancel={() => handleModal('updateProfile')}
+                onCancel={() => updateProfileModal.current.close()}
                 imgLabel={imgLabel}
                 img={img}
                 setImg={setImg}
             />
-            <Modal id={modalId}>
+            <Modal ref={createVenueModal}>
                 <CreateVenue 
                     state={form} 
                     setState={setForm} 
                     handleCancel={handleCancel} 
-                    closeModal={() => handleModal(modalId)}
+                    closeModal={() => createVenueModal.current.close()}
                 />
             </Modal>
         </>

@@ -1,9 +1,8 @@
-import { useContext, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MusiciansContext } from '../context/musicians';
 import { VenuesContext } from '../context/venues';
 import { UserContext } from '../context/user';
-import { handleModal } from '../components/utilities';
 import { handleImgSubmit } from '../components/utilities';
 import CreateVenue from '../components/CreateVenue';
 import Modal from '../components/Modal';
@@ -31,6 +30,9 @@ function CreateProfile({ handleLogout }) {
     const [img, setImg] = useState();
     const [errors, setErrors] = useState();
     
+    // Ref
+    const createVenueModal = useRef(null);
+
     // Const
     const navigate = useNavigate();
     const callback = (data) => {
@@ -44,13 +46,13 @@ function CreateProfile({ handleLogout }) {
 
     // Handlers
     const handleCancel = () => {
-        handleModal('createProfileVenue');
+        createVenueModal.current.close();
         setForm({ ...form, venueId: "" });
     }
     const onSubmit = (e) => handleImgSubmit(e, endpoint, method, setErrors, form, imgLabel, img, callback);
 
     if(form.venueId === "new") { 
-        handleModal('createProfileVenue', true);
+        createVenueModal.current.showModal();
     };
 
     return (
@@ -67,12 +69,12 @@ function CreateProfile({ handleLogout }) {
                 img={img}
                 setImg={setImg}
             />
-            <Modal id="createProfileVenue">
+            <Modal ref={createVenueModal}>
                 <CreateVenue 
                     state={form} 
                     setState={setForm} 
                     handleCancel={handleCancel} 
-                    closeModal={() => handleModal('createProfileVenue')}
+                    closeModal={() => createVenueModal.current.close()}
                 />
             </Modal>
         </>

@@ -1,8 +1,8 @@
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MusiciansContext } from "../context/musicians";
 import { UserContext } from "../context/user";
-import { handleImgSubmit, handleModal } from "../components/utilities";
+import { handleImgSubmit } from "../components/utilities";
 import CreateVenue from "../components/CreateVenue";
 import EventForm from "../components/EventForm";
 import Modal from "../components/Modal";
@@ -19,6 +19,9 @@ function CreateEvent() {
     const [form, setForm] = useState({...formFields, venueId: user.church.id});
     const [img, setImg] = useState();
     const [errors, setErrors] = useState();
+
+    // Ref
+    const createVenueModal = useRef(null);
 
     // Const
     const navigate = useNavigate();
@@ -43,12 +46,12 @@ function CreateEvent() {
     // Handlers
     const handleCancel = () => {
         setForm({...form, venueId: ""});
-        handleModal('createVenue');
+        createVenueModal.current.close();
     }
     const onSubmit = (e) => handleImgSubmit(e, endpoint, method, setErrors, form, imgLabel, img, callback);
 
     if(form.venueId === "new") { 
-        handleModal('createVenue', true)
+        createVenueModal.current.showModal();
     };
 
     return (
@@ -64,12 +67,12 @@ function CreateEvent() {
                 setImg={setImg}
                 title="Create Event"
             />
-            <Modal id='createVenue'>
+            <Modal ref={createVenueModal}>
                 <CreateVenue 
                     state={form} 
                     setState={setForm} 
                     handleCancel={handleCancel} 
-                    closeModal={() => handleModal('createVenue')}
+                    closeModal={() => createVenueModal.current.close()}
                 />
             </Modal>
         </>

@@ -1,8 +1,7 @@
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { UserContext } from "../context/user";
 import { styled } from "styled-components";
 import { colors } from "../styles";
-import { handleModal } from "./utilities";
 import Button from "../styles/Button";
 import CreateInvite from "./CreateInvite";
 import Delete from "./Delete";
@@ -19,6 +18,10 @@ function EventCard({ event }) {
 
     // State
     const [expand, setExpand] = useState();
+
+    // Ref
+    const updateEventModal = useRef(null);
+    const createInviteModal = useRef(null);
 
     // Handlers
     function handleDelete() {
@@ -38,11 +41,11 @@ function EventCard({ event }) {
             { expand
                 ? <Container>
                     <Grid>
-                        <Button onClick={() => handleModal(`updateEvent${id}`, true)}>
+                        <Button onClick={() => updateEventModal.current.showModal()}>
                             <Icon>edit</Icon>
                             Edit Event
                         </Button>
-                        <Button onClick={() => handleModal(`createInvite${id}`, true)}>
+                        <Button onClick={() => createInviteModal.current.showModal()}>
                             <Icon>person_add</Icon>
                             Invite Musician
                         </Button>
@@ -51,11 +54,11 @@ function EventCard({ event }) {
                 </Container>
                 : null
             }
-            <Modal id={`updateEvent${id}`}>
-                <UpdateEvent event={event} handleCancel={() => handleModal(`updateEvent${id}`)} />
+            <Modal ref={updateEventModal}>
+                <UpdateEvent event={event} closeModal={() => updateEventModal.current.close()} />
             </Modal>
-            <Modal id={`createInvite${id}`}>
-                <CreateInvite event={event} handleCancel={() => handleModal(`createInvite${id}`)} />
+            <Modal ref={createInviteModal}>
+                <CreateInvite event={event} handleCancel={() => createInviteModal.current.close()} />
             </Modal>
         </PublicEventCard>                      
     );

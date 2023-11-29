@@ -1,10 +1,10 @@
-import { useContext, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 import { InstrumentsContext } from '../context/instruments';
 import { MusiciansContext } from '../context/musicians';
 import { UserContext } from '../context/user';
 import { styled } from 'styled-components';
 import { Select } from '../styles';
-import { abc, addS, experienceLevels, skillLevels, handleChange, handleModal } from './utilities';
+import { abc, addS, experienceLevels, skillLevels, handleChange } from './utilities';
 import Form from './Form';
 import CreateInstrument from './CreateInstrument';
 import FormItem from './FormItem';
@@ -12,7 +12,7 @@ import Modal from './Modal';
 
 const formFields = { instrumentId: "", skill: "", experience: "" }
 
-function AddInstrument() {
+function AddInstrument({ addInstrumentModal }) {
     // Context
     const { user, setUser } = useContext(UserContext);
     const { instruments } = useContext(InstrumentsContext);
@@ -21,12 +21,15 @@ function AddInstrument() {
     // State
     const [form, setForm] = useState(formFields);
     const [errors, setErrors] = useState();
+    
+    // Ref
+    const createInstrumentModal = useRef(null);
 
     // Handlers
     const onChange = (e) => handleChange(e, form, setForm);
     const handleCancel = () => {
         setForm({...form, instrumentId: ""});
-        handleModal('createInstrument');
+        createInstrumentModal.current.close();
     }
     function handleSubmit(e){
         e.preventDefault();
@@ -66,7 +69,7 @@ function AddInstrument() {
                         )
                     ])
                 });
-                handleModal('addInstrument');
+                addInstrumentModal.current.close();
                 setForm(formFields);
             } else {
                 r.json().then(err => setErrors(err.errors));
@@ -75,7 +78,7 @@ function AddInstrument() {
     }
 
     if(form.instrumentId === "new") {
-        handleModal('createInstrument', true);
+        createInstrumentModal.current.showModal();
     }
 
     return (
@@ -85,7 +88,7 @@ function AddInstrument() {
                 onSubmit={handleSubmit} 
                 handleCancel={() => {
                     setForm(formFields);
-                    handleModal('addInstrument');
+                    addInstrumentModal.current.close();
                 }}
                 errors={errors}
                 >
@@ -109,7 +112,7 @@ function AddInstrument() {
                     </WideSelect>
                 </FormItem>
             </Form>
-            <Modal id="createInstrument">
+            <Modal ref={createInstrumentModal}>
                 <CreateInstrument state={form} setState={setForm} handleCancel={handleCancel} />
             </Modal>
         </>

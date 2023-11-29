@@ -1,17 +1,19 @@
+import { useRef } from "react";
 import { styled } from "styled-components";
 import { colors } from "../styles";
 import { destroy } from "./fetch";
-import { handleModal } from "./utilities";
 import Modal from "./Modal";
 import Warning from "./Warning";
 
-function Delete({ id, endpoint, callback }) {
+function Delete({ endpoint, callback }) {
+    const warningModal = useRef(null);
+
     // Handlers
     const openModal = () => {
-        handleModal(id, true);
+        warningModal.current.showModal();
     }
     const closeModal = () => {
-        handleModal(id);
+        warningModal.current.close();
     }
 
     function handleDelete(e) {
@@ -29,7 +31,7 @@ function Delete({ id, endpoint, callback }) {
             >
                 delete
             </I>
-            <Modal id={id}>
+            <Modal ref={warningModal}>
                 <Warning 
                     onSubmit={handleDelete} 
                     handleCancel={closeModal}

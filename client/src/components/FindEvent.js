@@ -1,8 +1,8 @@
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { UserContext } from "../context/user";
 import { InstrumentsContext } from "../context/instruments";
 import { Select } from "../styles";
-import { currentEvents, handleChange, handleModal } from "./utilities";
+import { currentEvents, handleChange } from "./utilities";
 import CreateInvite from "./CreateInvite";
 import Form from "./Form";
 import Modal from "./Modal";
@@ -17,11 +17,13 @@ function FindEvent({ userInstrument, handleCancel }) {
     // State
     const [form, setForm] = useState({ event: "" });
 
+    // Ref
+    const createInviteModal = useRef(null);
+
     // Constants
     const event = user.events.find(e => e.id === parseInt(form.event));
     const instrumentId = instruments.find(i => i.name === instrument).id;
     const upcomingEvents = currentEvents(user.events);
-    const modalId = `createInvite${id}`;
 
     // Handlers
     const onChange = (e) => handleChange(e, form, setForm);
@@ -31,7 +33,7 @@ function FindEvent({ userInstrument, handleCancel }) {
     }
     function handleSubmit(e) {
         e.preventDefault();
-        handleModal(modalId, true);
+        createInviteModal.current.showModal();
     } 
 
     return (
@@ -57,13 +59,13 @@ function FindEvent({ userInstrument, handleCancel }) {
                     )}
                 </Select>
             </Form>
-            <Modal id={modalId}>
+            <Modal ref={createInviteModal}>
                 <CreateInvite 
                     event={event} 
                     instrumentId={instrumentId}
                     userInstrumentId={id} 
                     handleCancel={() => {
-                        handleModal(modalId);
+                        createInviteModal.current.close();
                         handleCancel();
                     }} 
                 />
