@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { MusiciansContext } from '../context/musicians';
 import { UserContext } from '../context/user';
 import { VenuesContext } from '../context/venues';
-import { handleModal } from '../components/utilities';
 import { handleImgSubmit } from '../components/utilities';
 import CreateVenue from '../components/CreateVenue';
 import Modal from '../components/Modal';
