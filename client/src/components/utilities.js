@@ -64,11 +64,6 @@ function handleImgSubmit(e, endpoint, method, setErrors, form, imgLabel, img, ca
     imgFetch(endpoint, method, callback, data, setErrors);
 }
 
-function handleModal(id, action) {
-    const modal = document.getElementById(id);
-    action === true ? modal.showModal() : modal.close();
-}
-
 // Text Case Convertors
 function camelToSnake(str) {
     return str.split(/(?=[A-Z])/).join("_").toLowerCase();
@@ -82,4 +77,4 @@ function snakeToCamel(str) {
     return str.replace(/[_][a-z]/g, (g) => g.slice(-1).toUpperCase());
 }
 
-export { abc, addS, chron, currentEvents, handleChange, handleImgSubmit, handleModal, camelToSnake, camelToTitle, snakeToCamel };
+export { abc, addS, chron, currentEvents, handleChange, handleImgSubmit, camelToSnake, camelToTitle, snakeToCamel };

@@ -1,13 +1,13 @@
 import { useContext, useState } from "react";
 import { InstrumentsContext } from "../context/instruments";
 import { Input } from '../styles'
-import { handleChange, handleModal } from './utilities';
+import { handleChange } from './utilities';
 import Form from "./Form";
 import FormItem from "./FormItem";
 
 const formFields = { name: "" };
 
-function CreateInstrument({ state, setState, handleCancel }) {
+function CreateInstrument({ state, setState, handleCancel, createInstrumentModal }) {
     // Context
     const { instruments, setInstruments } = useContext(InstrumentsContext);
 
@@ -38,7 +38,7 @@ function CreateInstrument({ state, setState, handleCancel }) {
                     setInstruments([...instruments, data]);
                     setState({...state, instrumentId: data.id});
                     setForm(formFields);
-                    handleModal('createInstrument');
+                    createInstrumentModal.current.close();
                 });
             } else {
                 r.json().then(err => setErrors(err.errors));

@@ -113,7 +113,7 @@ function AddInstrument({ addInstrumentModal }) {
                 </FormItem>
             </Form>
             <Modal ref={createInstrumentModal}>
-                <CreateInstrument state={form} setState={setForm} handleCancel={handleCancel} />
+                <CreateInstrument state={form} setState={setForm} handleCancel={handleCancel} createInstrumentModal={createInstrumentModal}/>
             </Modal>
         </>
     );
