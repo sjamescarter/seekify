@@ -11,20 +11,22 @@ function People() {
     const { user } = useContext(UserContext);
     const { id } = useParams();
     
-    if(!musicians) return <h1>Loading...</h1>;
+    if(!musicians) { return (<h1>Loading...</h1>)}
 
     // Constants
-    const musician = musicians.find((person) => person.id === parseInt(id));
-    const filtered = [...musicians].filter(m => m.id !== user.id); // Remove current user
+    const filtered = [...musicians].filter(m => m.id !== user.id); // Filter out current user
     const people = abc([...filtered]);
+    
+    if(id) {
+        const musician = musicians.find((person) => person.id === parseInt(id));
+        return (
+            <Profile person={musician} />
+        )
+    }
 
     return (
         <>
-            { musician
-                ? <Profile person={musician} />
-                : people.map(person => <Profile key={person.id} person={person} /> 
-                )
-            }
+            {people.map(person => <Profile key={person.id} person={person} />)}
         </>
     );
 }
